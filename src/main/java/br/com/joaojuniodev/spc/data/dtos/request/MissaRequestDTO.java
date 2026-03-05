@@ -1,31 +1,17 @@
-package br.com.joaojuniodev.spc.models;
+package br.com.joaojuniodev.spc.data.dtos.request;
 
-import jakarta.persistence.*;
-
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 
-@Entity
-public class Missa implements Serializable {
+public class MissaRequestDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private String title;
-
-    @Column(nullable = false)
     private LocalDateTime dateTime;
 
-    @OneToMany(mappedBy = "missa")
-    private List<Presenca> presencas;
+    public MissaRequestDTO() {}
 
-    public Missa() {}
-
-    public Missa(Long id, String title, LocalDateTime dateTime) {
+    public MissaRequestDTO(Long id, String title, LocalDateTime dateTime) {
         this.id = id;
         this.title = title;
         this.dateTime = dateTime;
@@ -55,24 +41,19 @@ public class Missa implements Serializable {
         this.dateTime = dateTime;
     }
 
-    public List<Presenca> getPresenca() {
-        return presencas;
-    }
-
-    public void setPresenca(List<Presenca> presencas) {
-        this.presencas = presencas;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
-        Missa missa = (Missa) o;
-        return Objects.equals(getId(), missa.getId());
+        MissaRequestDTO that = (MissaRequestDTO) o;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getDateTime(), that.getDateTime());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        int result = Objects.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getTitle());
+        result = 31 * result + Objects.hashCode(getDateTime());
+        return result;
     }
 }
