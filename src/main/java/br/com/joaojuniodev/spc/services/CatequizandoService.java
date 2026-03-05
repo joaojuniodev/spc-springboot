@@ -1,9 +1,10 @@
 package br.com.joaojuniodev.spc.services;
 
-import br.com.joaojuniodev.spc.data.dtos.request.CatequistaRequestDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.CatequistaResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.request.CatequizandoRequestDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.CatequizandoResponseDTO;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
-import br.com.joaojuniodev.spc.repositories.CatequistaRepository;
+import br.com.joaojuniodev.spc.repositories.CatequizandoRepository;
+import br.com.joaojuniodev.spc.repositories.EtapaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static br.com.joaojuniodev.spc.mapper.ObjectMapperManually.convertCatequistaEntityToResponseDTO;
-import static br.com.joaojuniodev.spc.mapper.ObjectMapperManually.convertCatequistaRequestToEntity;
+import static br.com.joaojuniodev.spc.mapper.ObjectMapperManually.convertCatequizandoEntityToResponseDTO;
+import static br.com.joaojuniodev.spc.mapper.ObjectMapperManually.convertCatequizandoRequestToEntity;
 
 @Service
 public class CatequizandoService {
@@ -20,51 +21,60 @@ public class CatequizandoService {
     private final Logger logger = LoggerFactory.getLogger(CatequizandoService.class.getName());
 
     @Autowired
-    private CatequistaRepository repository;
+    private CatequizandoRepository repository;
 
-    public List<CatequistaResponseDTO> findAll() {
+    @Autowired
+    private EtapaRepository etapaRepository;
 
-        logger.info("Finding All Catequistas");
+    public List<CatequizandoResponseDTO> findAll() {
+
+        logger.info("Finding All Catequizandos");
 
         return repository.findAll()
             .stream()
-            .map(ObjectMapperManually::convertCatequistaEntityToResponseDTO).toList();
+            .map(ObjectMapperManually::convertCatequizandoEntityToResponseDTO).toList();
     }
 
-    public CatequistaResponseDTO findById(Long id) {
+    public CatequizandoResponseDTO findById(Long id) {
 
-        logger.info("Finding By Id Catequistas");
+        logger.info("Finding By Id Catequizandos");
 
         var entity = repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Not found this ID: " + id));
-        return convertCatequistaEntityToResponseDTO(entity);
+        return convertCatequizandoEntityToResponseDTO(entity);
     }
 
-    public CatequistaResponseDTO create(CatequistaRequestDTO catequista) {
+    public CatequizandoResponseDTO create(CatequizandoRequestDTO catequizando) {
 
-        logger.info("Creating Catequista");
+        logger.info("Creating Catequizando");
 
-        return convertCatequistaEntityToResponseDTO(
-            repository.save(convertCatequistaRequestToEntity(catequista))
+        return convertCatequizandoEntityToResponseDTO(
+            repository.save(convertCatequizandoRequestToEntity(catequizando))
         );
     }
 
-    public CatequistaResponseDTO update(CatequistaRequestDTO catequista) {
+    public CatequizandoResponseDTO update(CatequizandoRequestDTO catequizando) {
 
-        logger.info("Updating Catequista");
+        logger.info("Updating Catequizando");
 
-        var entity = repository.findById(catequista.getId())
-            .orElseThrow(() -> new RuntimeException("Not found this ID: " + catequista.getId()));
-        entity.setFullName(catequista.getFullName());
+        var etapa = catequizando.getEtapaId() != null
+            ? etapaRepository.findById(catequizando.getEtapaId()).orElseThrow()
+            : null;
 
-        return convertCatequistaEntityToResponseDTO(
-            repository.save(convertCatequistaRequestToEntity(catequista))
+        var entity = repository.findById(catequizando.getId())
+            .orElseThrow(() -> new RuntimeException("Not found this ID: " + catequizando.getId()));
+        entity.setFullName(catequizando.getFullName());
+
+        if (etapa != null) entity.setEtapa(etapa);
+
+        return convertCatequizandoEntityToResponseDTO(
+            repository.save(convertCatequizandoRequestToEntity(catequizando))
         );
     }
 
     public void delete(Long id) {
 
-        logger.info("Deleting By Id Catequistas");
+        logger.info("Deleting By Id Catequizando");
 
         var entity = repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Not found this ID: " + id));

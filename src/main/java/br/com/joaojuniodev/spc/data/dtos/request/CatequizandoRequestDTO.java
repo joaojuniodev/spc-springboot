@@ -8,13 +8,15 @@ public class CatequizandoRequestDTO {
     private Long id;
     private String fullName;
     private LocalDate birthDate;
+    private Long etapaId;
 
     public CatequizandoRequestDTO() {}
 
-    public CatequizandoRequestDTO(Long id, String fullName, LocalDate birthDate) {
+    public CatequizandoRequestDTO(Long id, String fullName, LocalDate birthDate, Long etapaId) {
         this.id = id;
         this.fullName = fullName;
         this.birthDate = birthDate;
+        this.etapaId = etapaId;
     }
 
     public Long getId() {
@@ -39,6 +41,14 @@ public class CatequizandoRequestDTO {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public Long getEtapaId() {
+        return etapaId;
+    }
+
+    public void setEtapaId(Long etapaId) {
+        this.etapaId = etapaId;
     }
 
     @Override

@@ -10,15 +10,15 @@ public class CatequizandoResponseDTO {
     private Long id;
     private String fullName;
     private LocalDate birthDate;
-    private Etapa etapa;
+    private Long etapaId;
 
     public CatequizandoResponseDTO() {}
 
-    public CatequizandoResponseDTO(Long id, String fullName, LocalDate birthDate, Etapa etapa) {
+    public CatequizandoResponseDTO(Long id, String fullName, LocalDate birthDate, Long etapaId) {
         this.id = id;
         this.fullName = fullName;
         this.birthDate = birthDate;
-        this.etapa = etapa;
+        this.etapaId = etapaId;
     }
 
     public Long getId() {
@@ -45,12 +45,12 @@ public class CatequizandoResponseDTO {
         this.birthDate = birthDate;
     }
 
-    public Etapa getEtapa() {
-        return etapa;
+    public Long getEtapaId() {
+        return etapaId;
     }
 
-    public void setEtapa(Etapa etapa) {
-        this.etapa = etapa;
+    public void setEtapaId(Long etapaId) {
+        this.etapaId = etapaId;
     }
 
     @Override
