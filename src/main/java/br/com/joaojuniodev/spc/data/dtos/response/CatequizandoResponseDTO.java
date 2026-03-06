@@ -58,7 +58,7 @@ public class CatequizandoResponseDTO {
         if (o == null || getClass() != o.getClass()) return false;
 
         CatequizandoResponseDTO that = (CatequizandoResponseDTO) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getFullName(), that.getFullName()) && Objects.equals(getBirthDate(), that.getBirthDate()) && Objects.equals(getEtapa(), that.getEtapa());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getFullName(), that.getFullName()) && Objects.equals(getBirthDate(), that.getBirthDate()) && Objects.equals(getEtapaId(), that.getEtapaId());
     }
 
     @Override
@@ -66,7 +66,7 @@ public class CatequizandoResponseDTO {
         int result = Objects.hashCode(getId());
         result = 31 * result + Objects.hashCode(getFullName());
         result = 31 * result + Objects.hashCode(getBirthDate());
-        result = 31 * result + Objects.hashCode(getEtapa());
+        result = 31 * result + Objects.hashCode(getEtapaId());
         return result;
     }
 }
