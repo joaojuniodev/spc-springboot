@@ -15,6 +15,8 @@ import br.com.joaojuniodev.spc.repositories.EtapaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class ObjectMapperManually {
 
@@ -39,8 +41,8 @@ public class ObjectMapperManually {
 
     public Catequizando convertCatequizandoRequestToEntity(CatequizandoRequestDTO catequizando) {
         Etapa etapa = null;
-        if (catequizando.getEtapaId() != null) etapa = etapaRepository.findById(catequizando.getId()).orElseThrow();
-        return new Catequizando(catequizando.getId(), catequizando.getFullName(), catequizando.getBirthDate(), etapa);
+        if (catequizando.getEtapaId() != null) etapa = etapaRepository.findById(catequizando.getEtapaId()).orElseThrow();
+        return new Catequizando(catequizando.getId(), catequizando.getFullName(), LocalDate.parse(catequizando.getBirthDate()), etapa);
     }
 
     public CatequizandoResponseDTO convertCatequizandoEntityToResponseDTO(Catequizando entity) {

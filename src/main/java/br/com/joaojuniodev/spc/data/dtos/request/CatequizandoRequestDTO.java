@@ -1,5 +1,7 @@
 package br.com.joaojuniodev.spc.data.dtos.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -7,12 +9,13 @@ public class CatequizandoRequestDTO {
 
     private Long id;
     private String fullName;
-    private LocalDate birthDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private String birthDate;
     private Long etapaId;
 
     public CatequizandoRequestDTO() {}
 
-    public CatequizandoRequestDTO(Long id, String fullName, LocalDate birthDate, Long etapaId) {
+    public CatequizandoRequestDTO(Long id, String fullName, String birthDate, Long etapaId) {
         this.id = id;
         this.fullName = fullName;
         this.birthDate = birthDate;
@@ -35,11 +38,11 @@ public class CatequizandoRequestDTO {
         this.fullName = fullName;
     }
 
-    public LocalDate getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

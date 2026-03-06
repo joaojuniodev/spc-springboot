@@ -1,7 +1,5 @@
 package br.com.joaojuniodev.spc.data.dtos.response;
 
-import br.com.joaojuniodev.spc.models.Etapa;
-
 import java.time.LocalDate;
 import java.util.Objects;
 
