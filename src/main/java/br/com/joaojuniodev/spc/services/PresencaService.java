@@ -52,9 +52,13 @@ public class PresencaService {
 
         logger.info("Creating Presenca");
 
-        return mapper.convertPresencaEntityToResponseDTO(
-            repository.save(mapper.convertPresencaRequestToEntity(presenca))
-        );
+        var entity = mapper.convertPresencaRequestToEntity(presenca);
+
+        if (repository.existsByMissaIdAndCatequizandoId(entity.getMissa().getId(), entity.getCatequizando().getId())) {
+            throw new RuntimeException("Presença já registrada.");
+        }
+
+        return mapper.convertPresencaEntityToResponseDTO(repository.save(entity));
     }
 
     public PresencaResponseDTO update(PresencaRequestDTO presenca) {

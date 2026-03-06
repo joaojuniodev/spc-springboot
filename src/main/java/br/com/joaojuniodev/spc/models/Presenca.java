@@ -7,6 +7,11 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+@Table(
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"catequizando_id", "missa_id"})
+    }
+)
 public class Presenca implements Serializable {
 
     @Id
