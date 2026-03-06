@@ -1,7 +1,6 @@
 package br.com.joaojuniodev.spc.models;
 
 import br.com.joaojuniodev.spc.models.enums.EtapaEnum;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -27,10 +26,11 @@ public class Etapa implements Serializable {
 
     public Etapa() {}
 
-    public Etapa(Long id, EtapaEnum etapa, Catequista catequista) {
+    public Etapa(Long id, EtapaEnum etapa, Catequista catequista, List<Catequizando> catequizandos) {
         this.id = id;
         this.etapa = etapa;
         this.catequista = catequista;
+        this.catequizandos = catequizandos;
     }
 
     public Long getId() {

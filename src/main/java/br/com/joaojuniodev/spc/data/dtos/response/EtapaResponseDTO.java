@@ -1,9 +1,6 @@
 package br.com.joaojuniodev.spc.data.dtos.response;
 
-import br.com.joaojuniodev.spc.models.Catequista;
-import br.com.joaojuniodev.spc.models.Catequizando;
 import br.com.joaojuniodev.spc.models.enums.EtapaEnum;
-import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;

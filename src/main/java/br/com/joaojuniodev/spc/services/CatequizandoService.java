@@ -12,9 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static br.com.joaojuniodev.spc.mapper.ObjectMapperManually.convertCatequizandoEntityToResponseDTO;
-import static br.com.joaojuniodev.spc.mapper.ObjectMapperManually.convertCatequizandoRequestToEntity;
-
 @Service
 public class CatequizandoService {
 
@@ -26,13 +23,16 @@ public class CatequizandoService {
     @Autowired
     private EtapaRepository etapaRepository;
 
+    @Autowired
+    private ObjectMapperManually mapper;
+
     public List<CatequizandoResponseDTO> findAll() {
 
         logger.info("Finding All Catequizandos");
 
         return repository.findAll()
             .stream()
-            .map(ObjectMapperManually::convertCatequizandoEntityToResponseDTO).toList();
+            .map(entity -> mapper.convertCatequizandoEntityToResponseDTO(entity)).toList();
     }
 
     public CatequizandoResponseDTO findById(Long id) {
@@ -41,15 +41,15 @@ public class CatequizandoService {
 
         var entity = repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Not found this ID: " + id));
-        return convertCatequizandoEntityToResponseDTO(entity);
+        return mapper.convertCatequizandoEntityToResponseDTO(entity);
     }
 
     public CatequizandoResponseDTO create(CatequizandoRequestDTO catequizando) {
 
         logger.info("Creating Catequizando");
 
-        return convertCatequizandoEntityToResponseDTO(
-            repository.save(convertCatequizandoRequestToEntity(catequizando))
+        return mapper.convertCatequizandoEntityToResponseDTO(
+            repository.save(mapper.convertCatequizandoRequestToEntity(catequizando))
         );
     }
 
@@ -67,8 +67,8 @@ public class CatequizandoService {
 
         if (etapa != null) entity.setEtapa(etapa);
 
-        return convertCatequizandoEntityToResponseDTO(
-            repository.save(convertCatequizandoRequestToEntity(catequizando))
+        return mapper.convertCatequizandoEntityToResponseDTO(
+            repository.save(mapper.convertCatequizandoRequestToEntity(catequizando))
         );
     }
 

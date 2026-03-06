@@ -1,8 +1,9 @@
 package br.com.joaojuniodev.spc.controllers;
 
-import br.com.joaojuniodev.spc.data.dtos.request.CatequistaRequestDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.CatequistaResponseDTO;
-import br.com.joaojuniodev.spc.services.CatequistaService;
+import br.com.joaojuniodev.spc.data.dtos.request.EtapaRequestDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.EtapaResponseDTO;
+import br.com.joaojuniodev.spc.services.CatequizandoService;
+import br.com.joaojuniodev.spc.services.EtapaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,16 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/catequistas/v1")
-public class CatequistaController {
+@RequestMapping("/api/etapas/v1")
+public class EtapaController {
 
     @Autowired
-    private CatequistaService service;
+    private EtapaService service;
 
     @GetMapping(
         produces = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<List<CatequistaResponseDTO>> findAll() {
+    public ResponseEntity<List<EtapaResponseDTO>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
     }
 
@@ -28,7 +29,7 @@ public class CatequistaController {
         value = "/{id}",
         produces = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<CatequistaResponseDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<EtapaResponseDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
@@ -36,20 +37,20 @@ public class CatequistaController {
         produces = { MediaType.APPLICATION_JSON_VALUE },
         consumes = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<CatequistaResponseDTO> create(@RequestBody CatequistaRequestDTO catequista) {
-        return ResponseEntity.ok().body(service.create(catequista));
+    public ResponseEntity<EtapaResponseDTO> create(@RequestBody EtapaRequestDTO etapa) {
+        return ResponseEntity.ok().body(service.create(etapa));
     }
 
     @PutMapping(
         produces = { MediaType.APPLICATION_JSON_VALUE },
         consumes = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<CatequistaResponseDTO> update(@RequestBody CatequistaRequestDTO catequista) {
-        return ResponseEntity.ok().body(service.update(catequista));
+    public ResponseEntity<EtapaResponseDTO> update(@RequestBody EtapaRequestDTO etapa) {
+        return ResponseEntity.ok().body(service.update(etapa));
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<CatequistaResponseDTO> update(@PathVariable Long id) {
+    public ResponseEntity<EtapaResponseDTO> update(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

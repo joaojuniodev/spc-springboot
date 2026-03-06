@@ -10,16 +10,14 @@ public class EtapaRequestDTO {
 
     private Long id;
     private EtapaEnum etapa;
-    private CatequistaRequestDTO catequista;
-    private List<CatequizandoRequestDTO> catequizandos = new ArrayList<>();
+    private Long catequistaId;
 
     public EtapaRequestDTO() {}
 
-    public EtapaRequestDTO(Long id, EtapaEnum etapa, CatequistaRequestDTO catequista, List<CatequizandoRequestDTO> catequizandos) {
+    public EtapaRequestDTO(Long id, EtapaEnum etapa, Long catequistaId) {
         this.id = id;
         this.etapa = etapa;
-        this.catequista = catequista;
-        this.catequizandos = catequizandos;
+        this.catequistaId = catequistaId;
     }
 
     public Long getId() {
@@ -38,20 +36,12 @@ public class EtapaRequestDTO {
         this.etapa = etapa;
     }
 
-    public CatequistaRequestDTO getCatequista() {
-        return catequista;
+    public Long getCatequistaId() {
+        return catequistaId;
     }
 
-    public void setCatequista(CatequistaRequestDTO catequista) {
-        this.catequista = catequista;
-    }
-
-    public List<CatequizandoRequestDTO> getCatequizandos() {
-        return catequizandos;
-    }
-
-    public void setCatequizandos(List<CatequizandoRequestDTO> catequizandos) {
-        this.catequizandos = catequizandos;
+    public void setCatequistaId(Long catequistaId) {
+        this.catequistaId = catequistaId;
     }
 
     @Override
@@ -59,15 +49,14 @@ public class EtapaRequestDTO {
         if (o == null || getClass() != o.getClass()) return false;
 
         EtapaRequestDTO that = (EtapaRequestDTO) o;
-        return Objects.equals(getId(), that.getId()) && getEtapa() == that.getEtapa() && Objects.equals(getCatequista(), that.getCatequista()) && Objects.equals(getCatequizandos(), that.getCatequizandos());
+        return Objects.equals(getId(), that.getId()) && getEtapa() == that.getEtapa() && Objects.equals(getCatequistaId(), that.getCatequistaId());
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hashCode(getId());
         result = 31 * result + Objects.hashCode(getEtapa());
-        result = 31 * result + Objects.hashCode(getCatequista());
-        result = 31 * result + Objects.hashCode(getCatequizandos());
+        result = 31 * result + Objects.hashCode(getCatequistaId());
         return result;
     }
 }

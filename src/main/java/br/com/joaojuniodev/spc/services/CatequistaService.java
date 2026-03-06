@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static br.com.joaojuniodev.spc.mapper.ObjectMapperManually.*;
-
 @Service
 public class CatequistaService {
 
@@ -21,13 +19,16 @@ public class CatequistaService {
     @Autowired
     private CatequistaRepository repository;
 
+    @Autowired
+    private ObjectMapperManually mapper;
+
     public List<CatequistaResponseDTO> findAll() {
 
         logger.info("Finding All Catequistas");
 
         return repository.findAll()
             .stream()
-            .map(ObjectMapperManually::convertCatequistaEntityToResponseDTO).toList();
+            .map(entity -> mapper.convertCatequistaEntityToResponseDTO(entity)).toList();
     }
 
     public CatequistaResponseDTO findById(Long id) {
@@ -36,15 +37,15 @@ public class CatequistaService {
 
         var entity = repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Not found this ID: " + id));
-        return convertCatequistaEntityToResponseDTO(entity);
+        return mapper.convertCatequistaEntityToResponseDTO(entity);
     }
 
     public CatequistaResponseDTO create(CatequistaRequestDTO catequista) {
 
         logger.info("Creating Catequista");
 
-        return convertCatequistaEntityToResponseDTO(
-            repository.save(convertCatequistaRequestToEntity(catequista))
+        return mapper.convertCatequistaEntityToResponseDTO(
+            repository.save(mapper.convertCatequistaRequestToEntity(catequista))
         );
     }
 
@@ -56,8 +57,8 @@ public class CatequistaService {
             .orElseThrow(() -> new RuntimeException("Not found this ID: " + catequista.getId()));
         entity.setFullName(catequista.getFullName());
 
-        return convertCatequistaEntityToResponseDTO(
-            repository.save(convertCatequistaRequestToEntity(catequista))
+        return mapper.convertCatequistaEntityToResponseDTO(
+            repository.save(mapper.convertCatequistaRequestToEntity(catequista))
         );
     }
 
