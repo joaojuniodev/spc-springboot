@@ -15,7 +15,7 @@ public interface CatequizandoRepository extends JpaRepository<Catequizando, Long
     Optional<List<Catequizando>> findByEtapaId(Long etapaId);
 
     @Query("""
-        SELECT c FROM Catequizando c
+        SELECT c FROM Catequizando cc
         WHERE c.fullName LIKE CONCAT('%', :fullName, '%')
     """)
     List<Catequizando> searchByFullName(@Param("fullName") String fullName);
