@@ -44,6 +44,15 @@ public class CatequizandoService {
         return mapper.convertCatequizandoEntityToResponseDTO(entity);
     }
 
+    public List<CatequizandoResponseDTO> searchByFullName(String fullName) {
+
+        logger.info("Searching Catequizando by FullName");
+
+        return repository.searchByFullName(fullName)
+            .stream()
+            .map(entity -> mapper.convertCatequizandoEntityToResponseDTO(entity)).toList();
+    }
+
     public CatequizandoResponseDTO create(CatequizandoRequestDTO catequizando) {
 
         logger.info("Creating Catequizando");

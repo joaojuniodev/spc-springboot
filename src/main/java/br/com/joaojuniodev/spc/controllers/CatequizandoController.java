@@ -32,6 +32,14 @@ public class CatequizandoController {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
+    @GetMapping(
+        value = "/search-by",
+        produces = { MediaType.APPLICATION_JSON_VALUE }
+    )
+    public ResponseEntity<List<CatequizandoResponseDTO>> searchByFullName(@RequestParam String fullName) {
+        return ResponseEntity.ok().body(service.searchByFullName(fullName));
+    }
+
     @PostMapping(
         produces = { MediaType.APPLICATION_JSON_VALUE },
         consumes = { MediaType.APPLICATION_JSON_VALUE }
