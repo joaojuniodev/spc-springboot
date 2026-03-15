@@ -89,7 +89,12 @@ public class ObjectMapperManually {
     }
 
     public MissaResponseDTO convertMissaEntityToResponseDTO(Missa entity) {
-        return new MissaResponseDTO(entity.getId(), entity.getTitle(), entity.getDateTime());
+        return new MissaResponseDTO(
+            entity.getId(),
+            entity.getTitle(),
+            entity.getDateTime(),
+            entity.getRegisteredAttendance() != null
+        );
     }
 
     public Presenca convertPresencaRequestToEntity(PresencaRequestDTO presenca) {

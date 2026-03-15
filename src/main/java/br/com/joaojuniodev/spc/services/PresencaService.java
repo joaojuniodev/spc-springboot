@@ -3,6 +3,7 @@ package br.com.joaojuniodev.spc.services;
 import br.com.joaojuniodev.spc.data.dtos.request.PresencaRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.PresencaResponseDTO;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
+import br.com.joaojuniodev.spc.models.Missa;
 import br.com.joaojuniodev.spc.repositories.CatequizandoRepository;
 import br.com.joaojuniodev.spc.repositories.MissaRepository;
 import br.com.joaojuniodev.spc.repositories.PresencaRepository;
@@ -58,7 +59,13 @@ public class PresencaService {
             throw new RuntimeException("Presença já registrada.");
         }
 
-        return mapper.convertPresencaEntityToResponseDTO(repository.save(entity));
+        var savedPresence = repository.save(entity);
+
+        Missa massWithRegisteredPresence = missaRepository.findById(presenca.getMissaId()).get();
+        massWithRegisteredPresence.setRegisteredAttendance(true);
+        missaRepository.save(massWithRegisteredPresence);
+
+        return mapper.convertPresencaEntityToResponseDTO(savedPresence);
     }
 
     public PresencaResponseDTO update(PresencaRequestDTO presenca) {

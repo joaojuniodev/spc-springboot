@@ -11,6 +11,7 @@ public class MissaRequestDTO {
     private String title;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private String dateTime;
+    private Boolean registeredAttendance;
 
     public MissaRequestDTO() {}
 
@@ -18,6 +19,7 @@ public class MissaRequestDTO {
         this.id = id;
         this.title = title;
         this.dateTime = dateTime;
+        this.registeredAttendance = false;
     }
 
     public Long getId() {
@@ -44,12 +46,20 @@ public class MissaRequestDTO {
         this.dateTime = dateTime;
     }
 
+    public Boolean getRegisteredAttendance() {
+        return registeredAttendance;
+    }
+
+    public void setRegisteredAttendance(Boolean registeredAttendance) {
+        this.registeredAttendance = registeredAttendance;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
         MissaRequestDTO that = (MissaRequestDTO) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getDateTime(), that.getDateTime());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getDateTime(), that.getDateTime()) && Objects.equals(getRegisteredAttendance(), that.getRegisteredAttendance());
     }
 
     @Override
@@ -57,6 +67,7 @@ public class MissaRequestDTO {
         int result = Objects.hashCode(getId());
         result = 31 * result + Objects.hashCode(getTitle());
         result = 31 * result + Objects.hashCode(getDateTime());
+        result = 31 * result + Objects.hashCode(getRegisteredAttendance());
         return result;
     }
 }

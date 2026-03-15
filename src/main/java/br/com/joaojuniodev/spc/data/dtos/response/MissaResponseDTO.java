@@ -8,13 +8,15 @@ public class MissaResponseDTO {
     private Long id;
     private String title;
     private LocalDateTime dateTime;
+    private Boolean registeredAttendance;
 
     public MissaResponseDTO() {}
 
-    public MissaResponseDTO(Long id, String title, LocalDateTime dateTime) {
+    public MissaResponseDTO(Long id, String title, LocalDateTime dateTime, Boolean registeredAttendance) {
         this.id = id;
         this.title = title;
         this.dateTime = dateTime;
+        this.registeredAttendance = registeredAttendance;
     }
 
     public Long getId() {
@@ -41,12 +43,20 @@ public class MissaResponseDTO {
         this.dateTime = dateTime;
     }
 
+    public Boolean getRegisteredAttendance() {
+        return registeredAttendance;
+    }
+
+    public void setRegisteredAttendance(Boolean registeredAttendance) {
+        this.registeredAttendance = registeredAttendance;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
         MissaResponseDTO that = (MissaResponseDTO) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getDateTime(), that.getDateTime());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getDateTime(), that.getDateTime()) && Objects.equals(getRegisteredAttendance(), that.getRegisteredAttendance());
     }
 
     @Override
@@ -54,6 +64,7 @@ public class MissaResponseDTO {
         int result = Objects.hashCode(getId());
         result = 31 * result + Objects.hashCode(getTitle());
         result = 31 * result + Objects.hashCode(getDateTime());
+        result = 31 * result + Objects.hashCode(getRegisteredAttendance());
         return result;
     }
 }

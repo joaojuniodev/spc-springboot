@@ -22,6 +22,9 @@ public class Missa implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateTime;
 
+    @Column
+    private Boolean registeredAttendance;
+
     @OneToMany(mappedBy = "missa")
     private List<Presenca> presencas;
 
@@ -55,6 +58,22 @@ public class Missa implements Serializable {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public List<Presenca> getPresencas() {
+        return presencas;
+    }
+
+    public void setPresencas(List<Presenca> presencas) {
+        this.presencas = presencas;
+    }
+
+    public Boolean getRegisteredAttendance() {
+        return registeredAttendance;
+    }
+
+    public void setRegisteredAttendance(Boolean registeredAttendance) {
+        this.registeredAttendance = registeredAttendance;
     }
 
     public List<Presenca> getPresenca() {

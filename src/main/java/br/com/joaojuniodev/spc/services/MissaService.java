@@ -39,7 +39,7 @@ public class MissaService {
         logger.info("Finding By Id Missa");
 
         var entity = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Not found this ID: " + id));
+            .orElseThrow(() -> new RuntimeException("Not found this ID: " + id));
         return mapper.convertMissaEntityToResponseDTO(entity);
     }
 
