@@ -32,6 +32,14 @@ public class PresencaController {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
+    @GetMapping(
+        value = "/findByCatechumenId/{catechumenId}",
+        produces = { MediaType.APPLICATION_JSON_VALUE }
+    )
+    public ResponseEntity<List<PresencaResponseDTO>> findByCatechumen(@PathVariable Long catechumenId) {
+        return ResponseEntity.ok().body(service.findByCatechumenId(catechumenId));
+    }
+
     @PostMapping(
         produces = { MediaType.APPLICATION_JSON_VALUE },
         consumes = { MediaType.APPLICATION_JSON_VALUE }

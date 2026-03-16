@@ -49,6 +49,15 @@ public class PresencaService {
         return mapper.convertPresencaEntityToResponseDTO(entity);
     }
 
+    public List<PresencaResponseDTO> findByCatechumenId(Long catechumenId) {
+
+        logger.info("Finding Presences by catechumentId");
+
+        return repository.findByCatechumenId(catechumenId)
+            .stream()
+            .map(entity -> mapper.convertPresencaEntityToResponseDTO(entity)).toList();
+    }
+
     public PresencaResponseDTO create(PresencaRequestDTO presenca) {
 
         logger.info("Creating Presenca");
