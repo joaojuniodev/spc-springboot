@@ -8,8 +8,10 @@ import br.com.joaojuniodev.spc.repositories.MissaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Stream;
@@ -41,6 +43,18 @@ public class MissaService {
         var entity = repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Not found this ID: " + id));
         return mapper.convertMissaEntityToResponseDTO(entity);
+    }
+
+    public List<MissaResponseDTO> findByOccurredToThisToday() {
+
+        logger.info("Finding Masses by occurred to this today");
+
+        LocalDateTime startDate = LocalDateTime.of(2026,1,1,0,0);
+        LocalDateTime today = LocalDateTime.now();
+
+        return repository.findByMassesOccurredToThisDay(startDate, today)
+            .stream()
+            .map(entity -> mapper.convertMissaEntityToResponseDTO(entity)).toList();
     }
 
     public MissaResponseDTO create(MissaRequestDTO missa) {

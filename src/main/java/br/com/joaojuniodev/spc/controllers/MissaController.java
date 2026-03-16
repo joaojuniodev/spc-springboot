@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -30,6 +32,14 @@ public class MissaController {
     )
     public ResponseEntity<MissaResponseDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
+    }
+
+    @GetMapping(
+        value = "/findByOccurredToThisToday",
+        produces = { MediaType.APPLICATION_JSON_VALUE }
+    )
+    public ResponseEntity<List<MissaResponseDTO>> findByOccurredToThisToday() {
+        return ResponseEntity.ok().body(service.findByOccurredToThisToday());
     }
 
     @PostMapping(
