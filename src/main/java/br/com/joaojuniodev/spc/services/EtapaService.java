@@ -47,6 +47,16 @@ public class EtapaService {
         return mapper.convertEtapaEntityToResponseDTO(entity);
     }
 
+    @Transactional
+    public EtapaResponseDTO findByCatechistId(Long catechistId) {
+
+        logger.info("Finding Step by catechistId");
+
+        var entity = repository.findByCatechistId(catechistId)
+            .orElseThrow(() -> new RuntimeException("Not found this ID: " + catechistId));
+        return mapper.convertEtapaEntityToResponseDTO(entity);
+    }
+
     public EtapaResponseDTO create(EtapaRequestDTO etapa) {
 
         logger.info("Creating Etapa");

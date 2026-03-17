@@ -7,13 +7,15 @@ public class CatequistaResponseDTO {
     private Long id;
     private String firstName;
     private String lastName;
+    private StepOfCatechistResponseDTO stepOfCatechistResponseDTO;
 
     public CatequistaResponseDTO() {}
 
-    public CatequistaResponseDTO(Long id, String firstName, String lastName) {
+    public CatequistaResponseDTO(Long id, String firstName, String lastName, StepOfCatechistResponseDTO stepOfCatechistResponseDTO) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.stepOfCatechistResponseDTO = stepOfCatechistResponseDTO;
     }
 
     public Long getId() {
@@ -40,12 +42,20 @@ public class CatequistaResponseDTO {
         this.lastName = lastName;
     }
 
+    public StepOfCatechistResponseDTO getStepOfCatechistResponseDTO() {
+        return stepOfCatechistResponseDTO;
+    }
+
+    public void setStepOfCatechistResponseDTO(StepOfCatechistResponseDTO stepOfCatechistResponseDTO) {
+        this.stepOfCatechistResponseDTO = stepOfCatechistResponseDTO;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
         CatequistaResponseDTO that = (CatequistaResponseDTO) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getStepOfCatechistResponseDTO(), that.getStepOfCatechistResponseDTO());
     }
 
     @Override
@@ -53,6 +63,7 @@ public class CatequistaResponseDTO {
         int result = Objects.hashCode(getId());
         result = 31 * result + Objects.hashCode(getFirstName());
         result = 31 * result + Objects.hashCode(getLastName());
+        result = 31 * result + Objects.hashCode(getStepOfCatechistResponseDTO());
         return result;
     }
 }

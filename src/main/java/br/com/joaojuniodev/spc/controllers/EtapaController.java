@@ -32,6 +32,14 @@ public class EtapaController {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
+    @GetMapping(
+        value = "/findByCatechistId/{catechistId}",
+        produces = { MediaType.APPLICATION_JSON_VALUE }
+    )
+    public ResponseEntity<EtapaResponseDTO> findByCatechistId(@PathVariable Long catechistId) {
+        return ResponseEntity.ok().body(service.findByCatechistId(catechistId));
+    }
+
     @PostMapping(
         produces = { MediaType.APPLICATION_JSON_VALUE },
         consumes = { MediaType.APPLICATION_JSON_VALUE }

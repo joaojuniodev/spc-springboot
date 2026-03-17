@@ -7,6 +7,7 @@ import br.com.joaojuniodev.spc.repositories.CatequistaRepository;
 import br.com.joaojuniodev.spc.repositories.CatequizandoRepository;
 import br.com.joaojuniodev.spc.repositories.EtapaRepository;
 import br.com.joaojuniodev.spc.repositories.MissaRepository;
+import br.com.joaojuniodev.spc.services.EtapaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +36,14 @@ public class ObjectMapperManually {
     }
 
     public CatequistaResponseDTO convertCatequistaEntityToResponseDTO(Catequista entity) {
-        return new CatequistaResponseDTO(entity.getId(), entity.getFirstName(), entity.getLastName());
+        var stepOfCatechist = etapaRepository.findByCatechistId(entity.getId()).get();
+        var stepOfCatechistDTO = new StepOfCatechistResponseDTO(stepOfCatechist.getId(), stepOfCatechist.getEtapa());
+        return new CatequistaResponseDTO(
+            entity.getId(),
+            entity.getFirstName(),
+            entity.getLastName(),
+            stepOfCatechistDTO
+        );
     }
 
     public Catequizando convertCatequizandoRequestToEntity(CatequizandoRequestDTO catequizando) {
