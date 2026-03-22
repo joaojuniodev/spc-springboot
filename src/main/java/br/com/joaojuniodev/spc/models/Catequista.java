@@ -1,5 +1,6 @@
 package br.com.joaojuniodev.spc.models;
 
+import br.com.joaojuniodev.spc.models.enums.CodeVerifyCommunityOrParish;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -17,12 +18,16 @@ public class Catequista implements Serializable {
     @Column
     private String lastName;
 
+    @Column
+    private CodeVerifyCommunityOrParish code;
+
     public Catequista() {}
 
-    public Catequista(Long id, String firstName, String lastName) {
+    public Catequista(Long id, String firstName, String lastName, CodeVerifyCommunityOrParish code) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.code = code;
     }
 
     public Long getId() {
@@ -47,6 +52,14 @@ public class Catequista implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public CodeVerifyCommunityOrParish getCode() {
+        return code;
+    }
+
+    public void setCode(CodeVerifyCommunityOrParish code) {
+        this.code = code;
     }
 
     @Override

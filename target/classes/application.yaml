@@ -1,15 +1,12 @@
 cors:
-  originPatterns: http://localhost:5500,http://localhost:3000
+  originPatterns: http://localhost:5500,http://localhost:3000,https://spc-azure.vercel.app
 spring:
-  jackson:
-    time-zone: America/Sao_Paulo
   application:
     name: spc
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/spc?useTimezone=true&serverTimezone=America/Sao_Paulo
-    username: developer
-    password: 1234567
+  jackson:
+    time-zone: America/Sao_Paulo
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:prod}
   jpa:
     hibernate:
       ddl-auto: update

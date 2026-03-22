@@ -1,5 +1,7 @@
 package br.com.joaojuniodev.spc.data.dtos.response;
 
+import br.com.joaojuniodev.spc.models.enums.CodeVerifyCommunityOrParish;
+
 import java.util.Objects;
 
 public class CatequistaResponseDTO {
@@ -7,14 +9,16 @@ public class CatequistaResponseDTO {
     private Long id;
     private String firstName;
     private String lastName;
+    private CodeVerifyCommunityOrParish communityOrParish;
     private StepOfCatechistResponseDTO stepOfCatechistResponseDTO;
 
     public CatequistaResponseDTO() {}
 
-    public CatequistaResponseDTO(Long id, String firstName, String lastName, StepOfCatechistResponseDTO stepOfCatechistResponseDTO) {
+    public CatequistaResponseDTO(Long id, String firstName, String lastName, CodeVerifyCommunityOrParish communityOrParish, StepOfCatechistResponseDTO stepOfCatechistResponseDTO) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.communityOrParish = communityOrParish;
         this.stepOfCatechistResponseDTO = stepOfCatechistResponseDTO;
     }
 
@@ -48,6 +52,14 @@ public class CatequistaResponseDTO {
 
     public void setStepOfCatechistResponseDTO(StepOfCatechistResponseDTO stepOfCatechistResponseDTO) {
         this.stepOfCatechistResponseDTO = stepOfCatechistResponseDTO;
+    }
+
+    public CodeVerifyCommunityOrParish getCommunityOrParish() {
+        return communityOrParish;
+    }
+
+    public void setCommunityOrParish(CodeVerifyCommunityOrParish communityOrParish) {
+        this.communityOrParish = communityOrParish;
     }
 
     @Override
