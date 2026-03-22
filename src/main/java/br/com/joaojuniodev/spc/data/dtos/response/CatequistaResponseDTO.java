@@ -1,6 +1,6 @@
 package br.com.joaojuniodev.spc.data.dtos.response;
 
-import br.com.joaojuniodev.spc.models.enums.CodeVerifyCommunityOrParish;
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 
 import java.util.Objects;
 
@@ -9,16 +9,16 @@ public class CatequistaResponseDTO {
     private Long id;
     private String firstName;
     private String lastName;
-    private CodeVerifyCommunityOrParish communityOrParish;
+    private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
     private StepOfCatechistResponseDTO stepOfCatechistResponseDTO;
 
     public CatequistaResponseDTO() {}
 
-    public CatequistaResponseDTO(Long id, String firstName, String lastName, CodeVerifyCommunityOrParish communityOrParish, StepOfCatechistResponseDTO stepOfCatechistResponseDTO) {
+    public CatequistaResponseDTO(Long id, String firstName, String lastName, NameOfTheCommunityOrParishEnum nameCommunityOrParish, StepOfCatechistResponseDTO stepOfCatechistResponseDTO) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.communityOrParish = communityOrParish;
+        this.nameCommunityOrParish = nameCommunityOrParish;
         this.stepOfCatechistResponseDTO = stepOfCatechistResponseDTO;
     }
 
@@ -54,12 +54,12 @@ public class CatequistaResponseDTO {
         this.stepOfCatechistResponseDTO = stepOfCatechistResponseDTO;
     }
 
-    public CodeVerifyCommunityOrParish getCommunityOrParish() {
-        return communityOrParish;
+    public NameOfTheCommunityOrParishEnum getCommunityOrParish() {
+        return nameCommunityOrParish;
     }
 
-    public void setCommunityOrParish(CodeVerifyCommunityOrParish communityOrParish) {
-        this.communityOrParish = communityOrParish;
+    public void setCommunityOrParish(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
+        this.nameCommunityOrParish = nameCommunityOrParish;
     }
 
     @Override

@@ -33,7 +33,7 @@ public class ObjectMapperManually {
     public ObjectMapperManually() {}
 
     public Catequista convertCatequistaRequestToEntity(CatequistaRequestDTO catequista) {
-        return new Catequista(catequista.getId(), catequista.getFirstName(), catequista.getLastName(), catequista.getCode());
+        return new Catequista(catequista.getId(), catequista.getFirstName(), catequista.getLastName(), catequista.getNameCommunityOrParish());
     }
 
     public CatequistaResponseDTO convertCatequistaEntityToResponseDTO(Catequista entity) {

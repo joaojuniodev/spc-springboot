@@ -1,5 +1,6 @@
 package br.com.joaojuniodev.spc.models;
 
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -22,6 +23,9 @@ public class Catequizando implements Serializable {
 
     @Column
     private LocalDate birthDate;
+
+    @Column
+    private NameOfTheCommunityOrParishEnum communityOrParish;
 
     @ManyToOne
     @JoinColumn(name = "etapa_id", nullable = false)

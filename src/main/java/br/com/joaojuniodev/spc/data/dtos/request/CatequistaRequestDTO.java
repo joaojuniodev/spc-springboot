@@ -1,6 +1,6 @@
 package br.com.joaojuniodev.spc.data.dtos.request;
 
-import br.com.joaojuniodev.spc.models.enums.CodeVerifyCommunityOrParish;
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 
 import java.util.Objects;
 
@@ -9,7 +9,7 @@ public class CatequistaRequestDTO {
     private Long id;
     private String firstName;
     private String lastName;
-    private Integer code;
+    private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
 
     public CatequistaRequestDTO() {}
 
@@ -37,12 +37,12 @@ public class CatequistaRequestDTO {
         this.lastName = lastName;
     }
 
-    public CodeVerifyCommunityOrParish getCode() {
-        return CodeVerifyCommunityOrParish.values()[this.code];
+    public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {
+        return nameCommunityOrParish;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
+    public void setNameCommunityOrParish(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
+        this.nameCommunityOrParish = nameCommunityOrParish;
     }
 
     @Override
