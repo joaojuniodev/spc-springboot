@@ -8,18 +8,18 @@ import java.util.Objects;
 public class MissaRequestDTO {
 
     private Long id;
-    private String title;
+    private Long massOfLiturgicalCalendarId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private String dateTime;
     private Boolean registeredAttendance;
 
     public MissaRequestDTO() {}
 
-    public MissaRequestDTO(Long id, String title, String dateTime) {
+    public MissaRequestDTO(Long id, Long massOfLiturgicalCalendarId, String dateTime, Boolean registeredAttendance) {
         this.id = id;
-        this.title = title;
+        this.massOfLiturgicalCalendarId = massOfLiturgicalCalendarId;
         this.dateTime = dateTime;
-        this.registeredAttendance = false;
+        this.registeredAttendance = registeredAttendance;
     }
 
     public Long getId() {
@@ -30,12 +30,12 @@ public class MissaRequestDTO {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public Long getMassOfLiturgicalCalendarId() {
+        return massOfLiturgicalCalendarId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setMassOfLiturgicalCalendarId(Long massOfLiturgicalCalendarId) {
+        this.massOfLiturgicalCalendarId = massOfLiturgicalCalendarId;
     }
 
     public String getDateTime() {
@@ -59,13 +59,13 @@ public class MissaRequestDTO {
         if (o == null || getClass() != o.getClass()) return false;
 
         MissaRequestDTO that = (MissaRequestDTO) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getDateTime(), that.getDateTime()) && Objects.equals(getRegisteredAttendance(), that.getRegisteredAttendance());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(massOfLiturgicalCalendarId, that.massOfLiturgicalCalendarId) && Objects.equals(getDateTime(), that.getDateTime()) && Objects.equals(getRegisteredAttendance(), that.getRegisteredAttendance());
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hashCode(getId());
-        result = 31 * result + Objects.hashCode(getTitle());
+        result = 31 * result + Objects.hashCode(massOfLiturgicalCalendarId);
         result = 31 * result + Objects.hashCode(getDateTime());
         result = 31 * result + Objects.hashCode(getRegisteredAttendance());
         return result;

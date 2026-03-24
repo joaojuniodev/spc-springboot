@@ -8,14 +8,16 @@ public class MissaResponseDTO {
     private Long id;
     private String title;
     private LocalDateTime dateTime;
+    private Long massOfLiturgicalCalendarId;
     private Boolean registeredAttendance;
 
     public MissaResponseDTO() {}
 
-    public MissaResponseDTO(Long id, String title, LocalDateTime dateTime, Boolean registeredAttendance) {
+    public MissaResponseDTO(Long id, String title, LocalDateTime dateTime, Long massOfLiturgicalCalendarId, Boolean registeredAttendance) {
         this.id = id;
         this.title = title;
         this.dateTime = dateTime;
+        this.massOfLiturgicalCalendarId = massOfLiturgicalCalendarId;
         this.registeredAttendance = registeredAttendance;
     }
 
@@ -33,6 +35,14 @@ public class MissaResponseDTO {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Long getMassOfLiturgicalCalendarId() {
+        return massOfLiturgicalCalendarId;
+    }
+
+    public void setMassOfLiturgicalCalendarId(Long massOfLiturgicalCalendarId) {
+        this.massOfLiturgicalCalendarId = massOfLiturgicalCalendarId;
     }
 
     public LocalDateTime getDateTime() {
@@ -56,7 +66,7 @@ public class MissaResponseDTO {
         if (o == null || getClass() != o.getClass()) return false;
 
         MissaResponseDTO that = (MissaResponseDTO) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getDateTime(), that.getDateTime()) && Objects.equals(getRegisteredAttendance(), that.getRegisteredAttendance());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getDateTime(), that.getDateTime()) && Objects.equals(getMassOfLiturgicalCalendarId(), that.getMassOfLiturgicalCalendarId()) && Objects.equals(getRegisteredAttendance(), that.getRegisteredAttendance());
     }
 
     @Override
@@ -64,6 +74,7 @@ public class MissaResponseDTO {
         int result = Objects.hashCode(getId());
         result = 31 * result + Objects.hashCode(getTitle());
         result = 31 * result + Objects.hashCode(getDateTime());
+        result = 31 * result + Objects.hashCode(getMassOfLiturgicalCalendarId());
         result = 31 * result + Objects.hashCode(getRegisteredAttendance());
         return result;
     }

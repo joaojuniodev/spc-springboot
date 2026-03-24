@@ -3,18 +3,17 @@ package br.com.joaojuniodev.spc.services;
 import br.com.joaojuniodev.spc.data.dtos.request.MissaRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.MissaResponseDTO;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
+import br.com.joaojuniodev.spc.models.LiturgicalCalendar;
 import br.com.joaojuniodev.spc.models.Missa;
+import br.com.joaojuniodev.spc.repositories.LiturgicalCalendarRepository;
 import br.com.joaojuniodev.spc.repositories.MissaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class MissaService {
@@ -23,6 +22,9 @@ public class MissaService {
 
     @Autowired
     private MissaRepository repository;
+
+    @Autowired
+    private LiturgicalCalendarRepository liturgicalCalendarRepository;
 
     @Autowired
     private ObjectMapperManually mapper;
@@ -86,8 +88,10 @@ public class MissaService {
         logger.info("Updating Missa");
 
         var entity = repository.findById(missa.getId())
-                .orElseThrow(() -> new RuntimeException("Not found this ID: " + missa.getId()));
-        entity.setTitle(missa.getTitle());
+            .orElseThrow(() -> new RuntimeException("Not found this ID: " + missa.getId()));
+        var massOfLiturgialCalendar = liturgicalCalendarRepository.findById(missa.getMassOfLiturgicalCalendarId())
+            .orElseThrow(() -> new RuntimeException("Not found Mass of Liturgical Calendar this ID: " + missa.getId()));
+        entity.setTitle(massOfLiturgialCalendar.getTitle());
         entity.setDateTime(LocalDateTime.parse(missa.getDateTime()));
 
         return mapper.convertMissaEntityToResponseDTO(

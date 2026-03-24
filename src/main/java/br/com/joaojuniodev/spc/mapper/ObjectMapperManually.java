@@ -3,10 +3,7 @@ package br.com.joaojuniodev.spc.mapper;
 import br.com.joaojuniodev.spc.data.dtos.request.*;
 import br.com.joaojuniodev.spc.data.dtos.response.*;
 import br.com.joaojuniodev.spc.models.*;
-import br.com.joaojuniodev.spc.repositories.CatequistaRepository;
-import br.com.joaojuniodev.spc.repositories.CatequizandoRepository;
-import br.com.joaojuniodev.spc.repositories.EtapaRepository;
-import br.com.joaojuniodev.spc.repositories.MissaRepository;
+import br.com.joaojuniodev.spc.repositories.*;
 import br.com.joaojuniodev.spc.services.EtapaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,6 +26,9 @@ public class ObjectMapperManually {
 
     @Autowired
     private MissaRepository missaRepository;
+
+    @Autowired
+    private LiturgicalCalendarRepository liturgicalCalendarRepository;
 
     public ObjectMapperManually() {}
 
@@ -98,7 +98,12 @@ public class ObjectMapperManually {
     }
 
     public Missa convertMissaRequestToEntity(MissaRequestDTO missa) {
-        return new Missa(missa.getId(), missa.getTitle(), LocalDateTime.parse(missa.getDateTime()));
+        var massOfLiturgicalCalendar = liturgicalCalendarRepository.findById(missa.getMassOfLiturgicalCalendarId()).get();
+        return new Missa(
+            missa.getId(),
+            massOfLiturgicalCalendar.getTitle(),
+            LocalDateTime.parse(missa.getDateTime())
+        );
     }
 
     public MissaResponseDTO convertMissaEntityToResponseDTO(Missa entity) {
@@ -106,6 +111,7 @@ public class ObjectMapperManually {
             entity.getId(),
             entity.getTitle(),
             entity.getDateTime(),
+            entity.getMassOfLiturgicalCalendar().getId(),
             entity.getRegisteredAttendance() != null
         );
     }

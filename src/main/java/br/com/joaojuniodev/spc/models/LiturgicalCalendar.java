@@ -1,6 +1,5 @@
 package br.com.joaojuniodev.spc.models;
 
-import br.com.joaojuniodev.spc.services.MissaService;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
