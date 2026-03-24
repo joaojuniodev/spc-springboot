@@ -26,7 +26,7 @@ public class Catequizando implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column
-    private NameOfTheCommunityOrParishEnum communityOrParish;
+    private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
 
     @ManyToOne
     @JoinColumn(name = "etapa_id", nullable = false)
@@ -37,12 +37,12 @@ public class Catequizando implements Serializable {
 
     public Catequizando() {}
 
-    public Catequizando(Long id, String firstName, String lastName, LocalDate birthDate, NameOfTheCommunityOrParishEnum communityOrParish, Etapa etapa) {
+    public Catequizando(Long id, String firstName, String lastName, LocalDate birthDate, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Etapa etapa) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
-        this.communityOrParish = communityOrParish;
+        this.nameCommunityOrParish = nameCommunityOrParish;
         this.etapa = etapa;
     }
 
@@ -86,12 +86,12 @@ public class Catequizando implements Serializable {
         this.etapa = etapa;
     }
 
-    public NameOfTheCommunityOrParishEnum getCommunityOrParish() {
-        return communityOrParish;
+    public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {
+        return nameCommunityOrParish;
     }
 
-    public void setCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
-        this.communityOrParish = communityOrParish;
+    public void setNameCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
+        this.nameCommunityOrParish = communityOrParish;
     }
 
     public List<Presenca> getPresenca() {

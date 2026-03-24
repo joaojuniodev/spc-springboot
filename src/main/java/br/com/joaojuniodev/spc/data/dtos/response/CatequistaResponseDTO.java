@@ -10,16 +10,16 @@ public class CatequistaResponseDTO {
     private String firstName;
     private String lastName;
     private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
-    private StepOfCatechistResponseDTO stepOfCatechistResponseDTO;
+    private StepOfCatechistResponseDTO step;
 
     public CatequistaResponseDTO() {}
 
-    public CatequistaResponseDTO(Long id, String firstName, String lastName, NameOfTheCommunityOrParishEnum nameCommunityOrParish, StepOfCatechistResponseDTO stepOfCatechistResponseDTO) {
+    public CatequistaResponseDTO(Long id, String firstName, String lastName, NameOfTheCommunityOrParishEnum nameCommunityOrParish, StepOfCatechistResponseDTO step) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nameCommunityOrParish = nameCommunityOrParish;
-        this.stepOfCatechistResponseDTO = stepOfCatechistResponseDTO;
+        this.step = step;
     }
 
     public Long getId() {
@@ -46,12 +46,12 @@ public class CatequistaResponseDTO {
         this.lastName = lastName;
     }
 
-    public StepOfCatechistResponseDTO getStepOfCatechistResponseDTO() {
-        return stepOfCatechistResponseDTO;
+    public StepOfCatechistResponseDTO getStep() {
+        return step;
     }
 
-    public void setStepOfCatechistResponseDTO(StepOfCatechistResponseDTO stepOfCatechistResponseDTO) {
-        this.stepOfCatechistResponseDTO = stepOfCatechistResponseDTO;
+    public void setStep(StepOfCatechistResponseDTO stepOfCatechistResponseDTO) {
+        this.step = stepOfCatechistResponseDTO;
     }
 
     public NameOfTheCommunityOrParishEnum getCommunityOrParish() {
@@ -67,7 +67,7 @@ public class CatequistaResponseDTO {
         if (o == null || getClass() != o.getClass()) return false;
 
         CatequistaResponseDTO that = (CatequistaResponseDTO) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getStepOfCatechistResponseDTO(), that.getStepOfCatechistResponseDTO());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && nameCommunityOrParish == that.nameCommunityOrParish && Objects.equals(getStep(), that.getStep());
     }
 
     @Override
@@ -75,7 +75,8 @@ public class CatequistaResponseDTO {
         int result = Objects.hashCode(getId());
         result = 31 * result + Objects.hashCode(getFirstName());
         result = 31 * result + Objects.hashCode(getLastName());
-        result = 31 * result + Objects.hashCode(getStepOfCatechistResponseDTO());
+        result = 31 * result + Objects.hashCode(nameCommunityOrParish);
+        result = 31 * result + Objects.hashCode(getStep());
         return result;
     }
 }

@@ -2,8 +2,6 @@ package br.com.joaojuniodev.spc.data.dtos.request;
 
 import br.com.joaojuniodev.spc.models.enums.EtapaEnum;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class EtapaRequestDTO {

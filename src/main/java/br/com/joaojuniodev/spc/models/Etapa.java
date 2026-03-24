@@ -45,7 +45,7 @@ public class Etapa implements Serializable {
         return etapa;
     }
 
-    public void setEtapa(EtapaEnum etapa) {
+    public void getEtapa(EtapaEnum etapa) {
         this.etapa = etapa;
     }
 
@@ -73,8 +73,8 @@ public class Etapa implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
-        Etapa etapa = (Etapa) o;
-        return Objects.equals(getId(), etapa.getId());
+        Etapa step = (Etapa) o;
+        return Objects.equals(getId(), step.getId());
     }
 
     @Override

@@ -33,10 +33,11 @@ public class Missa implements Serializable {
 
     public Missa() {}
 
-    public Missa(Long id, String title, LocalDateTime dateTime) {
+    public Missa(Long id, String title, LocalDateTime dateTime, LiturgicalCalendar massOfLiturgicalCalendar) {
         this.id = id;
         this.title = title;
         this.dateTime = dateTime;
+        this.massOfLiturgicalCalendar = massOfLiturgicalCalendar;
     }
 
     public Long getId() {

@@ -1,1 +1,15 @@
-INSERT INTO `catequista` VALUES (1,'Luciana','Ap. Morelato Coutinho'),(2,'Luciana','Ap. Cordeiro Chiquineli'),(3,'Lilian','Cristina Tucci Salvione'),(4,'Lionete','Juliana Azarias'),(5,'Irene','Thomaz de Aquino'),(6,'Tábita','Neto da Silva Rodrigues'),(7,'Fernanda','Cristina de Moura Pereira'),(8,'Maria','Edivânia Lima de Oliveira'),(9,'Ana','Maria F. de Souza Beraldo'),(10,'João Junio','Trindade Castro'),(11,'Maria Inês','Fuzzari dos Santos'),(12,'Lígia','de Souza'),(13,'Stella','de Souza'),(14,'Daniele','B.N. de Souza');
+INSERT INTO `catequista` VALUES
+(1,  'Luciana',    'Ap. Morelato Coutinho',      'SAO_SEBASTIAO'),
+(2,  'Luciana',    'Ap. Cordeiro Chiquineli',     'SAO_SEBASTIAO'),
+(3,  'Lilian',     'Cristina Tucci Salvione',     'SAO_SEBASTIAO'),
+(4,  'Lionete',    'Juliana Azarias',             'SAO_SEBASTIAO'),
+(5,  'Irene',      'Thomaz de Aquino',            'SAO_SEBASTIAO'),
+(6,  'Tábita',     'Neto da Silva Rodrigues',     'SAO_SEBASTIAO'),
+(7,  'Fernanda',   'Cristina de Moura Pereira',   'SAO_SEBASTIAO'),
+(8,  'Maria',      'Edivânia Lima de Oliveira',   'SAO_SEBASTIAO'),
+(9,  'Ana',        'Maria F. de Souza Beraldo',   'SAO_SEBASTIAO'),
+(10, 'João Junio', 'Trindade Castro',             'SAO_SEBASTIAO'),
+(11, 'Maria Inês', 'Fuzzari dos Santos',          'DIVINO_ESPIRITO_SANTO'),
+(12, 'Lígia',      'de Souza',                    'DIVINO_ESPIRITO_SANTO'),
+(13, 'Stella',     'de Souza',                    'DIVINO_ESPIRITO_SANTO'),
+(14, 'Daniele',    'B.N. de Souza',               'DIVINO_ESPIRITO_SANTO');

@@ -4,10 +4,8 @@ import br.com.joaojuniodev.spc.data.dtos.request.*;
 import br.com.joaojuniodev.spc.data.dtos.response.*;
 import br.com.joaojuniodev.spc.models.*;
 import br.com.joaojuniodev.spc.repositories.*;
-import br.com.joaojuniodev.spc.services.EtapaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -68,7 +66,7 @@ public class ObjectMapperManually {
             entity.getFirstName(),
             entity.getLastName(),
             entity.getBirthDate(),
-            entity.getCommunityOrParish(),
+            entity.getNameCommunityOrParish(),
             convertEtapaEntityToByCatequizandoResponseDTO(entity.getEtapa())
         );
     }
@@ -102,7 +100,8 @@ public class ObjectMapperManually {
         return new Missa(
             missa.getId(),
             massOfLiturgicalCalendar.getTitle(),
-            LocalDateTime.parse(missa.getDateTime())
+            LocalDateTime.parse(missa.getDateTime()),
+            massOfLiturgicalCalendar
         );
     }
 

@@ -30,6 +30,7 @@ C:\Projects\ws-intelliJ\spc\src\main\java\br\com\joaojuniodev\spc\models\Presenc
 C:\Projects\ws-intelliJ\spc\src\main\java\br\com\joaojuniodev\spc\repositories\CatequistaRepository.java
 C:\Projects\ws-intelliJ\spc\src\main\java\br\com\joaojuniodev\spc\repositories\CatequizandoRepository.java
 C:\Projects\ws-intelliJ\spc\src\main\java\br\com\joaojuniodev\spc\repositories\EtapaRepository.java
+C:\Projects\ws-intelliJ\spc\src\main\java\br\com\joaojuniodev\spc\repositories\LiturgicalCalendarRepository.java
 C:\Projects\ws-intelliJ\spc\src\main\java\br\com\joaojuniodev\spc\repositories\MissaRepository.java
 C:\Projects\ws-intelliJ\spc\src\main\java\br\com\joaojuniodev\spc\repositories\PresencaRepository.java
 C:\Projects\ws-intelliJ\spc\src\main\java\br\com\joaojuniodev\spc\services\CatequistaService.java
