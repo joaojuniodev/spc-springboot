@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class PresencaService {
 
-    private final Logger loggeeeer = LoggerFactory.getLogger(CatequizandoService.class.getName());
+    private final Logger logger = LoggerFactory.getLogger(CatequizandoService.class.getName());
 
     @Autowired
     private PresencaRepository repository;
