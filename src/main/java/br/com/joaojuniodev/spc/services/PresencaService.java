@@ -18,7 +18,7 @@ import java.util.List;
 @Component
 public class PresencaService {
 
-    private final Logger logger = LoggerFactory.getLogger(CatequizandoService.class.getName());
+    private final Logger loggeeeer = LoggerFactory.getLogger(CatequizandoService.class.getName());
 
     @Autowired
     private PresencaRepository repository;
