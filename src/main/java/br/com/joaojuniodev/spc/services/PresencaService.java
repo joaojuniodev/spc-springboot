@@ -20,7 +20,7 @@ public class PresencaService {
     private final Logger logger = LoggerFactory.getLogger(CatequizandoService.class.getName());
 
     @Autowired
-    private PresencaRepository repositoryyyy;
+    private PresencaRepository repository;
 
     @Autowired
     private CatequizandoRepository catequizandoRepository;
