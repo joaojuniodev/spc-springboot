@@ -1,5 +1,7 @@
 package br.com.joaojuniodev.spc.data.dtos.response;
 
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -9,15 +11,17 @@ public class CatequizandoResponseDTO {
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
+    private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
     private EtapaByCatequizandoResponseDTO etapa;
 
     public CatequizandoResponseDTO() {}
 
-    public CatequizandoResponseDTO(Long id, String firstName, String lastName, LocalDate birthDate, EtapaByCatequizandoResponseDTO etapa) {
+    public CatequizandoResponseDTO(Long id, String firstName, String lastName, LocalDate birthDate, NameOfTheCommunityOrParishEnum nameCommunityOrParish, EtapaByCatequizandoResponseDTO etapa) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.nameCommunityOrParish = nameCommunityOrParish;
         this.etapa = etapa;
     }
 
@@ -53,6 +57,14 @@ public class CatequizandoResponseDTO {
         this.birthDate = birthDate;
     }
 
+    public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {
+        return nameCommunityOrParish;
+    }
+
+    public void setNameCommunityOrParish(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
+        this.nameCommunityOrParish = nameCommunityOrParish;
+    }
+
     public EtapaByCatequizandoResponseDTO getEtapa() {
         return etapa;
     }
@@ -66,7 +78,7 @@ public class CatequizandoResponseDTO {
         if (o == null || getClass() != o.getClass()) return false;
 
         CatequizandoResponseDTO that = (CatequizandoResponseDTO) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getBirthDate(), that.getBirthDate()) && Objects.equals(getEtapa(), that.getEtapa());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getBirthDate(), that.getBirthDate()) && getNameCommunityOrParish() == that.getNameCommunityOrParish() && Objects.equals(getEtapa(), that.getEtapa());
     }
 
     @Override
@@ -75,6 +87,7 @@ public class CatequizandoResponseDTO {
         result = 31 * result + Objects.hashCode(getFirstName());
         result = 31 * result + Objects.hashCode(getLastName());
         result = 31 * result + Objects.hashCode(getBirthDate());
+        result = 31 * result + Objects.hashCode(getNameCommunityOrParish());
         result = 31 * result + Objects.hashCode(getEtapa());
         return result;
     }

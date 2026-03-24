@@ -1,5 +1,6 @@
 package br.com.joaojuniodev.spc.data.dtos.request;
 
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
@@ -12,15 +13,17 @@ public class CatequizandoRequestDTO {
     private String lastName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private String birthDate;
+    private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
     private Long etapaId;
 
     public CatequizandoRequestDTO() {}
 
-    public CatequizandoRequestDTO(Long id, String firstName, String lastName, String birthDate, Long etapaId) {
+    public CatequizandoRequestDTO(Long id, String firstName, String lastName, String birthDate, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Long etapaId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.nameCommunityOrParish = nameCommunityOrParish;
         this.etapaId = etapaId;
     }
 
@@ -56,6 +59,14 @@ public class CatequizandoRequestDTO {
         this.birthDate = birthDate;
     }
 
+    public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {
+        return nameCommunityOrParish;
+    }
+
+    public void setNameCommunityOrParish(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
+        this.nameCommunityOrParish = nameCommunityOrParish;
+    }
+
     public Long getEtapaId() {
         return etapaId;
     }
@@ -63,5 +74,4 @@ public class CatequizandoRequestDTO {
     public void setEtapaId(Long etapaId) {
         this.etapaId = etapaId;
     }
-
 }

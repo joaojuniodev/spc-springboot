@@ -24,6 +24,7 @@ public class Catequizando implements Serializable {
     @Column
     private LocalDate birthDate;
 
+    @Enumerated(EnumType.STRING)
     @Column
     private NameOfTheCommunityOrParishEnum communityOrParish;
 
@@ -36,11 +37,12 @@ public class Catequizando implements Serializable {
 
     public Catequizando() {}
 
-    public Catequizando(Long id, String firstName, String lastName, LocalDate birthDate, Etapa etapa) {
+    public Catequizando(Long id, String firstName, String lastName, LocalDate birthDate, NameOfTheCommunityOrParishEnum communityOrParish, Etapa etapa) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.communityOrParish = communityOrParish;
         this.etapa = etapa;
     }
 
@@ -82,6 +84,14 @@ public class Catequizando implements Serializable {
 
     public void setEtapa(Etapa etapa) {
         this.etapa = etapa;
+    }
+
+    public NameOfTheCommunityOrParishEnum getCommunityOrParish() {
+        return communityOrParish;
+    }
+
+    public void setCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
+        this.communityOrParish = communityOrParish;
     }
 
     public List<Presenca> getPresenca() {

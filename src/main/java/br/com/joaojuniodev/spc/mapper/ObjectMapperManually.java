@@ -57,6 +57,7 @@ public class ObjectMapperManually {
             catequizando.getFirstName(),
             catequizando.getLastName(),
             LocalDate.parse(catequizando.getBirthDate()),
+            catequizando.getNameCommunityOrParish(),
             etapa
         );
     }
@@ -67,6 +68,7 @@ public class ObjectMapperManually {
             entity.getFirstName(),
             entity.getLastName(),
             entity.getBirthDate(),
+            entity.getCommunityOrParish(),
             convertEtapaEntityToByCatequizandoResponseDTO(entity.getEtapa())
         );
     }
