@@ -1,3 +1,5 @@
+server:
+  port: 80
 cors:
   originPatterns: http://localhost:5500,http://localhost:3000,https://spc-azure.vercel.app
 spring:
@@ -6,11 +8,4 @@ spring:
   jackson:
     time-zone: America/Sao_Paulo
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE:prod}
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-    show-sql: false
-    open-in-view: false
+    active: ${SPRING_PROFILES_ACTIVE:dev}

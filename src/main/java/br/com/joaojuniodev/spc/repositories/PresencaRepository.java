@@ -13,6 +13,6 @@ public interface PresencaRepository extends JpaRepository<Presenca, Long> {
 
     boolean existsByMissaIdAndCatequizandoId(Long missaId, Long catequizandoId);
 
-    @Query("SELECT p FROM Presenca p WHERE p.catequizando.id = :catechumentId")
-    List<Presenca> findByCatechumenId(@Param("catechumentId") Long catechumentId);
+    @Query("SELECT p FROM Presenca p WHERE p.catequizando.id = :catechumenId")
+    List<Presenca> findByCatechumenId(@Param("catechumenId") Long catechumenId);
 }

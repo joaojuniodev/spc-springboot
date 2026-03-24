@@ -6,7 +6,16 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
-      show-sql: false
-      open-in-view: false
+      hibernate:
+    show-sql: false
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+logging:
+  level:
+    org:
+      flywaydb: DEBUG

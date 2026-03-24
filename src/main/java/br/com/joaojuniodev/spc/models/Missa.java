@@ -25,6 +25,9 @@ public class Missa implements Serializable {
     @Column
     private Boolean registeredAttendance;
 
+    @OneToOne
+    private LiturgicalCalendar massOfLiturgicalCalendar;
+
     @OneToMany(mappedBy = "missa")
     private List<Presenca> presencas;
 
@@ -74,6 +77,14 @@ public class Missa implements Serializable {
 
     public void setRegisteredAttendance(Boolean registeredAttendance) {
         this.registeredAttendance = registeredAttendance;
+    }
+
+    public LiturgicalCalendar getMassOfLiturgicalCalendar() {
+        return massOfLiturgicalCalendar;
+    }
+
+    public void setMassOfLiturgicalCalendar(LiturgicalCalendar massOfLiturgicalCalendar) {
+        this.massOfLiturgicalCalendar = massOfLiturgicalCalendar;
     }
 
     public List<Presenca> getPresenca() {
