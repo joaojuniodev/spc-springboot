@@ -16,13 +16,12 @@ import java.util.List;
 
 @Service
 public class PresencaService {
-    //testando
 
     //oiii
     private final Logger logger = LoggerFactory.getLogger(CatequizandoService.class.getName());
 
     @Autowired
-    private PresencaRepository repositoryyyyyyyyyyyy;
+    private PresencaRepository repository;
 
     @Autowired
     private CatequizandoRepository catequizandoRepository;
