@@ -1,6 +1,7 @@
 package br.com.joaojuniodev.spc.data.dtos.response;
 
 import br.com.joaojuniodev.spc.models.enums.EtapaEnum;
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +11,17 @@ public class EtapaResponseDTO {
 
     private Long id;
     private EtapaEnum etapa;
-    private CatequistaResponseDTO catequista;
-    private List<CatequizandoResponseDTO> catequizandos = new ArrayList<>();
+    private NameOfTheCommunityOrParishEnum communityOrParish;
+    private List<CatequistaResponseByEtapaDTO> catequistas;
+    private List<CatequizandoResponseByEtapaDTO> catequizandos = new ArrayList<>();
 
     public EtapaResponseDTO() {}
 
-    public EtapaResponseDTO(Long id, EtapaEnum etapa, CatequistaResponseDTO catequista, List<CatequizandoResponseDTO> catequizandos) {
+    public EtapaResponseDTO(Long id, EtapaEnum etapa, NameOfTheCommunityOrParishEnum communityOrParish, List<CatequistaResponseByEtapaDTO> catequistas, List<CatequizandoResponseByEtapaDTO> catequizandos) {
         this.id = id;
         this.etapa = etapa;
-        this.catequista = catequista;
+        this.communityOrParish = communityOrParish;
+        this.catequistas = catequistas;
         this.catequizandos = catequizandos;
     }
 
@@ -38,19 +41,27 @@ public class EtapaResponseDTO {
         this.etapa = etapa;
     }
 
-    public CatequistaResponseDTO getCatequista() {
-        return catequista;
+    public NameOfTheCommunityOrParishEnum getCommunityOrParish() {
+        return communityOrParish;
     }
 
-    public void setCatequista(CatequistaResponseDTO catequista) {
-        this.catequista = catequista;
+    public void setCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
+        this.communityOrParish = communityOrParish;
     }
 
-    public List<CatequizandoResponseDTO> getCatequizandos() {
+    public List<CatequistaResponseByEtapaDTO> getCatequistas() {
+        return catequistas;
+    }
+
+    public void setCatequistas(List<CatequistaResponseByEtapaDTO> catequistas) {
+        this.catequistas = catequistas;
+    }
+
+    public List<CatequizandoResponseByEtapaDTO> getCatequizandos() {
         return catequizandos;
     }
 
-    public void setCatequizandos(List<CatequizandoResponseDTO> catequizandos) {
+    public void setCatequizandos(List<CatequizandoResponseByEtapaDTO> catequizandos) {
         this.catequizandos = catequizandos;
     }
 
@@ -59,14 +70,15 @@ public class EtapaResponseDTO {
         if (o == null || getClass() != o.getClass()) return false;
 
         EtapaResponseDTO that = (EtapaResponseDTO) o;
-        return Objects.equals(getId(), that.getId()) && getEtapa() == that.getEtapa() && Objects.equals(getCatequista(), that.getCatequista()) && Objects.equals(getCatequizandos(), that.getCatequizandos());
+        return Objects.equals(getId(), that.getId()) && getEtapa() == that.getEtapa() && getCommunityOrParish() == that.getCommunityOrParish() && Objects.equals(getCatequistas(), that.getCatequistas()) && Objects.equals(getCatequizandos(), that.getCatequizandos());
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hashCode(getId());
         result = 31 * result + Objects.hashCode(getEtapa());
-        result = 31 * result + Objects.hashCode(getCatequista());
+        result = 31 * result + Objects.hashCode(getCommunityOrParish());
+        result = 31 * result + Objects.hashCode(getCatequistas());
         result = 31 * result + Objects.hashCode(getCatequizandos());
         return result;
     }

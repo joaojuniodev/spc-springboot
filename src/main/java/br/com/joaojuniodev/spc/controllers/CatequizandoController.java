@@ -1,8 +1,10 @@
 package br.com.joaojuniodev.spc.controllers;
 
 import br.com.joaojuniodev.spc.data.dtos.request.CatequizandoRequestDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.CatequistaResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.CatequizandoResponseDTO;
 import br.com.joaojuniodev.spc.models.enums.EtapaEnum;
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.services.CatequizandoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -31,6 +33,16 @@ public class CatequizandoController {
     )
     public ResponseEntity<CatequizandoResponseDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
+    }
+
+    @GetMapping(
+        value = "/find-by",
+        produces = { MediaType.APPLICATION_JSON_VALUE }
+    )
+    public ResponseEntity<List<CatequizandoResponseDTO>> findByNameCommunityOrParish(
+        @RequestParam NameOfTheCommunityOrParishEnum communityOrParish
+    ) {
+        return ResponseEntity.ok().body(service.findByNameOfCommunityOrParish(communityOrParish));
     }
 
     @GetMapping(

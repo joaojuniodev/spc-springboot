@@ -1,5 +1,6 @@
 package br.com.joaojuniodev.spc.models;
 
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
@@ -25,6 +26,10 @@ public class Missa implements Serializable {
     @Column
     private Boolean registeredAttendance;
 
+    @Enumerated(EnumType.STRING)
+    @Column
+    private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
+
     @OneToOne
     private LiturgicalCalendar massOfLiturgicalCalendar;
 
@@ -33,10 +38,11 @@ public class Missa implements Serializable {
 
     public Missa() {}
 
-    public Missa(Long id, String title, LocalDateTime dateTime, LiturgicalCalendar massOfLiturgicalCalendar) {
+    public Missa(Long id, String title, LocalDateTime dateTime, NameOfTheCommunityOrParishEnum nameCommunityOrParish, LiturgicalCalendar massOfLiturgicalCalendar) {
         this.id = id;
         this.title = title;
         this.dateTime = dateTime;
+        this.nameCommunityOrParish = nameCommunityOrParish;
         this.massOfLiturgicalCalendar = massOfLiturgicalCalendar;
     }
 
@@ -78,6 +84,14 @@ public class Missa implements Serializable {
 
     public void setRegisteredAttendance(Boolean registeredAttendance) {
         this.registeredAttendance = registeredAttendance;
+    }
+
+    public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {
+        return nameCommunityOrParish;
+    }
+
+    public void setNameCommunityOrParish(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
+        this.nameCommunityOrParish = nameCommunityOrParish;
     }
 
     public LiturgicalCalendar getMassOfLiturgicalCalendar() {

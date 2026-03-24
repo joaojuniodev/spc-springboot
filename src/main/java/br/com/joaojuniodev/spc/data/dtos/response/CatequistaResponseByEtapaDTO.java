@@ -1,18 +1,22 @@
-package br.com.joaojuniodev.spc.data.dtos.request;
+package br.com.joaojuniodev.spc.data.dtos.response;
 
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 
 import java.util.Objects;
 
-public class CatequistaRequestDTO {
+public class CatequistaResponseByEtapaDTO {
 
     private Long id;
     private String firstName;
     private String lastName;
-    private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
-    private Long etapaId;
 
-    public CatequistaRequestDTO() {}
+    public CatequistaResponseByEtapaDTO() {}
+
+    public CatequistaResponseByEtapaDTO(Long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public Long getId() {
         return id;
@@ -38,27 +42,11 @@ public class CatequistaRequestDTO {
         this.lastName = lastName;
     }
 
-    public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {
-        return nameCommunityOrParish;
-    }
-
-    public void setNameCommunityOrParish(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
-        this.nameCommunityOrParish = nameCommunityOrParish;
-    }
-
-    public Long getEtapaId() {
-        return etapaId;
-    }
-
-    public void setEtapaId(Long etapaId) {
-        this.etapaId = etapaId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
-        CatequistaRequestDTO that = (CatequistaRequestDTO) o;
+        CatequistaResponseByEtapaDTO that = (CatequistaResponseByEtapaDTO) o;
         return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName());
     }
 

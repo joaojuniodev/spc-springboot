@@ -1,5 +1,7 @@
 package br.com.joaojuniodev.spc.data.dtos.response;
 
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -8,15 +10,17 @@ public class MissaResponseDTO {
     private Long id;
     private String title;
     private LocalDateTime dateTime;
+    private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
     private Long massOfLiturgicalCalendarId;
     private Boolean registeredAttendance;
 
     public MissaResponseDTO() {}
 
-    public MissaResponseDTO(Long id, String title, LocalDateTime dateTime, Long massOfLiturgicalCalendarId, Boolean registeredAttendance) {
+    public MissaResponseDTO(Long id, String title, LocalDateTime dateTime, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Long massOfLiturgicalCalendarId, Boolean registeredAttendance) {
         this.id = id;
         this.title = title;
         this.dateTime = dateTime;
+        this.nameCommunityOrParish = nameCommunityOrParish;
         this.massOfLiturgicalCalendarId = massOfLiturgicalCalendarId;
         this.registeredAttendance = registeredAttendance;
     }
@@ -51,6 +55,14 @@ public class MissaResponseDTO {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {
+        return nameCommunityOrParish;
+    }
+
+    public void setNameCommunityOrParish(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
+        this.nameCommunityOrParish = nameCommunityOrParish;
     }
 
     public Boolean getRegisteredAttendance() {

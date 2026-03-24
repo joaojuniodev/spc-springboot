@@ -1,6 +1,7 @@
 package br.com.joaojuniodev.spc.models;
 
 import br.com.joaojuniodev.spc.models.enums.EtapaEnum;
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -18,18 +19,23 @@ public class Etapa implements Serializable {
     @Enumerated(EnumType.STRING)
     private EtapaEnum etapa;
 
-    @OneToOne
-    private Catequista catequista;
+    @Enumerated(EnumType.STRING)
+    @Column
+    private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
+
+    @OneToMany(mappedBy = "etapa", cascade = CascadeType.ALL)
+    private List<Catequista> catequistas;
 
     @OneToMany(mappedBy = "etapa", cascade = CascadeType.ALL)
     private List<Catequizando> catequizandos = new ArrayList<>();
 
     public Etapa() {}
 
-    public Etapa(Long id, EtapaEnum etapa, Catequista catequista, List<Catequizando> catequizandos) {
+    public Etapa(Long id, EtapaEnum etapa, NameOfTheCommunityOrParishEnum nameCommunityOrParish, List<Catequista> catequistas, List<Catequizando> catequizandos) {
         this.id = id;
         this.etapa = etapa;
-        this.catequista = catequista;
+        this.nameCommunityOrParish = nameCommunityOrParish;
+        this.catequistas = catequistas;
         this.catequizandos = catequizandos;
     }
 
@@ -49,12 +55,24 @@ public class Etapa implements Serializable {
         this.etapa = etapa;
     }
 
-    public Catequista getCatequista() {
-        return catequista;
+    public List<Catequista> getCatequistas() {
+        return catequistas;
     }
 
-    public void setCatequista(Catequista catequista) {
-        this.catequista = catequista;
+    public void setCatequistas(List<Catequista> catequistas) {
+        this.catequistas = catequistas;
+    }
+
+    public void setEtapa(EtapaEnum etapa) {
+        this.etapa = etapa;
+    }
+
+    public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {
+        return nameCommunityOrParish;
+    }
+
+    public void setNameCommunityOrParish(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
+        this.nameCommunityOrParish = nameCommunityOrParish;
     }
 
     public List<Catequizando> getCatequizandos() {

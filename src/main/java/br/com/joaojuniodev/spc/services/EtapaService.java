@@ -1,8 +1,11 @@
 package br.com.joaojuniodev.spc.services;
 
 import br.com.joaojuniodev.spc.data.dtos.request.EtapaRequestDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.CatequistaResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.EtapaResponseDTO;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
+import br.com.joaojuniodev.spc.models.Catequista;
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.repositories.CatequistaRepository;
 import br.com.joaojuniodev.spc.repositories.EtapaRepository;
 import org.slf4j.Logger;
@@ -11,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -47,14 +52,13 @@ public class EtapaService {
         return mapper.convertEtapaEntityToResponseDTO(entity);
     }
 
-    @Transactional
-    public EtapaResponseDTO findByCatechistId(Long catechistId) {
+    public List<EtapaResponseDTO> findByNameOfCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
 
-        logger.info("Finding Step by catechistId");
+        logger.info("Finding Steps by name of community or parish");
 
-        var entity = repository.findByCatechistId(catechistId)
-            .orElseThrow(() -> new RuntimeException("Not found this ID: " + catechistId));
-        return mapper.convertEtapaEntityToResponseDTO(entity);
+        return repository.findByNameCommunityOrParish(communityOrParish)
+            .stream()
+            .map(entity -> mapper.convertEtapaEntityToResponseDTO(entity)).toList();
     }
 
     public EtapaResponseDTO create(EtapaRequestDTO etapa) {
@@ -70,13 +74,15 @@ public class EtapaService {
 
         logger.info("Updating Etapa");
 
-        var catequista = etapa.getCatequistaId() != null
-            ? catequistaRepository.findById(etapa.getCatequistaId()).orElseThrow()
-            : null;
+        List<Catequista> catequistas = new ArrayList<>();
+
+        if (etapa.getCatequistasId().length > 0) {
+            Arrays.stream(etapa.getCatequistasId()).map(id ->  catequistas.add(catequistaRepository.findById(id).orElseThrow()));
+        }
 
         var entity = repository.findById(etapa.getId())
-                .orElseThrow(() -> new RuntimeException("Not found this ID: " + etapa.getId()));
-        if (catequista != null) entity.setCatequista(catequista);
+            .orElseThrow(() -> new RuntimeException("Not found this ID: " + etapa.getId()));
+        entity.setCatequistas(catequistas);
 
         return mapper.convertEtapaEntityToResponseDTO(
             repository.save(mapper.convertEtapaRequestToEntity(etapa))

@@ -1,10 +1,12 @@
 package br.com.joaojuniodev.spc.services;
 
 import br.com.joaojuniodev.spc.data.dtos.request.MissaRequestDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.EtapaResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.MissaResponseDTO;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
 import br.com.joaojuniodev.spc.models.LiturgicalCalendar;
 import br.com.joaojuniodev.spc.models.Missa;
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.repositories.LiturgicalCalendarRepository;
 import br.com.joaojuniodev.spc.repositories.MissaRepository;
 import org.slf4j.Logger;
@@ -55,6 +57,15 @@ public class MissaService {
         LocalDateTime today = LocalDateTime.now();
 
         return repository.findByMassesOccurredToThisDay(startDate, today)
+            .stream()
+            .map(entity -> mapper.convertMissaEntityToResponseDTO(entity)).toList();
+    }
+
+    public List<MissaResponseDTO> findByNameOfCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
+
+        logger.info("Finding Masses by name of community or parish");
+
+        return repository.findByNameCommunityOrParish(communityOrParish)
             .stream()
             .map(entity -> mapper.convertMissaEntityToResponseDTO(entity)).toList();
     }

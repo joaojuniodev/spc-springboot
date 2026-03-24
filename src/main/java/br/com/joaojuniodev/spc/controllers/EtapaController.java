@@ -1,7 +1,9 @@
 package br.com.joaojuniodev.spc.controllers;
 
 import br.com.joaojuniodev.spc.data.dtos.request.EtapaRequestDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.CatequizandoResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.EtapaResponseDTO;
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.services.EtapaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -33,11 +35,13 @@ public class EtapaController {
     }
 
     @GetMapping(
-        value = "/findByCatechistId/{catechistId}",
+        value = "/find-by",
         produces = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<EtapaResponseDTO> findByCatechistId(@PathVariable Long catechistId) {
-        return ResponseEntity.ok().body(service.findByCatechistId(catechistId));
+    public ResponseEntity<List<EtapaResponseDTO>> findByNameCommunityOrParish(
+        @RequestParam NameOfTheCommunityOrParishEnum communityOrParish
+    ) {
+        return ResponseEntity.ok().body(service.findByNameOfCommunityOrParish(communityOrParish));
     }
 
     @PostMapping(

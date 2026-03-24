@@ -2,18 +2,19 @@ package br.com.joaojuniodev.spc.data.dtos.response;
 
 import br.com.joaojuniodev.spc.models.enums.EtapaEnum;
 
+import java.util.List;
 import java.util.Objects;
 
 public class EtapaByCatequizandoResponseDTO {
 
     private Long id;
     private EtapaEnum etapa;
-    private CatequistaResponseDTO catequista;
+    private List<CatequistaResponseDTO> catequistas;
 
-    public EtapaByCatequizandoResponseDTO(Long id, EtapaEnum etapa, CatequistaResponseDTO catequista) {
+    public EtapaByCatequizandoResponseDTO(Long id, EtapaEnum etapa, List<CatequistaResponseDTO> catequistas) {
         this.id = id;
         this.etapa = etapa;
-        this.catequista = catequista;
+        this.catequistas = catequistas;
     }
 
     public Long getId() {
@@ -32,12 +33,12 @@ public class EtapaByCatequizandoResponseDTO {
         this.etapa = etapa;
     }
 
-    public CatequistaResponseDTO getCatequista() {
-        return catequista;
+    public List<CatequistaResponseDTO> getCatequistas() {
+        return catequistas;
     }
 
-    public void setCatequista(CatequistaResponseDTO catequista) {
-        this.catequista = catequista;
+    public void setCatequistas(List<CatequistaResponseDTO> catequistas) {
+        this.catequistas = catequistas;
     }
 
     @Override
@@ -45,14 +46,14 @@ public class EtapaByCatequizandoResponseDTO {
         if (o == null || getClass() != o.getClass()) return false;
 
         EtapaByCatequizandoResponseDTO that = (EtapaByCatequizandoResponseDTO) o;
-        return Objects.equals(getId(), that.getId()) && getEtapa() == that.getEtapa() && Objects.equals(getCatequista(), that.getCatequista());
+        return Objects.equals(getId(), that.getId()) && getEtapa() == that.getEtapa() && Objects.equals(getCatequistas(), that.getCatequistas());
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hashCode(getId());
         result = 31 * result + Objects.hashCode(getEtapa());
-        result = 31 * result + Objects.hashCode(getCatequista());
+        result = 31 * result + Objects.hashCode(getCatequistas());
         return result;
     }
 }

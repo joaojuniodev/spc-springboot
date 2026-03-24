@@ -2,6 +2,7 @@ package br.com.joaojuniodev.spc.controllers;
 
 import br.com.joaojuniodev.spc.data.dtos.request.CatequistaRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.CatequistaResponseDTO;
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.services.CatequistaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,6 +31,16 @@ public class CatequistaController {
     )
     public ResponseEntity<CatequistaResponseDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
+    }
+
+    @GetMapping(
+        value = "/find-by",
+        produces = { MediaType.APPLICATION_JSON_VALUE }
+    )
+    public ResponseEntity<List<CatequistaResponseDTO>> findByNameCommunityOrParish(
+        @RequestParam NameOfTheCommunityOrParishEnum communityOrParish
+    ) {
+        return ResponseEntity.ok().body(service.findByNameOfCommunityOrParish(communityOrParish));
     }
 
     @PostMapping(

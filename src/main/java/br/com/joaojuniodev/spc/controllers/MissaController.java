@@ -1,7 +1,9 @@
 package br.com.joaojuniodev.spc.controllers;
 
 import br.com.joaojuniodev.spc.data.dtos.request.MissaRequestDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.EtapaResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.MissaResponseDTO;
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.services.MissaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -39,6 +41,16 @@ public class MissaController {
     )
     public ResponseEntity<List<MissaResponseDTO>> findByOccurredToThisToday() {
         return ResponseEntity.ok().body(service.findByOccurredToThisToday());
+    }
+
+    @GetMapping(
+        value = "/find-by",
+        produces = { MediaType.APPLICATION_JSON_VALUE }
+    )
+    public ResponseEntity<List<MissaResponseDTO>> findByNameCommunityOrParish(
+        @RequestParam NameOfTheCommunityOrParishEnum communityOrParish
+    ) {
+        return ResponseEntity.ok().body(service.findByNameOfCommunityOrParish(communityOrParish));
     }
 
     @GetMapping(

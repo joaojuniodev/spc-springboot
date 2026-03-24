@@ -1,5 +1,6 @@
 package br.com.joaojuniodev.spc.data.dtos.request;
 
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
@@ -11,14 +12,16 @@ public class MissaRequestDTO {
     private Long massOfLiturgicalCalendarId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private String dateTime;
+    private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
     private Boolean registeredAttendance;
 
     public MissaRequestDTO() {}
 
-    public MissaRequestDTO(Long id, Long massOfLiturgicalCalendarId, String dateTime, Boolean registeredAttendance) {
+    public MissaRequestDTO(Long id, Long massOfLiturgicalCalendarId, String dateTime, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Boolean registeredAttendance) {
         this.id = id;
         this.massOfLiturgicalCalendarId = massOfLiturgicalCalendarId;
         this.dateTime = dateTime;
+        this.nameCommunityOrParish = nameCommunityOrParish;
         this.registeredAttendance = registeredAttendance;
     }
 
@@ -44,6 +47,14 @@ public class MissaRequestDTO {
 
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {
+        return nameCommunityOrParish;
+    }
+
+    public void setNameCommunityOrParish(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
+        this.nameCommunityOrParish = nameCommunityOrParish;
     }
 
     public Boolean getRegisteredAttendance() {

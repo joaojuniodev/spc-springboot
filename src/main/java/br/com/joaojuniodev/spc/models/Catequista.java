@@ -21,13 +21,18 @@ public class Catequista implements Serializable {
     @Enumerated(EnumType.STRING)
     private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
 
+    @ManyToOne
+    @JoinColumn(name = "etapa_id")
+    private Etapa etapa;
+
     public Catequista() {}
 
-    public Catequista(Long id, String firstName, String lastName, NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
+    public Catequista(Long id, String firstName, String lastName, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Etapa etapa) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nameCommunityOrParish = nameCommunityOrParish;
+        this.etapa = etapa;
     }
 
     public Long getId() {
@@ -54,12 +59,20 @@ public class Catequista implements Serializable {
         this.lastName = lastName;
     }
 
-    public NameOfTheCommunityOrParishEnum getCode() {
+    public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {
         return nameCommunityOrParish;
     }
 
-    public void setCode(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
+    public void setNameCommunityOrParish(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
         this.nameCommunityOrParish = nameCommunityOrParish;
+    }
+
+    public Etapa getEtapa() {
+        return etapa;
+    }
+
+    public void setEtapa(Etapa etapa) {
+        this.etapa = etapa;
     }
 
     @Override
