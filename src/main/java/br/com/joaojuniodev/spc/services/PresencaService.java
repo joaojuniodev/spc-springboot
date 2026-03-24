@@ -17,6 +17,7 @@ import java.util.List;
 @Service
 public class PresencaService {
 
+    //oiii
     private final Logger logger = LoggerFactory.getLogger(CatequizandoService.class.getName());
 
     @Autowired
