@@ -54,11 +54,13 @@ public class MissaController {
     }
 
     @GetMapping(
-        value = "/findAllMassesDates",
+        value = "/find-by/masses-dates",
         produces = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<List<LocalDateTime>> findAllMassesDates() {
-        return ResponseEntity.ok().body(service.findAllMassesDates());
+    public ResponseEntity<List<LocalDateTime>> findAllMassesDatesByCommunityOrParish(
+        @RequestParam NameOfTheCommunityOrParishEnum communityOrParish
+    ) {
+        return ResponseEntity.ok().body(service.findAllMassesDates(communityOrParish));
     }
 
     @PostMapping(

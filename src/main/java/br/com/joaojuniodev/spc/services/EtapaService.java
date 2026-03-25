@@ -52,6 +52,7 @@ public class EtapaService {
         return mapper.convertEtapaEntityToResponseDTO(entity);
     }
 
+    @Transactional
     public List<EtapaResponseDTO> findByNameOfCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
 
         logger.info("Finding Steps by name of community or parish");

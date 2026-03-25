@@ -70,11 +70,11 @@ public class MissaService {
             .map(entity -> mapper.convertMissaEntityToResponseDTO(entity)).toList();
     }
 
-    public List<LocalDateTime> findAllMassesDates() {
+    public List<LocalDateTime> findAllMassesDates(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
 
         logger.info("Finding all Masses dates");
 
-        return repository.findAllMassesDates();
+        return repository.findAllMassesDates(nameCommunityOrParish);
     }
 
     public MissaResponseDTO create(MissaRequestDTO missa) {
