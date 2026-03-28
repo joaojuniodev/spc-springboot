@@ -16,4 +16,7 @@ public interface CatequistaRepository extends JpaRepository<Catequista, Long> {
     List<Catequista> findByNameCommunityOrParish(
         @Param("nameCommunityOrParish")NameOfTheCommunityOrParishEnum nameCommunityOrParish
     );
+
+    @Query("SELECT c FROM Catequista c WHERE c.etapa.id = :stepId")
+    List<Catequista> findByStepId(@Param("stepId") Long stepId);
 }

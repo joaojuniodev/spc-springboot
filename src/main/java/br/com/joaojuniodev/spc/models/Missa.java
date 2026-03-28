@@ -1,5 +1,6 @@
 package br.com.joaojuniodev.spc.models;
 
+import br.com.joaojuniodev.spc.models.enums.MassLocationEnum;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -30,6 +31,10 @@ public class Missa implements Serializable {
     @Column
     private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
 
+    @Enumerated(EnumType.STRING)
+    @Column
+    private MassLocationEnum location;
+
     @OneToOne
     private LiturgicalCalendar massOfLiturgicalCalendar;
 
@@ -38,11 +43,12 @@ public class Missa implements Serializable {
 
     public Missa() {}
 
-    public Missa(Long id, String title, LocalDateTime dateTime, NameOfTheCommunityOrParishEnum nameCommunityOrParish, LiturgicalCalendar massOfLiturgicalCalendar) {
+    public Missa(Long id, String title, LocalDateTime dateTime, NameOfTheCommunityOrParishEnum nameCommunityOrParish, MassLocationEnum location, LiturgicalCalendar massOfLiturgicalCalendar) {
         this.id = id;
         this.title = title;
         this.dateTime = dateTime;
         this.nameCommunityOrParish = nameCommunityOrParish;
+        this.location = location;
         this.massOfLiturgicalCalendar = massOfLiturgicalCalendar;
     }
 
@@ -92,6 +98,14 @@ public class Missa implements Serializable {
 
     public void setNameCommunityOrParish(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
         this.nameCommunityOrParish = nameCommunityOrParish;
+    }
+
+    public MassLocationEnum getLocation() {
+        return location;
+    }
+
+    public void setLocation(MassLocationEnum location) {
+        this.location = location;
     }
 
     public LiturgicalCalendar getMassOfLiturgicalCalendar() {

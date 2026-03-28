@@ -64,7 +64,7 @@ public class CatequizandoService {
 
         logger.info("Finding Catequizandos by etapaId");
 
-        return repository.findByEtapaId(etapaId).get()
+        return repository.findByEtapaIdAndNameCommunityOrParish(etapaId)
             .stream()
             .map(entity -> mapper.convertCatequizandoEntityToResponseDTO(entity)).toList();
     }

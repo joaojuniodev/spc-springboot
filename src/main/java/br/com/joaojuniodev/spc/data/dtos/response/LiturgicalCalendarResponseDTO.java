@@ -3,15 +3,15 @@ package br.com.joaojuniodev.spc.data.dtos.response;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class LiturgicalCalendarDTO {
+public class LiturgicalCalendarResponseDTO {
 
     private Long id;
     private String title;
     private LocalDate date;
 
-    public LiturgicalCalendarDTO() {}
+    public LiturgicalCalendarResponseDTO() {}
 
-    public LiturgicalCalendarDTO(Long id, String title, LocalDate date) {
+    public LiturgicalCalendarResponseDTO(Long id, String title, LocalDate date) {
         this.id = id;
         this.title = title;
         this.date = date;
@@ -45,7 +45,7 @@ public class LiturgicalCalendarDTO {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
-        LiturgicalCalendarDTO that = (LiturgicalCalendarDTO) o;
+        LiturgicalCalendarResponseDTO that = (LiturgicalCalendarResponseDTO) o;
         return Objects.equals(getId(), that.getId()) && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getDate(), that.getDate());
     }
 

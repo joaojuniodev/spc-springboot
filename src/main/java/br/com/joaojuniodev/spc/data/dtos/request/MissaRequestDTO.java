@@ -1,5 +1,6 @@
 package br.com.joaojuniodev.spc.data.dtos.request;
 
+import br.com.joaojuniodev.spc.models.enums.MassLocationEnum;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -12,17 +13,18 @@ public class MissaRequestDTO {
     private Long massOfLiturgicalCalendarId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private String dateTime;
+    private MassLocationEnum location;
     private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
     private Boolean registeredAttendance;
 
     public MissaRequestDTO() {}
 
-    public MissaRequestDTO(Long id, Long massOfLiturgicalCalendarId, String dateTime, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Boolean registeredAttendance) {
+    public MissaRequestDTO(Long id, Long massOfLiturgicalCalendarId, String dateTime, MassLocationEnum location, NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
         this.id = id;
         this.massOfLiturgicalCalendarId = massOfLiturgicalCalendarId;
         this.dateTime = dateTime;
+        this.location = location;
         this.nameCommunityOrParish = nameCommunityOrParish;
-        this.registeredAttendance = registeredAttendance;
     }
 
     public Long getId() {
@@ -47,6 +49,14 @@ public class MissaRequestDTO {
 
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public MassLocationEnum getLocation() {
+        return location;
+    }
+
+    public void setLocation(MassLocationEnum location) {
+        this.location = location;
     }
 
     public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {

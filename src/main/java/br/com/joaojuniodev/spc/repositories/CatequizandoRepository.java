@@ -39,4 +39,7 @@ public interface CatequizandoRepository extends JpaRepository<Catequizando, Long
     List<Catequizando> findByNameCommunityOrParish(
         @Param("nameCommunityOrParish") NameOfTheCommunityOrParishEnum nameCommunityOrParish
     );
+
+    @Query("SELECT c FROM Catequizando c WHERE c.etapa.id = :etapaId")
+    List<Catequizando> findByEtapaIdAndNameCommunityOrParish(@Param("etapaId") Long etapaId);
 }

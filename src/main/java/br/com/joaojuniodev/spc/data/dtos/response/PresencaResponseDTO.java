@@ -9,7 +9,7 @@ import java.util.Objects;
 public class PresencaResponseDTO {
 
     private Long id;
-    private CatequizandoResponseDTO catequizando;
+    private CatequizandoResponseByPresencaDTO catequizando;
     private MissaResponseDTO missa;
     @Enumerated(EnumType.STRING)
     private PresencaStatusEnum status;
@@ -17,7 +17,7 @@ public class PresencaResponseDTO {
 
     public PresencaResponseDTO() {}
 
-    public PresencaResponseDTO(Long id, CatequizandoResponseDTO catequizando, MissaResponseDTO missa, PresencaStatusEnum status, String justification) {
+    public PresencaResponseDTO(Long id, CatequizandoResponseByPresencaDTO catequizando, MissaResponseDTO missa, PresencaStatusEnum status, String justification) {
         this.id = id;
         this.catequizando = catequizando;
         this.missa = missa;
@@ -33,11 +33,11 @@ public class PresencaResponseDTO {
         this.id = id;
     }
 
-    public CatequizandoResponseDTO getCatequizando() {
+    public CatequizandoResponseByPresencaDTO getCatequizando() {
         return catequizando;
     }
 
-    public void setCatequizando(CatequizandoResponseDTO catequizando) {
+    public void setCatequizando(CatequizandoResponseByPresencaDTO catequizando) {
         this.catequizando = catequizando;
     }
 

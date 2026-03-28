@@ -36,21 +36,21 @@ public class CatequizandoController {
     }
 
     @GetMapping(
-        value = "/find-by",
+        value = "/find-by/communityOrParish",
         produces = { MediaType.APPLICATION_JSON_VALUE }
     )
     public ResponseEntity<List<CatequizandoResponseDTO>> findByNameCommunityOrParish(
-        @RequestParam NameOfTheCommunityOrParishEnum communityOrParish
+        @RequestParam NameOfTheCommunityOrParishEnum name
     ) {
-        return ResponseEntity.ok().body(service.findByNameOfCommunityOrParish(communityOrParish));
+        return ResponseEntity.ok().body(service.findByNameOfCommunityOrParish(name));
     }
 
     @GetMapping(
-        value = "/findByEtapaId/{etapaId}",
+        value = "/find-by/etapaId",
         produces = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<List<CatequizandoResponseDTO>> findByEtapaId(@PathVariable Long etapaId) {
-        return ResponseEntity.ok().body(service.findByEtapaId(etapaId));
+    public ResponseEntity<List<CatequizandoResponseDTO>> findByEtapaId(@RequestParam Long id) {
+        return ResponseEntity.ok().body(service.findByEtapaId(id));
     }
 
     @GetMapping(

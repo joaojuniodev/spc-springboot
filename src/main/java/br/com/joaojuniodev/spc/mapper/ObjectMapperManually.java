@@ -6,14 +6,13 @@ import br.com.joaojuniodev.spc.models.*;
 import br.com.joaojuniodev.spc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @Component
 public class ObjectMapperManually {
@@ -83,6 +82,21 @@ public class ObjectMapperManually {
         );
     }
 
+    @Transactional
+    public CatequizandoResponseByPresencaDTO convertCatequizandoEntityToByPresencaResponseDTO(Catequizando entity) {
+        var catequistas = catequistaRepository.findByStepId(entity.getEtapa().getId());
+        return new CatequizandoResponseByPresencaDTO(
+            entity.getFirstName()+" "+entity.getLastName(),
+            entity.getEtapa().getEtapa(),
+            catequistas.stream().map(this::convertCatequistaEntityToResponseByCatequizandoDTO).toList()
+        );
+    }
+
+    @Transactional
+    public CatequistaResponseByCatequizandoDTO convertCatequistaEntityToResponseByCatequizandoDTO(Catequista entity) {
+        return new CatequistaResponseByCatequizandoDTO(entity.getFirstName()+" "+entity.getLastName());
+    }
+
     public Etapa convertEtapaRequestToEntity(EtapaRequestDTO etapa) {
         List<Catequista> catequistas = new ArrayList<>();
         var catequizandos = catequizandoRepository.findByEtapaId(etapa.getId()).orElseThrow();
@@ -93,12 +107,6 @@ public class ObjectMapperManually {
                     () -> new RuntimeException("Not found this ID [Catequista]: " + id)
                 ))).toArray());
         }
-        /*
-        else {
-            catequistas.add(catequistaRepository.findById(etapa.getCatequistasId()[0])
-                .orElseThrow(() -> new RuntimeException("Not found this ID [Catequista]: " + etapa.getCatequistasId()[0])));
-        }
-        */
 
         return new Etapa(etapa.getId(), etapa.getEtapa(), etapa.getCommunityOrParish(), catequistas, catequizandos);
     }
@@ -136,6 +144,7 @@ public class ObjectMapperManually {
             massOfLiturgicalCalendar.getTitle(),
             LocalDateTime.parse(missa.getDateTime()),
             missa.getNameCommunityOrParish(),
+            missa.getLocation(),
             massOfLiturgicalCalendar
         );
     }
@@ -145,6 +154,7 @@ public class ObjectMapperManually {
             entity.getId(),
             entity.getTitle(),
             entity.getDateTime(),
+            entity.getLocation(),
             entity.getNameCommunityOrParish(),
             entity.getMassOfLiturgicalCalendar().getId(),
             entity.getRegisteredAttendance() != null
@@ -162,10 +172,14 @@ public class ObjectMapperManually {
     public PresencaResponseDTO convertPresencaEntityToResponseDTO(Presenca entity) {
         return new PresencaResponseDTO(
             entity.getId(),
-            convertCatequizandoEntityToResponseDTO(entity.getCatequizando()),
+            convertCatequizandoEntityToByPresencaResponseDTO(entity.getCatequizando()),
             convertMissaEntityToResponseDTO(entity.getMissa()),
             entity.getStatus(),
             entity.getJustification()
         );
+    }
+
+    public LiturgicalCalendarResponseDTO convertLiturgicalCalendarEntityToResponseDTO(LiturgicalCalendar entity) {
+        return new LiturgicalCalendarResponseDTO(entity.getId(), entity.getTitle(), entity.getDate());
     }
 }

@@ -1,5 +1,6 @@
 package br.com.joaojuniodev.spc.data.dtos.response;
 
+import br.com.joaojuniodev.spc.models.enums.MassLocationEnum;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 
 import java.time.LocalDateTime;
@@ -10,16 +11,18 @@ public class MissaResponseDTO {
     private Long id;
     private String title;
     private LocalDateTime dateTime;
+    private MassLocationEnum location;
     private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
     private Long massOfLiturgicalCalendarId;
     private Boolean registeredAttendance;
 
     public MissaResponseDTO() {}
 
-    public MissaResponseDTO(Long id, String title, LocalDateTime dateTime, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Long massOfLiturgicalCalendarId, Boolean registeredAttendance) {
+    public MissaResponseDTO(Long id, String title, LocalDateTime dateTime, MassLocationEnum location, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Long massOfLiturgicalCalendarId, Boolean registeredAttendance) {
         this.id = id;
         this.title = title;
         this.dateTime = dateTime;
+        this.location = location;
         this.nameCommunityOrParish = nameCommunityOrParish;
         this.massOfLiturgicalCalendarId = massOfLiturgicalCalendarId;
         this.registeredAttendance = registeredAttendance;
@@ -39,6 +42,14 @@ public class MissaResponseDTO {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public MassLocationEnum getLocation() {
+        return location;
+    }
+
+    public void setLocation(MassLocationEnum location) {
+        this.location = location;
     }
 
     public Long getMassOfLiturgicalCalendarId() {
