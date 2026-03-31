@@ -86,6 +86,7 @@ public class ObjectMapperManually {
     public CatequizandoResponseByPresencaDTO convertCatequizandoEntityToByPresencaResponseDTO(Catequizando entity) {
         var catequistas = catequistaRepository.findByStepId(entity.getEtapa().getId());
         return new CatequizandoResponseByPresencaDTO(
+            entity.getId(),
             entity.getFirstName()+" "+entity.getLastName(),
             entity.getEtapa().getEtapa(),
             catequistas.stream().map(this::convertCatequistaEntityToResponseByCatequizandoDTO).toList()

@@ -6,16 +6,26 @@ import java.util.List;
 
 public class CatequizandoResponseByPresencaDTO {
 
+    private Long id;
     private String fullName;
     private EtapaEnum step;
     private List<CatequistaResponseByCatequizandoDTO> catechists;
 
     public CatequizandoResponseByPresencaDTO() {}
 
-    public CatequizandoResponseByPresencaDTO(String fullName, EtapaEnum step, List<CatequistaResponseByCatequizandoDTO> catechists) {
+    public CatequizandoResponseByPresencaDTO(Long id, String fullName, EtapaEnum step, List<CatequistaResponseByCatequizandoDTO> catechists) {
+        this.id = id;
         this.fullName = fullName;
         this.step = step;
         this.catechists = catechists;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFullName() {
