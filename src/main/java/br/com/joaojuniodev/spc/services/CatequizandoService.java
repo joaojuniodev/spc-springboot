@@ -80,11 +80,23 @@ public class CatequizandoService {
     }
 
     @Transactional
-    public List<CatequizandoResponseDTO> searchByFirstName(String fullName) {
+    public List<CatequizandoResponseDTO> search(String fullName) {
+        var names = fullName.split(" ");
+
+        String firstName = "";
+        String lastName = "";
+
+        for (int i = 0; i < names.length; i++) {
+            if (i == 0) {
+                firstName = names[i];
+            } else {
+                lastName = names[i] + " ";
+            }
+        }
 
         logger.info("Searching Catequizando by FullName");
 
-        return repository.searchByFirstName(fullName)
+        return repository.search(firstName, lastName)
             .stream()
             .map(entity -> mapper.convertCatequizandoEntityToResponseDTO(entity)).toList();
     }

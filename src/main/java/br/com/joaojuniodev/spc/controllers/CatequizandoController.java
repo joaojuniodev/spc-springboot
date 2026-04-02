@@ -57,8 +57,8 @@ public class CatequizandoController {
         value = "/search-by",
         produces = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<List<CatequizandoResponseDTO>> searchByFirstName(@RequestParam String firstName) {
-        return ResponseEntity.ok().body(service.searchByFirstName(firstName));
+    public ResponseEntity<List<CatequizandoResponseDTO>> search(@RequestParam String name) {
+        return ResponseEntity.ok().body(service.search(name));
     }
 
     @GetMapping(
