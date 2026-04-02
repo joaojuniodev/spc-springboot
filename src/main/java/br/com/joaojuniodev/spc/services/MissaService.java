@@ -84,7 +84,7 @@ public class MissaService {
         LocalDateTime dateTimeThisCreatedMissa = LocalDateTime.parse(missa.getDateTime());
 
         for (Missa m : repository.findAll()) {
-            if (m.getDateTime().equals(dateTimeThisCreatedMissa)) {
+            if (m.getDateTime().equals(dateTimeThisCreatedMissa) && m.getLocation().equals(missa.getLocation())) {
                 throw new RuntimeException("Já existe missa neste dia e horário");
             }
         }
