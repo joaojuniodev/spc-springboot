@@ -163,11 +163,13 @@ public class ObjectMapperManually {
     }
 
     public Presenca convertPresencaRequestToEntity(PresencaRequestDTO presenca) {
+        Catequista catequista = null;
         Catequizando catequizando = null;
         Missa missa = null;
         if (presenca.getCatequizandoId() != null) catequizando = catequizandoRepository.findById(presenca.getCatequizandoId()).orElseThrow();
         if (presenca.getMissaId() != null) missa = missaRepository.findById(presenca.getMissaId()).orElseThrow();
-        return new Presenca(presenca.getId(), catequizando, missa, presenca.getStatus(), presenca.getJustification());
+        if (presenca.getCatequistaId() != null) catequista = catequistaRepository.findById(presenca.getCatequistaId()).orElseThrow();
+        return new Presenca(presenca.getId(), catequizando, missa, catequista, presenca.getStatus(), presenca.getJustification());
     }
 
     public PresencaResponseDTO convertPresencaEntityToResponseDTO(Presenca entity) {
@@ -175,6 +177,7 @@ public class ObjectMapperManually {
             entity.getId(),
             convertCatequizandoEntityToByPresencaResponseDTO(entity.getCatequizando()),
             convertMissaEntityToResponseDTO(entity.getMissa()),
+            convertCatequistaEntityToByEtapaResponseDTO(entity.getCatequista()),
             entity.getStatus(),
             entity.getJustification()
         );

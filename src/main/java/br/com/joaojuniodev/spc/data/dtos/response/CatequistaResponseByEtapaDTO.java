@@ -1,7 +1,5 @@
 package br.com.joaojuniodev.spc.data.dtos.response;
 
-import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
-
 import java.util.Objects;
 
 public class CatequistaResponseByEtapaDTO {

@@ -4,6 +4,7 @@ import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Catequista implements Serializable {
@@ -24,6 +25,9 @@ public class Catequista implements Serializable {
     @ManyToOne
     @JoinColumn(name = "etapa_id")
     private Etapa etapa;
+
+    @OneToMany
+    private List<Presenca> presencas;
 
     public Catequista() {}
 
@@ -73,6 +77,14 @@ public class Catequista implements Serializable {
 
     public void setEtapa(Etapa etapa) {
         this.etapa = etapa;
+    }
+
+    public List<Presenca> getPresencas() {
+        return presencas;
+    }
+
+    public void setPresencas(List<Presenca> presencas) {
+        this.presencas = presencas;
     }
 
     @Override

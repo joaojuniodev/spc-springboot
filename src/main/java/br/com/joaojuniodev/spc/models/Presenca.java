@@ -26,6 +26,10 @@ public class Presenca implements Serializable {
     @JoinColumn(name = "missa_id", nullable = false)
     private Missa missa;
 
+    @ManyToOne
+    @JoinColumn(name = "catequista_id", nullable = false)
+    private Catequista catequista;
+
     @Column(nullable = false)
     private PresencaStatusEnum status;
     
@@ -33,10 +37,11 @@ public class Presenca implements Serializable {
 
     public Presenca() {}
 
-    public Presenca(Long id, Catequizando catequizando, Missa missa, PresencaStatusEnum status, String justification) {
+    public Presenca(Long id, Catequizando catequizando, Missa missa, Catequista catequista, PresencaStatusEnum status, String justification) {
         this.id = id;
         this.catequizando = catequizando;
         this.missa = missa;
+        this.catequista = catequista;
         this.status = status;
         this.justification = justification;
     }
@@ -79,6 +84,14 @@ public class Presenca implements Serializable {
 
     public void setJustification(String justification) {
         this.justification = justification;
+    }
+
+    public Catequista getCatequista() {
+        return catequista;
+    }
+
+    public void setCatequista(Catequista catequista) {
+        this.catequista = catequista;
     }
 
     @Override

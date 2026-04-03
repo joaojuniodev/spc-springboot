@@ -4,6 +4,7 @@ import br.com.joaojuniodev.spc.data.dtos.request.PresencaRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.PresencaResponseDTO;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
 import br.com.joaojuniodev.spc.models.Missa;
+import br.com.joaojuniodev.spc.models.Presenca;
 import br.com.joaojuniodev.spc.repositories.CatequizandoRepository;
 import br.com.joaojuniodev.spc.repositories.MissaRepository;
 import br.com.joaojuniodev.spc.repositories.PresencaRepository;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -58,12 +60,12 @@ public class PresencaService {
             .stream()
             .map(entity -> mapper.convertPresencaEntityToResponseDTO(entity)).toList();
     }
-
+    
     public PresencaResponseDTO create(PresencaRequestDTO presenca) {
 
         logger.info("Creating Presenca");
 
-        var entity = mapper.convertPresencaRequestToEntity(presenca);
+        Presenca entity = mapper.convertPresencaRequestToEntity(presenca);
 
         if (repository.existsByMissaIdAndCatequizandoId(entity.getMissa().getId(), entity.getCatequizando().getId())) {
             throw new RuntimeException("Presença já registrada.");

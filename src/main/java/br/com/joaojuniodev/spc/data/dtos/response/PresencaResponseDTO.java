@@ -11,16 +11,18 @@ public class PresencaResponseDTO {
     private Long id;
     private CatequizandoResponseByPresencaDTO catequizando;
     private MissaResponseDTO missa;
+    private CatequistaResponseByEtapaDTO catequista;
     @Enumerated(EnumType.STRING)
     private PresencaStatusEnum status;
     private String justification;
 
     public PresencaResponseDTO() {}
 
-    public PresencaResponseDTO(Long id, CatequizandoResponseByPresencaDTO catequizando, MissaResponseDTO missa, PresencaStatusEnum status, String justification) {
+    public PresencaResponseDTO(Long id, CatequizandoResponseByPresencaDTO catequizando, MissaResponseDTO missa, CatequistaResponseByEtapaDTO catequista, PresencaStatusEnum status, String justification) {
         this.id = id;
         this.catequizando = catequizando;
         this.missa = missa;
+        this.catequista = catequista;
         this.status = status;
         this.justification = justification;
     }
@@ -49,6 +51,14 @@ public class PresencaResponseDTO {
         this.missa = missa;
     }
 
+    public CatequistaResponseByEtapaDTO getCatequista() {
+        return catequista;
+    }
+
+    public void setCatequista(CatequistaResponseByEtapaDTO catequista) {
+        this.catequista = catequista;
+    }
+
     public PresencaStatusEnum getStatus() {
         return status;
     }
@@ -70,7 +80,7 @@ public class PresencaResponseDTO {
         if (o == null || getClass() != o.getClass()) return false;
 
         PresencaResponseDTO that = (PresencaResponseDTO) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getCatequizando(), that.getCatequizando()) && Objects.equals(getMissa(), that.getMissa()) && getStatus() == that.getStatus() && Objects.equals(getJustification(), that.getJustification());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getCatequizando(), that.getCatequizando()) && Objects.equals(getMissa(), that.getMissa()) && Objects.equals(getCatequista(), that.getCatequista()) && getStatus() == that.getStatus() && Objects.equals(getJustification(), that.getJustification());
     }
 
     @Override
@@ -78,6 +88,7 @@ public class PresencaResponseDTO {
         int result = Objects.hashCode(getId());
         result = 31 * result + Objects.hashCode(getCatequizando());
         result = 31 * result + Objects.hashCode(getMissa());
+        result = 31 * result + Objects.hashCode(getCatequista());
         result = 31 * result + Objects.hashCode(getStatus());
         result = 31 * result + Objects.hashCode(getJustification());
         return result;

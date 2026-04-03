@@ -1,7 +1,5 @@
 package br.com.joaojuniodev.spc.data.dtos.request;
 
-import br.com.joaojuniodev.spc.data.dtos.response.CatequizandoResponseDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.MissaResponseDTO;
 import br.com.joaojuniodev.spc.models.enums.PresencaStatusEnum;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -11,6 +9,7 @@ import java.util.Objects;
 public class PresencaRequestDTO {
 
     private Long id;
+    private Long catequistaId;
     private Long catequizandoId;
     private Long missaId;
     @Enumerated(EnumType.STRING)
@@ -19,8 +18,9 @@ public class PresencaRequestDTO {
 
     public PresencaRequestDTO() {}
 
-    public PresencaRequestDTO(Long id, Long catequizandoId, Long missaId, PresencaStatusEnum status, String justification) {
+    public PresencaRequestDTO(Long id, Long catequistaId, Long catequizandoId, Long missaId, PresencaStatusEnum status, String justification) {
         this.id = id;
+        this.catequistaId = catequistaId;
         this.catequizandoId = catequizandoId;
         this.missaId = missaId;
         this.status = status;
@@ -33,6 +33,14 @@ public class PresencaRequestDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCatequistaId() {
+        return catequistaId;
+    }
+
+    public void setCatequistaId(Long catequistaId) {
+        this.catequistaId = catequistaId;
     }
 
     public Long getCatequizandoId() {
