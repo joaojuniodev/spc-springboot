@@ -60,7 +60,7 @@ public class PresencaService {
             .stream()
             .map(entity -> mapper.convertPresencaEntityToResponseDTO(entity)).toList();
     }
-    
+
     public PresencaResponseDTO create(PresencaRequestDTO presenca) {
 
         logger.info("Creating Presenca");
