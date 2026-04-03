@@ -67,6 +67,16 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>10.20.1</version>
+				<configuration>
+					<url>jdbc:mysql://mysql.railway.internal:3306/spc</url>
+					<user>developer</user>
+					<password>1234567</password>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

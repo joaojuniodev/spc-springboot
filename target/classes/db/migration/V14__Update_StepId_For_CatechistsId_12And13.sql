@@ -1,1 +1,0 @@
-UPDATE catequista SET etapa_id = 13 WHERE id IN (12, 13);
