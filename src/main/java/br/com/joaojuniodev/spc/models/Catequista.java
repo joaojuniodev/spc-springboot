@@ -26,7 +26,7 @@ public class Catequista implements Serializable {
     @JoinColumn(name = "etapa_id")
     private Etapa etapa;
 
-    @OneToMany
+    @OneToMany(mappedBy = "catequista")
     private List<Presenca> presencas;
 
     public Catequista() {}
