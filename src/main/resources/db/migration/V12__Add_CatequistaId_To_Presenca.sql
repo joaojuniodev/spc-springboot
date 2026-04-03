@@ -1,1 +1,0 @@
-ALTER TABLE presenca ADD COLUMN catequista_id BIGINT NOT NULL;
