@@ -9,7 +9,7 @@ import java.util.Objects;
 @Entity
 @Table(
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"catequizando_id", "missa_id"})
+        @UniqueConstraint(columnNames = {"catequizando_id", "missa_id", "catequista_id"})
     }
 )
 public class Presenca implements Serializable {
