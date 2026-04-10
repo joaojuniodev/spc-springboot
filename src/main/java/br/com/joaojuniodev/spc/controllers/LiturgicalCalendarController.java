@@ -1,7 +1,6 @@
 package br.com.joaojuniodev.spc.controllers;
 
-import br.com.joaojuniodev.spc.data.dtos.response.LiturgicalCalendarResponseDTO;
-import br.com.joaojuniodev.spc.models.LiturgicalCalendar;
+import br.com.joaojuniodev.spc.data.dtos.response.liturgicalCalendar.LiturgicalCalendarResponseDTO;
 import br.com.joaojuniodev.spc.services.LiturgicalCalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController

@@ -1,10 +1,8 @@
 package br.com.joaojuniodev.spc.services;
 
 import br.com.joaojuniodev.spc.data.dtos.request.MissaRequestDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.EtapaResponseDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.MissaResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.mass.MissaResponseDTO;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
-import br.com.joaojuniodev.spc.models.LiturgicalCalendar;
 import br.com.joaojuniodev.spc.models.Missa;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.repositories.LiturgicalCalendarRepository;

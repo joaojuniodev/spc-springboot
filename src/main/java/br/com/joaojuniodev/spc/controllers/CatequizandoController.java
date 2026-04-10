@@ -1,8 +1,7 @@
 package br.com.joaojuniodev.spc.controllers;
 
 import br.com.joaojuniodev.spc.data.dtos.request.CatequizandoRequestDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.CatequistaResponseDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.CatequizandoResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseDTO;
 import br.com.joaojuniodev.spc.models.enums.EtapaEnum;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.services.CatequizandoService;
@@ -23,7 +22,7 @@ public class CatequizandoController {
     @GetMapping(
         produces = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<List<CatequizandoResponseDTO>> findAll() {
+    public ResponseEntity<List<CatechumenResponseDTO>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
     }
 
@@ -31,7 +30,7 @@ public class CatequizandoController {
         value = "/{id}",
         produces = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<CatequizandoResponseDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<CatechumenResponseDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
@@ -39,7 +38,7 @@ public class CatequizandoController {
         value = "/find-by/communityOrParish",
         produces = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<List<CatequizandoResponseDTO>> findByNameCommunityOrParish(
+    public ResponseEntity<List<CatechumenResponseDTO>> findByNameCommunityOrParish(
         @RequestParam NameOfTheCommunityOrParishEnum name
     ) {
         return ResponseEntity.ok().body(service.findByNameOfCommunityOrParish(name));
@@ -49,7 +48,7 @@ public class CatequizandoController {
         value = "/find-by/etapaId",
         produces = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<List<CatequizandoResponseDTO>> findByEtapaId(@RequestParam Long id) {
+    public ResponseEntity<List<CatechumenResponseDTO>> findByEtapaId(@RequestParam Long id) {
         return ResponseEntity.ok().body(service.findByEtapaId(id));
     }
 
@@ -57,7 +56,7 @@ public class CatequizandoController {
         value = "/search-by",
         produces = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<List<CatequizandoResponseDTO>> search(@RequestParam String name) {
+    public ResponseEntity<List<CatechumenResponseDTO>> search(@RequestParam String name) {
         return ResponseEntity.ok().body(service.search(name));
     }
 
@@ -65,7 +64,7 @@ public class CatequizandoController {
         value = "/filter",
         produces = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<List<CatequizandoResponseDTO>> filterByCatechistNameAndStep(
+    public ResponseEntity<List<CatechumenResponseDTO>> filterByCatechistNameAndStep(
         @RequestParam String catechistName, @RequestParam EtapaEnum step
     ) {
         return ResponseEntity.ok().body(service.findByCatechistAndStep(catechistName, step));
@@ -75,7 +74,7 @@ public class CatequizandoController {
         produces = { MediaType.APPLICATION_JSON_VALUE },
         consumes = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<CatequizandoResponseDTO> create(@RequestBody CatequizandoRequestDTO catequizando) {
+    public ResponseEntity<CatechumenResponseDTO> create(@RequestBody CatequizandoRequestDTO catequizando) {
         return ResponseEntity.ok().body(service.create(catequizando));
     }
 
@@ -83,12 +82,12 @@ public class CatequizandoController {
         produces = { MediaType.APPLICATION_JSON_VALUE },
         consumes = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<CatequizandoResponseDTO> update(@RequestBody CatequizandoRequestDTO catequizando) {
+    public ResponseEntity<CatechumenResponseDTO> update(@RequestBody CatequizandoRequestDTO catequizando) {
         return ResponseEntity.ok().body(service.update(catequizando));
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<CatequizandoResponseDTO> update(@PathVariable Long id) {
+    public ResponseEntity<CatechumenResponseDTO> update(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

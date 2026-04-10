@@ -1,8 +1,7 @@
 package br.com.joaojuniodev.spc.services;
 
 import br.com.joaojuniodev.spc.data.dtos.request.EtapaRequestDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.CatequistaResponseDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.EtapaResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.step.EtapaResponseDTO;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
 import br.com.joaojuniodev.spc.models.Catequista;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;

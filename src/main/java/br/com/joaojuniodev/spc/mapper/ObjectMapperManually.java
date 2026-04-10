@@ -1,7 +1,18 @@
 package br.com.joaojuniodev.spc.mapper;
 
 import br.com.joaojuniodev.spc.data.dtos.request.*;
-import br.com.joaojuniodev.spc.data.dtos.response.*;
+import br.com.joaojuniodev.spc.data.dtos.response.catechist.CatequistaResponseByCatequizandoDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.catechist.CatequistaResponseByEtapaDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.catechist.CatequistaResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseByStepDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseByPresenceDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.liturgicalCalendar.LiturgicalCalendarResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.mass.MissaResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.presence.PresencaResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.step.EtapaByCatequizandoResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.step.EtapaResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.step.StepOfCatechistResponseDTO;
 import br.com.joaojuniodev.spc.models.*;
 import br.com.joaojuniodev.spc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +69,10 @@ public class ObjectMapperManually {
         );
     }
 
-    public Catequizando convertCatequizandoRequestToEntity(CatequizandoRequestDTO catequizando) {
+    public Catechumen convertCatequizandoRequestToEntity(CatequizandoRequestDTO catequizando) {
         Etapa etapa = null;
         if (catequizando.getEtapaId() != null) etapa = etapaRepository.findById(catequizando.getEtapaId()).orElseThrow();
-        return new Catequizando(
+        return new Catechumen(
             catequizando.getId(),
             catequizando.getFirstName(),
             catequizando.getLastName(),
@@ -71,8 +82,8 @@ public class ObjectMapperManually {
         );
     }
 
-    public CatequizandoResponseDTO convertCatequizandoEntityToResponseDTO(Catequizando entity) {
-        return new CatequizandoResponseDTO(
+    public CatechumenResponseDTO convertCatequizandoEntityToResponseDTO(Catechumen entity) {
+        return new CatechumenResponseDTO(
             entity.getId(),
             entity.getFirstName(),
             entity.getLastName(),
@@ -83,9 +94,9 @@ public class ObjectMapperManually {
     }
 
     @Transactional
-    public CatequizandoResponseByPresencaDTO convertCatequizandoEntityToByPresencaResponseDTO(Catequizando entity) {
+    public CatechumenResponseByPresenceDTO convertCatequizandoEntityToByPresencaResponseDTO(Catechumen entity) {
         var catequistas = catequistaRepository.findByStepId(entity.getEtapa().getId());
-        return new CatequizandoResponseByPresencaDTO(
+        return new CatechumenResponseByPresenceDTO(
             entity.getId(),
             entity.getFirstName()+" "+entity.getLastName(),
             entity.getEtapa().getEtapa(),
@@ -126,8 +137,8 @@ public class ObjectMapperManually {
         return new CatequistaResponseByEtapaDTO(catequista.getId(), catequista.getFirstName(), catequista.getLastName());
     }
 
-    public CatequizandoResponseByEtapaDTO convertCatequizandoEntityToByEtapaResponseDTO(Catequizando catequizando) {
-        return new CatequizandoResponseByEtapaDTO(catequizando.getId(), catequizando.getFirstName(), catequizando.getLastName(), catequizando.getBirthDate());
+    public CatechumenResponseByStepDTO convertCatequizandoEntityToByEtapaResponseDTO(Catechumen catequizando) {
+        return new CatechumenResponseByStepDTO(catequizando.getId(), catequizando.getFirstName(), catequizando.getLastName(), catequizando.getBirthDate());
     }
 
     public EtapaByCatequizandoResponseDTO convertEtapaEntityToByCatequizandoResponseDTO(Etapa entity) {
@@ -162,17 +173,17 @@ public class ObjectMapperManually {
         );
     }
 
-    public Presenca convertPresencaRequestToEntity(PresencaRequestDTO presenca) {
+    public Presence convertPresencaRequestToEntity(PresencaRequestDTO presenca) {
         Catequista catequista = null;
-        Catequizando catequizando = null;
+        Catechumen catequizando = null;
         Missa missa = null;
         if (presenca.getCatequizandoId() != null) catequizando = catequizandoRepository.findById(presenca.getCatequizandoId()).orElseThrow();
         if (presenca.getMissaId() != null) missa = missaRepository.findById(presenca.getMissaId()).orElseThrow();
         if (presenca.getCatequistaId() != null) catequista = catequistaRepository.findById(presenca.getCatequistaId()).orElseThrow();
-        return new Presenca(presenca.getId(), catequizando, missa, catequista, presenca.getStatus(), presenca.getJustification());
+        return new Presence(presenca.getId(), catequizando, missa, catequista, presenca.getStatus(), presenca.getJustification());
     }
 
-    public PresencaResponseDTO convertPresencaEntityToResponseDTO(Presenca entity) {
+    public PresencaResponseDTO convertPresencaEntityToResponseDTO(Presence entity) {
         return new PresencaResponseDTO(
             entity.getId(),
             convertCatequizandoEntityToByPresencaResponseDTO(entity.getCatequizando()),

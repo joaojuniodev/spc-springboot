@@ -27,7 +27,7 @@ public class Catequista implements Serializable {
     private Etapa etapa;
 
     @OneToMany(mappedBy = "catequista")
-    private List<Presenca> presencas;
+    private List<Presence> presencas;
 
     public Catequista() {}
 
@@ -79,11 +79,11 @@ public class Catequista implements Serializable {
         this.etapa = etapa;
     }
 
-    public List<Presenca> getPresencas() {
+    public List<Presence> getPresencas() {
         return presencas;
     }
 
-    public void setPresencas(List<Presenca> presencas) {
+    public void setPresencas(List<Presence> presencas) {
         this.presencas = presencas;
     }
 

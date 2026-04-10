@@ -1,7 +1,7 @@
 package br.com.joaojuniodev.spc.services;
 
 import br.com.joaojuniodev.spc.data.dtos.request.CatequizandoRequestDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.CatequizandoResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseDTO;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
 import br.com.joaojuniodev.spc.models.enums.EtapaEnum;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
@@ -30,7 +30,7 @@ public class CatequizandoService {
     private ObjectMapperManually mapper;
 
     @Transactional
-    public List<CatequizandoResponseDTO> findAll() {
+    public List<CatechumenResponseDTO> findAll() {
 
         logger.info("Finding All Catequizandos");
 
@@ -40,7 +40,7 @@ public class CatequizandoService {
     }
 
     @Transactional
-    public CatequizandoResponseDTO findById(Long id) {
+    public CatechumenResponseDTO findById(Long id) {
 
         logger.info("Finding By Id Catequizandos");
 
@@ -50,7 +50,7 @@ public class CatequizandoService {
     }
 
     @Transactional
-    public List<CatequizandoResponseDTO> findByNameOfCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
+    public List<CatechumenResponseDTO> findByNameOfCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
 
         logger.info("Finding Catechumens by name of community or parish");
 
@@ -60,7 +60,7 @@ public class CatequizandoService {
     }
 
     @Transactional
-    public List<CatequizandoResponseDTO> findByEtapaId(Long etapaId) {
+    public List<CatechumenResponseDTO> findByEtapaId(Long etapaId) {
 
         logger.info("Finding Catequizandos by etapaId");
 
@@ -70,7 +70,7 @@ public class CatequizandoService {
     }
 
     @Transactional
-    public List<CatequizandoResponseDTO> findByCatechistAndStep(String catechistName, EtapaEnum stepEnum) {
+    public List<CatechumenResponseDTO> findByCatechistAndStep(String catechistName, EtapaEnum stepEnum) {
 
         logger.info("Finding Catechumens by catechistName and stepEnum");
 
@@ -80,7 +80,7 @@ public class CatequizandoService {
     }
 
     @Transactional
-    public List<CatequizandoResponseDTO> search(String fullName) {
+    public List<CatechumenResponseDTO> search(String fullName) {
         var names = fullName.split(" ");
 
         String firstName = "";
@@ -101,7 +101,7 @@ public class CatequizandoService {
             .map(entity -> mapper.convertCatequizandoEntityToResponseDTO(entity)).toList();
     }
 
-    public CatequizandoResponseDTO create(CatequizandoRequestDTO catequizando) {
+    public CatechumenResponseDTO create(CatequizandoRequestDTO catequizando) {
 
         logger.info("Creating Catequizando");
 
@@ -110,7 +110,7 @@ public class CatequizandoService {
         );
     }
 
-    public CatequizandoResponseDTO update(CatequizandoRequestDTO catequizando) {
+    public CatechumenResponseDTO update(CatequizandoRequestDTO catequizando) {
 
         logger.info("Updating Catequizando");
 

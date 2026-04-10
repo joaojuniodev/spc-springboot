@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.TimeZone;
 
 @Entity
 public class Missa implements Serializable {
@@ -40,7 +39,7 @@ public class Missa implements Serializable {
     private LiturgicalCalendar massOfLiturgicalCalendar;
 
     @OneToMany(mappedBy = "missa")
-    private List<Presenca> presencas;
+    private List<Presence> presencas;
 
     public Missa() {}
 
@@ -77,11 +76,11 @@ public class Missa implements Serializable {
         this.dateTime = dateTime;
     }
 
-    public List<Presenca> getPresencas() {
+    public List<Presence> getPresencas() {
         return presencas;
     }
 
-    public void setPresencas(List<Presenca> presencas) {
+    public void setPresencas(List<Presence> presencas) {
         this.presencas = presencas;
     }
 
@@ -117,11 +116,11 @@ public class Missa implements Serializable {
         this.massOfLiturgicalCalendar = massOfLiturgicalCalendar;
     }
 
-    public List<Presenca> getPresenca() {
+    public List<Presence> getPresenca() {
         return presencas;
     }
 
-    public void setPresenca(List<Presenca> presencas) {
+    public void setPresenca(List<Presence> presencas) {
         this.presencas = presencas;
     }
 

@@ -1,7 +1,7 @@
 package br.com.joaojuniodev.spc.controllers;
 
 import br.com.joaojuniodev.spc.data.dtos.request.CatequistaRequestDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.CatequistaResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.catechist.CatequistaResponseDTO;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.services.CatequistaService;
 import org.springframework.beans.factory.annotation.Autowired;

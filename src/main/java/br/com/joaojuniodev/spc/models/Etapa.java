@@ -27,11 +27,11 @@ public class Etapa implements Serializable {
     private List<Catequista> catequistas;
 
     @OneToMany(mappedBy = "etapa", cascade = CascadeType.ALL)
-    private List<Catequizando> catequizandos = new ArrayList<>();
+    private List<Catechumen> catequizandos = new ArrayList<>();
 
     public Etapa() {}
 
-    public Etapa(Long id, EtapaEnum etapa, NameOfTheCommunityOrParishEnum nameCommunityOrParish, List<Catequista> catequistas, List<Catequizando> catequizandos) {
+    public Etapa(Long id, EtapaEnum etapa, NameOfTheCommunityOrParishEnum nameCommunityOrParish, List<Catequista> catequistas, List<Catechumen> catequizandos) {
         this.id = id;
         this.etapa = etapa;
         this.nameCommunityOrParish = nameCommunityOrParish;
@@ -75,15 +75,15 @@ public class Etapa implements Serializable {
         this.nameCommunityOrParish = nameCommunityOrParish;
     }
 
-    public List<Catequizando> getCatequizandos() {
+    public List<Catechumen> getCatequizandos() {
         return catequizandos;
     }
 
-    public void setCatequizandos(List<Catequizando> catequizandos) {
+    public void setCatequizandos(List<Catechumen> catequizandos) {
         this.catequizandos = catequizandos;
     }
 
-    public void addCatequizando(Catequizando catequizando) {
+    public void addCatequizando(Catechumen catequizando) {
         this.catequizandos.add(catequizando);
     }
 
