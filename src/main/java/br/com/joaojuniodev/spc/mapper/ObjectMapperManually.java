@@ -9,6 +9,7 @@ import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponse
 import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.liturgicalCalendar.LiturgicalCalendarResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.mass.MissaResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.presence.CatechumenIsPresentDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.presence.PresencaResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.step.EtapaByCatequizandoResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.step.EtapaResponseDTO;
@@ -107,6 +108,10 @@ public class ObjectMapperManually {
     @Transactional
     public CatequistaResponseByCatequizandoDTO convertCatequistaEntityToResponseByCatequizandoDTO(Catequista entity) {
         return new CatequistaResponseByCatequizandoDTO(entity.getFirstName()+" "+entity.getLastName());
+    }
+
+    public CatechumenIsPresentDTO convertCatechumenToCatechumensIsPresentDTO(Catechumen entity) {
+        return new CatechumenIsPresentDTO(entity.getId(), entity.getFirstName(), entity.getLastName());
     }
 
     public Etapa convertEtapaRequestToEntity(EtapaRequestDTO etapa) {

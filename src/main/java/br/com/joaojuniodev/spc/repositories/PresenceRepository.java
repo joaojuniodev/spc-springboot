@@ -14,17 +14,16 @@ public interface PresenceRepository extends JpaRepository<Presence, Long> {
 
     boolean existsByMissaIdAndCatequizandoId(Long missaId, Long catequizandoId);
 
-    @Query("SELECT p FROM Presence p WHERE p.catequizando.id = :catechumenId")
+    @Query("SELECT p FROM Presenca p WHERE p.catequizando.id = :catechumenId")
     List<Presence> findByCatechumenId(@Param("catechumenId") Long catechumenId);
 
     @Query(
         value = """
-            SELECT c.*
-            FROM presenca p
-            JOIN catequizando AS c ON c.id = p.catequizando_id
-            WHERE p.missa_id = :massId;
-        """,
-        nativeQuery = true
+            SELECT c
+            FROM Presenca p
+            JOIN p.catequizando c
+            WHERE p.missa.title = :titleMassFromLiturgicalCalendar
+        """
     )
-    List<Catechumen> findPresentsCatechumensByMassId(@Param("massId") Long massId);
+    List<Catechumen> findPresentsCatechumensByMass(@Param("titleMassFromLiturgicalCalendar") String titleMassFromLiturgicalCalendar);
 }

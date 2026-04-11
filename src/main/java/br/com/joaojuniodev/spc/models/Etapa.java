@@ -23,7 +23,7 @@ public class Etapa implements Serializable {
     @Column
     private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
 
-    @OneToMany(mappedBy = "etapa", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "etapa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Catequista> catequistas;
 
     @OneToMany(mappedBy = "etapa", cascade = CascadeType.ALL)

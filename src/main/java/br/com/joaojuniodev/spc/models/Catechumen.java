@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "Catequizando")
 public class Catechumen implements Serializable {
 
     @Id

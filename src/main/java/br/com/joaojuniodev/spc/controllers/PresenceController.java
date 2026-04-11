@@ -2,6 +2,8 @@ package br.com.joaojuniodev.spc.controllers;
 
 import br.com.joaojuniodev.spc.data.dtos.request.PresencaRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseByPresenceDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.presence.CatechumenIsPresentDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.presence.PresencaResponseDTO;
 import br.com.joaojuniodev.spc.services.PresenceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +44,11 @@ public class PresenceController {
     }
 
     @GetMapping(
-        value = "/mass/{massId}/present-catechumens",
+        value = "present-catechumens/mass",
         produces = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<List<CatechumenResponseByPresenceDTO>> getPresentCatechumensByMass(@PathVariable Long massId) {
-        return ResponseEntity.ok().body(service.listCatechumensPresentAtMass(massId));
+    public ResponseEntity<List<CatechumenIsPresentDTO>> getPresentCatechumensByMass(@RequestParam("title") String titleMassFromLiturgicalCalendar) {
+        return ResponseEntity.ok().body(service.listCatechumensPresentAtMass(titleMassFromLiturgicalCalendar));
     }
 
     @PostMapping(

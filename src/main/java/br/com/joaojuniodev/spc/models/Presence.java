@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Presenca")
 @Table(
     uniqueConstraints = {
         @UniqueConstraint(columnNames = {"catequizando_id", "missa_id", "catequista_id"})

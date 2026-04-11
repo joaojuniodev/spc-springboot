@@ -1,12 +1,15 @@
 package br.com.joaojuniodev.spc.services;
 
 import br.com.joaojuniodev.spc.data.dtos.request.PresencaRequestDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseByPresenceDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.catechist.CatequistaResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.presence.CatechumenIsPresentDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.presence.PresencaResponseDTO;
 import br.com.joaojuniodev.spc.exceptions.handler.ConflicWhenSavingInTheDatabaseException;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
 import br.com.joaojuniodev.spc.models.Missa;
 import br.com.joaojuniodev.spc.models.Presence;
+import br.com.joaojuniodev.spc.repositories.CatequistaRepository;
 import br.com.joaojuniodev.spc.repositories.CatequizandoRepository;
 import br.com.joaojuniodev.spc.repositories.MissaRepository;
 import br.com.joaojuniodev.spc.repositories.PresenceRepository;
@@ -27,6 +30,9 @@ public class PresenceService {
 
     @Autowired
     private CatequizandoRepository catequizandoRepository;
+
+    @Autowired
+    private CatequistaRepository catequistaRepository;
 
     @Autowired
     private MissaRepository missaRepository;
@@ -61,13 +67,14 @@ public class PresenceService {
             .map(entity -> mapper.convertPresencaEntityToResponseDTO(entity)).toList();
     }
 
-    public List<CatechumenResponseByPresenceDTO> listCatechumensPresentAtMass(Long massId) {
+    public List<CatechumenIsPresentDTO> listCatechumensPresentAtMass(String titleMassFromLiturgicalCalendar) {
 
         logger.info("Listing catechumens presents at Mass");
 
-        return repository.findPresentsCatechumensByMassId(massId)
+        return repository.findPresentsCatechumensByMass(titleMassFromLiturgicalCalendar)
             .stream()
-            .map(entity -> mapper.convertCatequizandoEntityToByPresencaResponseDTO(entity)).toList();
+            .map(mapper::convertCatechumenToCatechumensIsPresentDTO)
+            .toList();
     }
 
     public PresencaResponseDTO create(PresencaRequestDTO presenca) {

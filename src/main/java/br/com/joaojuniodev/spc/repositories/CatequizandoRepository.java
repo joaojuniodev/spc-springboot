@@ -19,7 +19,7 @@ public interface CatequizandoRepository extends JpaRepository<Catechumen, Long> 
     @Query("""
         SELECT c
         FROM
-            Catechumen c
+            Catequizando c
         WHERE
             c.firstName LIKE CONCAT('%', :firstName, '%')
         AND
@@ -28,7 +28,7 @@ public interface CatequizandoRepository extends JpaRepository<Catechumen, Long> 
     List<Catechumen> search(@Param("firstName") String firstName, @Param("lastName") String lastName);
 
     @Query("""
-        SELECT c FROM Catechumen c
+        SELECT c FROM Catequizando c
         JOIN c.etapa e
         JOIN e.catequistas cat
         WHERE cat.firstName = :catechistName
@@ -39,11 +39,11 @@ public interface CatequizandoRepository extends JpaRepository<Catechumen, Long> 
         @Param("step") EtapaEnum step
     );
 
-    @Query("SELECT c FROM Catechumen c WHERE c.nameCommunityOrParish = :nameCommunityOrParish")
+    @Query("SELECT c FROM Catequizando c WHERE c.nameCommunityOrParish = :nameCommunityOrParish")
     List<Catechumen> findByNameCommunityOrParish(
         @Param("nameCommunityOrParish") NameOfTheCommunityOrParishEnum nameCommunityOrParish
     );
 
-    @Query("SELECT c FROM Catechumen c WHERE c.etapa.id = :etapaId")
+    @Query("SELECT c FROM Catequizando c WHERE c.etapa.id = :etapaId")
     List<Catechumen> findByEtapaIdAndNameCommunityOrParish(@Param("etapaId") Long etapaId);
 }
