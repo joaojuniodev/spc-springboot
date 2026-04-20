@@ -5,10 +5,10 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
-@Entity(name = "Catequizando")
+@Entity
+@Table(name = "catechumens")
 public class Catechumen implements Serializable {
 
     @Id
@@ -29,21 +29,21 @@ public class Catechumen implements Serializable {
     private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
 
     @ManyToOne
-    @JoinColumn(name = "etapa_id", nullable = false)
-    private Etapa etapa;
+    @JoinColumn(name = "step_id", nullable = false)
+    private Step step;
 
-    @OneToMany(mappedBy = "catequizando")
-    private List<Presence> presenca = new ArrayList<>();
+    @OneToMany(mappedBy = "catechumen")
+    private Set<Presence> presences;
 
     public Catechumen() {}
 
-    public Catechumen(Long id, String firstName, String lastName, LocalDate birthDate, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Etapa etapa) {
+    public Catechumen(Long id, String firstName, String lastName, LocalDate birthDate, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Step step) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.nameCommunityOrParish = nameCommunityOrParish;
-        this.etapa = etapa;
+        this.step = step;
     }
 
     public Long getId() {
@@ -78,12 +78,12 @@ public class Catechumen implements Serializable {
         this.birthDate = birthDate;
     }
 
-    public Etapa getEtapa() {
-        return etapa;
+    public Step getStep() {
+        return step;
     }
 
-    public void setEtapa(Etapa etapa) {
-        this.etapa = etapa;
+    public void setStep(Step step) {
+        this.step = step;
     }
 
     public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {
@@ -94,12 +94,12 @@ public class Catechumen implements Serializable {
         this.nameCommunityOrParish = communityOrParish;
     }
 
-    public List<Presence> getPresenca() {
-        return presenca;
+    public Set<Presence> getPresences() {
+        return presences;
     }
 
-    public void setPresenca(List<Presence> presenca) {
-        this.presenca = presenca;
+    public void setPresences(Set<Presence> presences) {
+        this.presences = presences;
     }
 
     @Override

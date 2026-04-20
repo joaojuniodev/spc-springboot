@@ -1,15 +1,16 @@
 package br.com.joaojuniodev.spc.models;
 
-import br.com.joaojuniodev.spc.models.enums.PresencaStatusEnum;
+import br.com.joaojuniodev.spc.models.enums.PresenceStatusEnum;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity(name = "Presenca")
+@Entity
 @Table(
+    name = "presences",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"catequizando_id", "missa_id", "catequista_id"})
+        @UniqueConstraint(columnNames = {"catechumen_id", "mass_id", "catechist_id"})
     }
 )
 public class Presence implements Serializable {
@@ -19,29 +20,29 @@ public class Presence implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "catequizando_id", nullable = false)
-    private Catechumen catequizando;
+    @JoinColumn(name = "catechumen_id", nullable = false)
+    private Catechumen catechumen;
 
     @ManyToOne
-    @JoinColumn(name = "missa_id", nullable = false)
-    private Missa missa;
+    @JoinColumn(name = "mass_id", nullable = false)
+    private Mass mass;
 
     @ManyToOne
-    @JoinColumn(name = "catequista_id", nullable = false)
-    private Catequista catequista;
+    @JoinColumn(name = "catechist_id", nullable = false)
+    private Catechist catechist;
 
     @Column(nullable = false)
-    private PresencaStatusEnum status;
+    private PresenceStatusEnum status;
     
     private String justification;
 
     public Presence() {}
 
-    public Presence(Long id, Catechumen catequizando, Missa missa, Catequista catequista, PresencaStatusEnum status, String justification) {
+    public Presence(Long id, Catechumen catechumen, Mass mass, Catechist catechist, PresenceStatusEnum status, String justification) {
         this.id = id;
-        this.catequizando = catequizando;
-        this.missa = missa;
-        this.catequista = catequista;
+        this.catechumen = catechumen;
+        this.mass = mass;
+        this.catechist = catechist;
         this.status = status;
         this.justification = justification;
     }
@@ -54,27 +55,27 @@ public class Presence implements Serializable {
         this.id = id;
     }
 
-    public Catechumen getCatequizando() {
-        return catequizando;
+    public Catechumen getCatechumen() {
+        return catechumen;
     }
 
-    public void setCatequizando(Catechumen catequizando) {
-        this.catequizando = catequizando;
+    public void setCatechumen(Catechumen catechumen) {
+        this.catechumen = catechumen;
     }
 
-    public Missa getMissa() {
-        return missa;
+    public Mass getMass() {
+        return mass;
     }
 
-    public void setMissa(Missa missa) {
-        this.missa = missa;
+    public void setMass(Mass mass) {
+        this.mass = mass;
     }
 
-    public PresencaStatusEnum getStatus() {
+    public PresenceStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(PresencaStatusEnum status) {
+    public void setStatus(PresenceStatusEnum status) {
         this.status = status;
     }
 
@@ -86,12 +87,12 @@ public class Presence implements Serializable {
         this.justification = justification;
     }
 
-    public Catequista getCatequista() {
-        return catequista;
+    public Catechist getCatechist() {
+        return catechist;
     }
 
-    public void setCatequista(Catequista catequista) {
-        this.catequista = catequista;
+    public void setCatechist(Catechist catechist) {
+        this.catechist = catechist;
     }
 
     @Override

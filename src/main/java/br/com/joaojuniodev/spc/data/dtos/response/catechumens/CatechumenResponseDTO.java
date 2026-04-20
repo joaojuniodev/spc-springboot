@@ -1,6 +1,6 @@
 package br.com.joaojuniodev.spc.data.dtos.response.catechumens;
 
-import br.com.joaojuniodev.spc.data.dtos.response.step.EtapaByCatequizandoResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.step.StepByCatechumenResponseDTO;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 
 import java.time.LocalDate;
@@ -13,17 +13,17 @@ public class CatechumenResponseDTO {
     private String lastName;
     private LocalDate birthDate;
     private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
-    private EtapaByCatequizandoResponseDTO etapa;
+    private StepByCatechumenResponseDTO step;
 
     public CatechumenResponseDTO() {}
 
-    public CatechumenResponseDTO(Long id, String firstName, String lastName, LocalDate birthDate, NameOfTheCommunityOrParishEnum nameCommunityOrParish, EtapaByCatequizandoResponseDTO etapa) {
+    public CatechumenResponseDTO(Long id, String firstName, String lastName, LocalDate birthDate, NameOfTheCommunityOrParishEnum nameCommunityOrParish, StepByCatechumenResponseDTO step) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.nameCommunityOrParish = nameCommunityOrParish;
-        this.etapa = etapa;
+        this.step = step;
     }
 
     public Long getId() {
@@ -66,12 +66,12 @@ public class CatechumenResponseDTO {
         this.nameCommunityOrParish = nameCommunityOrParish;
     }
 
-    public EtapaByCatequizandoResponseDTO getEtapa() {
-        return etapa;
+    public StepByCatechumenResponseDTO getStep() {
+        return step;
     }
 
-    public void setEtapa(EtapaByCatequizandoResponseDTO etapa) {
-        this.etapa = etapa;
+    public void setStep(StepByCatechumenResponseDTO step) {
+        this.step = step;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class CatechumenResponseDTO {
         if (o == null || getClass() != o.getClass()) return false;
 
         CatechumenResponseDTO that = (CatechumenResponseDTO) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getBirthDate(), that.getBirthDate()) && getNameCommunityOrParish() == that.getNameCommunityOrParish() && Objects.equals(getEtapa(), that.getEtapa());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getBirthDate(), that.getBirthDate()) && getNameCommunityOrParish() == that.getNameCommunityOrParish() && Objects.equals(getStep(), that.getStep());
     }
 
     @Override
@@ -89,7 +89,7 @@ public class CatechumenResponseDTO {
         result = 31 * result + Objects.hashCode(getLastName());
         result = 31 * result + Objects.hashCode(getBirthDate());
         result = 31 * result + Objects.hashCode(getNameCommunityOrParish());
-        result = 31 * result + Objects.hashCode(getEtapa());
+        result = 31 * result + Objects.hashCode(getStep());
         return result;
     }
 }

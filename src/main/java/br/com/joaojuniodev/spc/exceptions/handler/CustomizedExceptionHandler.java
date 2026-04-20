@@ -1,6 +1,7 @@
 package br.com.joaojuniodev.spc.exceptions.handler;
 
 import br.com.joaojuniodev.spc.data.dtos.exceptions.ExceptionResponse;
+import br.com.joaojuniodev.spc.exceptions.ConflicWhenSavingInTheDatabaseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

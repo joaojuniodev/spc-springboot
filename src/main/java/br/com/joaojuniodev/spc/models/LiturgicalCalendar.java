@@ -3,10 +3,11 @@ package br.com.joaojuniodev.spc.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
+@Table(name = "liturgical_calendar")
 public class LiturgicalCalendar {
 
     @Id
@@ -20,7 +21,7 @@ public class LiturgicalCalendar {
     private LocalDate date;
 
     @OneToMany(mappedBy = "massOfLiturgicalCalendar")
-    private List<Missa> missas;
+    private Set<Mass> masses;
 
     public LiturgicalCalendar() {}
 
@@ -54,12 +55,12 @@ public class LiturgicalCalendar {
         this.date = date;
     }
 
-    public List<Missa> getMissas() {
-        return missas;
+    public Set<Mass> getMasses() {
+        return masses;
     }
 
-    public void setMissas(List<Missa> missas) {
-        this.missas = missas;
+    public void setMasses(Set<Mass> masses) {
+        this.masses = masses;
     }
 
     @Override

@@ -1,18 +1,17 @@
 package br.com.joaojuniodev.spc.services;
 
-import br.com.joaojuniodev.spc.data.dtos.request.PresencaRequestDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.catechist.CatequistaResponseDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.request.PresenceRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.presence.CatechumenIsPresentDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.presence.PresencaResponseDTO;
-import br.com.joaojuniodev.spc.exceptions.handler.ConflicWhenSavingInTheDatabaseException;
+import br.com.joaojuniodev.spc.data.dtos.response.presence.PresenceResponseDTO;
+import br.com.joaojuniodev.spc.exceptions.ConflicWhenSavingInTheDatabaseException;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
-import br.com.joaojuniodev.spc.models.Missa;
+import br.com.joaojuniodev.spc.models.Mass;
 import br.com.joaojuniodev.spc.models.Presence;
-import br.com.joaojuniodev.spc.repositories.CatequistaRepository;
-import br.com.joaojuniodev.spc.repositories.CatequizandoRepository;
-import br.com.joaojuniodev.spc.repositories.MissaRepository;
+import br.com.joaojuniodev.spc.repositories.CatechistRepository;
+import br.com.joaojuniodev.spc.repositories.CatechumenRepository;
+import br.com.joaojuniodev.spc.repositories.MassRepository;
 import br.com.joaojuniodev.spc.repositories.PresenceRepository;
+import br.com.joaojuniodev.spc.repositories.specs.PresenceSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,109 +22,93 @@ import java.util.List;
 @Service
 public class PresenceService {
 
-    private final Logger logger = LoggerFactory.getLogger(CatequizandoService.class.getName());
+    private final Logger logger = LoggerFactory.getLogger(PresenceService.class.getName());
 
     @Autowired
     private PresenceRepository repository;
 
     @Autowired
-    private CatequizandoRepository catequizandoRepository;
+    private CatechumenRepository catechumenRepository;
 
     @Autowired
-    private CatequistaRepository catequistaRepository;
+    private CatechistRepository catechistRepository;
 
     @Autowired
-    private MissaRepository missaRepository;
+    private MassRepository massRepository;
 
     @Autowired
     private ObjectMapperManually mapper;
 
-    public List<PresencaResponseDTO> findAll() {
+    public List<PresenceResponseDTO> filter(Long catechumenId, String titleMass) {
 
-        logger.info("Finding All Presences");
+        logger.info("Filtering All Presences");
 
-        return repository.findAll()
+        PresenceSpecification spec = new PresenceSpecification();
+        spec.addToSpecifications(catechumenId, titleMass);
+
+        return this.repository
+            .findAll(spec.apply())
             .stream()
-            .map(entity -> mapper.convertPresencaEntityToResponseDTO(entity)).toList();
-    }
-
-    public PresencaResponseDTO findById(Long id) {
-
-        logger.info("Finding By Id Presence");
-
-        var entity = repository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Not found this ID: " + id));
-        return mapper.convertPresencaEntityToResponseDTO(entity);
-    }
-
-    public List<PresencaResponseDTO> findByCatechumenId(Long catechumenId) {
-
-        logger.info("Finding Presences by catechumentId");
-
-        return repository.findByCatechumenId(catechumenId)
-            .stream()
-            .map(entity -> mapper.convertPresencaEntityToResponseDTO(entity)).toList();
-    }
-
-    public List<CatechumenIsPresentDTO> listCatechumensPresentAtMass(String titleMassFromLiturgicalCalendar) {
-
-        logger.info("Listing catechumens presents at Mass");
-
-        return repository.findPresentsCatechumensByMass(titleMassFromLiturgicalCalendar)
-            .stream()
-            .map(mapper::convertCatechumenToCatechumensIsPresentDTO)
+            .map(this.mapper::convertPresenceEntityToResponseDTO)
             .toList();
     }
 
-    public PresencaResponseDTO create(PresencaRequestDTO presenca) {
+    public PresenceResponseDTO getById(Long id) {
+
+        logger.info("Finding By Id Presence");
+
+        var entity = this.repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Not found this ID: " + id));
+        return this.mapper.convertPresenceEntityToResponseDTO(entity);
+    }
+
+    public PresenceResponseDTO create(PresenceRequestDTO presence) {
 
         logger.info("Creating Presence");
 
-        Presence entity = mapper.convertPresencaRequestToEntity(presenca);
+        Presence entity = this.mapper.convertPresenceRequestToEntity(presence);
 
-        if (repository.existsByMissaIdAndCatequizandoId(entity.getMissa().getId(), entity.getCatequizando().getId())) {
-            throw new ConflicWhenSavingInTheDatabaseException("Catechumen Id: " + entity.getCatequizando().getId() + ", has already been saved!");
+        if (this.repository.existsByMassIdAndCatechumenId(entity.getMass().getId(), entity.getCatechumen().getId())) {
+            throw new ConflicWhenSavingInTheDatabaseException("Catechumen Id: " + entity.getCatechumen().getId() + ", has already been saved!");
         }
 
-        var savedPresence = repository.save(entity);
+        var savedPresence = this.repository.save(entity);
 
-        Missa massWithRegisteredPresence = missaRepository.findById(presenca.getMissaId()).get();
+        Mass massWithRegisteredPresence = massRepository.findById(presence.getMassId()).get();
         massWithRegisteredPresence.setRegisteredAttendance(true);
-        missaRepository.save(massWithRegisteredPresence);
+        massRepository.save(massWithRegisteredPresence);
 
-        return mapper.convertPresencaEntityToResponseDTO(savedPresence);
+        return this.mapper.convertPresenceEntityToResponseDTO(savedPresence);
     }
 
-    public PresencaResponseDTO update(PresencaRequestDTO presenca) {
+    public PresenceResponseDTO update(PresenceRequestDTO presence) {
 
         logger.info("Updating Presence");
 
-        var catequizando = presenca.getCatequizandoId() != null
-            ? catequizandoRepository.findById(presenca.getCatequizandoId()).orElseThrow()
+        var catechumen = presence.getCatechumenId() != null
+            ? catechumenRepository.findById(presence.getCatechumenId()).orElseThrow()
             : null;
 
-        var missa = presenca.getCatequizandoId() != null
-            ? missaRepository.findById(presenca.getMissaId()).orElseThrow()
+        var mass = presence.getMassId() != null
+            ? massRepository.findById(presence.getMassId()).orElseThrow()
             : null;
 
-        var entity = repository.findById(presenca.getId())
-            .orElseThrow(() -> new RuntimeException("Not found this ID: " + presenca.getId()));
-        entity.setCatequizando(catequizando);
-        entity.setMissa(missa);
-        entity.setJustification(presenca.getJustification());
-        entity.setStatus(presenca.getStatus());
+        var entity = this.repository.findById(presence.getId())
+            .orElseThrow(() -> new RuntimeException("Not found this ID: " + presence.getId()));
+        entity.setCatechumen(catechumen);
+        entity.setMass(mass);
+        entity.setJustification(presence.getJustification());
+        entity.setStatus(presence.getStatus());
 
-        return mapper.convertPresencaEntityToResponseDTO(
-            repository.save(mapper.convertPresencaRequestToEntity(presenca))
-        );
+        return this.mapper.convertPresenceEntityToResponseDTO(this.repository.save(entity));
     }
 
     public void delete(Long id) {
 
         logger.info("Deleting By Id Presence");
 
-        var entity = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Not found this ID: " + id));
-        repository.delete(entity);
+        var entity = this.repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Not found this ID: " + id));
+        this.repository.delete(entity);
     }
 }

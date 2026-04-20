@@ -2,10 +2,13 @@ package br.com.joaojuniodev.spc.services;
 
 import br.com.joaojuniodev.spc.data.dtos.response.liturgicalCalendar.LiturgicalCalendarResponseDTO;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
+import br.com.joaojuniodev.spc.models.LiturgicalCalendar;
 import br.com.joaojuniodev.spc.repositories.LiturgicalCalendarRepository;
+import br.com.joaojuniodev.spc.repositories.specs.LiturgicalCalendarSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,18 +24,17 @@ public class LiturgicalCalendarService {
     @Autowired
     private ObjectMapperManually mapper;
 
-    public List<LiturgicalCalendarResponseDTO> findAll() {
+    public List<LiturgicalCalendarResponseDTO> filter(String title) {
 
-        logger.info("Finding all Liturgical Calendar");
+        logger.info("Filtering Liturgical Calendars");
 
-        return repository.findAll().stream()
-            .map(entity -> mapper.convertLiturgicalCalendarEntityToResponseDTO(entity)).toList();
-    }
+        LiturgicalCalendarSpecification spec = new LiturgicalCalendarSpecification();
+        spec.addToSpecifications(title);
 
-    public LiturgicalCalendarResponseDTO findByTitle(String title) {
-
-        logger.info("Finding by title");
-
-        return mapper.convertLiturgicalCalendarEntityToResponseDTO(repository.findDateByTitle(title));
+        return repository
+            .findAll(spec.apply())
+            .stream()
+            .map(entity -> mapper.convertLiturgicalCalendarEntityToResponseDTO(entity))
+            .toList();
     }
 }

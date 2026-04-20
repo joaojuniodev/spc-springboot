@@ -1,17 +1,19 @@
 package br.com.joaojuniodev.spc.data.dtos.response.step;
 
-import br.com.joaojuniodev.spc.models.enums.EtapaEnum;
+import br.com.joaojuniodev.spc.models.enums.StepNameEnum;
+
+import java.util.Objects;
 
 public class StepOfCatechistResponseDTO {
 
     private Long id;
-    private EtapaEnum stepEnum;
+    private StepNameEnum stepName;
 
     public StepOfCatechistResponseDTO() {}
 
-    public StepOfCatechistResponseDTO(Long id, EtapaEnum stepEnum) {
+    public StepOfCatechistResponseDTO(Long id, StepNameEnum stepName) {
         this.id = id;
-        this.stepEnum = stepEnum;
+        this.stepName = stepName;
     }
 
     public Long getId() {
@@ -22,11 +24,26 @@ public class StepOfCatechistResponseDTO {
         this.id = id;
     }
 
-    public EtapaEnum getStepEnum() {
-        return stepEnum;
+    public StepNameEnum getStepName() {
+        return stepName;
     }
 
-    public void setStepEnum(EtapaEnum stepEnum) {
-        this.stepEnum = stepEnum;
+    public void setStepName(StepNameEnum stepName) {
+        this.stepName = stepName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        StepOfCatechistResponseDTO that = (StepOfCatechistResponseDTO) o;
+        return Objects.equals(getId(), that.getId()) && getStepName() == that.getStepName();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getStepName());
+        return result;
     }
 }
