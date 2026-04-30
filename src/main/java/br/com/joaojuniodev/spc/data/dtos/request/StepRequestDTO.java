@@ -11,15 +11,13 @@ public class StepRequestDTO {
     private Long id;
     private StepNameEnum stepName;
     private NameOfTheCommunityOrParishEnum communityOrParish;
-    private Long[] catechistsId;
 
     public StepRequestDTO() {}
 
-    public StepRequestDTO(Long id, StepNameEnum stepName, NameOfTheCommunityOrParishEnum communityOrParish, Long[] catechistsId) {
+    public StepRequestDTO(Long id, StepNameEnum stepName, NameOfTheCommunityOrParishEnum communityOrParish) {
         this.id = id;
         this.stepName = stepName;
         this.communityOrParish = communityOrParish;
-        this.catechistsId = catechistsId;
     }
 
     public Long getId() {
@@ -46,20 +44,12 @@ public class StepRequestDTO {
         this.communityOrParish = communityOrParish;
     }
 
-    public Long[] getCatechistsId() {
-        return catechistsId;
-    }
-
-    public void setCatechistsId(Long[] catechistsId) {
-        this.catechistsId = catechistsId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
         StepRequestDTO that = (StepRequestDTO) o;
-        return Objects.equals(getId(), that.getId()) && getStepName() == that.getStepName() && getCommunityOrParish() == that.getCommunityOrParish() && Arrays.equals(getCatechistsId(), that.getCatechistsId());
+        return Objects.equals(getId(), that.getId()) && getStepName() == that.getStepName() && getCommunityOrParish() == that.getCommunityOrParish();
     }
 
     @Override
@@ -67,7 +57,6 @@ public class StepRequestDTO {
         int result = Objects.hashCode(getId());
         result = 31 * result + Objects.hashCode(getStepName());
         result = 31 * result + Objects.hashCode(getCommunityOrParish());
-        result = 31 * result + Arrays.hashCode(getCatechistsId());
         return result;
     }
 }

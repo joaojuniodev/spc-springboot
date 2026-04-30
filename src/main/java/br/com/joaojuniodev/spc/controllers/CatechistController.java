@@ -1,6 +1,6 @@
 package br.com.joaojuniodev.spc.controllers;
 
-import br.com.joaojuniodev.spc.data.dtos.request.CatechistRequestDTO;
+import br.com.joaojuniodev.spc.data.dtos.request.catechist.CatechistRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.catechist.CatechistResponseDTO;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.services.CatechistService;
@@ -50,7 +50,7 @@ public class CatechistController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CatechistResponseDTO> delete(@PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

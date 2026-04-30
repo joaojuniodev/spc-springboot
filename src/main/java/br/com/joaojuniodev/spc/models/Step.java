@@ -31,12 +31,10 @@ public class Step implements Serializable {
 
     public Step() {}
 
-    public Step(Long id, StepNameEnum stepName, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Set<Catechist> catechists, Set<Catechumen> catechumens) {
+    public Step(Long id, StepNameEnum stepName, NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
         this.id = id;
         this.stepName = stepName;
         this.nameCommunityOrParish = nameCommunityOrParish;
-        this.catechists = catechists;
-        this.catechumens = catechumens;
     }
 
     public Long getId() {

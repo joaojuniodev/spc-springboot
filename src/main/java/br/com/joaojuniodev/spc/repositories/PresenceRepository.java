@@ -17,4 +17,6 @@ public interface PresenceRepository extends JpaRepository<Presence, Long>, JpaSp
     List<Presence> findAll(Specification<Presence> spec);
 
     boolean existsByMassIdAndCatechumenId(Long massId, Long catechumenId);
+
+    boolean existsByCatechistId(Long catechistId);
 }

@@ -1,5 +1,6 @@
-package br.com.joaojuniodev.spc.data.dtos.request;
+package br.com.joaojuniodev.spc.data.dtos.request.catechist;
 
+import br.com.joaojuniodev.spc.data.dtos.request.StepRequestDTO;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 
 import java.util.Objects;
@@ -9,8 +10,8 @@ public class CatechistRequestDTO {
     private Long id;
     private String firstName;
     private String lastName;
-    private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
-    private Long stepId;
+    private NameOfTheCommunityOrParishEnum communityOrParish;
+    private StepRequestDTO step;
 
     public CatechistRequestDTO() {}
 
@@ -38,20 +39,20 @@ public class CatechistRequestDTO {
         this.lastName = lastName;
     }
 
-    public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {
-        return nameCommunityOrParish;
+    public NameOfTheCommunityOrParishEnum getCommunityOrParish() {
+        return communityOrParish;
     }
 
-    public void setNameCommunityOrParish(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
-        this.nameCommunityOrParish = nameCommunityOrParish;
+    public void setCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
+        this.communityOrParish = communityOrParish;
     }
 
-    public Long getStepId() {
-        return stepId;
+    public StepRequestDTO getStep() {
+        return step;
     }
 
-    public void setStepId(Long stepId) {
-        this.stepId = stepId;
+    public void setStep(StepRequestDTO step) {
+        this.step = step;
     }
 
     @Override
@@ -59,7 +60,7 @@ public class CatechistRequestDTO {
         if (o == null || getClass() != o.getClass()) return false;
 
         CatechistRequestDTO that = (CatechistRequestDTO) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && getNameCommunityOrParish() == that.getNameCommunityOrParish() && Objects.equals(getStepId(), that.getStepId());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && getCommunityOrParish() == that.getCommunityOrParish() && Objects.equals(getStep(), that.getStep());
     }
 
     @Override
@@ -67,8 +68,8 @@ public class CatechistRequestDTO {
         int result = Objects.hashCode(getId());
         result = 31 * result + Objects.hashCode(getFirstName());
         result = 31 * result + Objects.hashCode(getLastName());
-        result = 31 * result + Objects.hashCode(getNameCommunityOrParish());
-        result = 31 * result + Objects.hashCode(getStepId());
+        result = 31 * result + Objects.hashCode(getCommunityOrParish());
+        result = 31 * result + Objects.hashCode(getStep());
         return result;
     }
 }

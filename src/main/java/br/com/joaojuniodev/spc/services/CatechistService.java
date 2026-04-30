@@ -1,22 +1,24 @@
 package br.com.joaojuniodev.spc.services;
 
-import br.com.joaojuniodev.spc.data.dtos.request.CatechistRequestDTO;
+import br.com.joaojuniodev.spc.data.dtos.request.catechist.CatechistRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.catechist.CatechistResponseDTO;
+import br.com.joaojuniodev.spc.exceptions.ConflicWhenSavingInTheDatabaseException;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
 import br.com.joaojuniodev.spc.models.Catechist;
+import br.com.joaojuniodev.spc.models.Step;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.repositories.CatechistRepository;
+import br.com.joaojuniodev.spc.repositories.PresenceRepository;
+import br.com.joaojuniodev.spc.repositories.StepRepository;
 import br.com.joaojuniodev.spc.repositories.specs.CatechistSpecification;
-import br.com.joaojuniodev.spc.repositories.specs.CatechumenSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class CatechistService {
@@ -25,6 +27,12 @@ public class CatechistService {
 
     @Autowired
     private CatechistRepository repository;
+
+    @Autowired
+    private StepRepository stepRepository;
+
+    @Autowired
+    private PresenceRepository presenceRepository;
 
     @Autowired
     private ObjectMapperManually mapper;
@@ -56,6 +64,11 @@ public class CatechistService {
 
         logger.info("Creating Catechist");
 
+        if (catechist.getStep().getId() == null) {
+            Step stepCreated = stepRepository.save(this.mapper.convertStepRequestToEntity(catechist.getStep()));
+            catechist.getStep().setId(stepCreated.getId());
+        }
+
         return this.mapper.convertCatechistEntityToResponseDTO(
             this.repository.save(this.mapper.convertCatechistRequestToEntity(catechist))
         );
@@ -69,6 +82,18 @@ public class CatechistService {
             .orElseThrow(() -> new RuntimeException("Not found this ID: " + catechist.getId()));
         entity.setFirstName(catechist.getFirstName());
         entity.setLastName(catechist.getLastName());
+        entity.setNameCommunityOrParish(catechist.getCommunityOrParish());
+
+        if (catechist.getStep() != null) {
+            Step step = stepRepository.findById(catechist.getStep().getId()).orElseThrow();
+            if (catechist.getStep().getStepName() != null) {
+                step.setStepName(catechist.getStep().getStepName());
+            }
+            if (catechist.getStep().getCommunityOrParish() != null) {
+                step.setNameCommunityOrParish(catechist.getCommunityOrParish());
+            }
+            this.stepRepository.save(step);
+        }
 
         return this.mapper.convertCatechistEntityToResponseDTO(
             this.repository.save(this.mapper.convertCatechistRequestToEntity(catechist))
@@ -79,8 +104,22 @@ public class CatechistService {
 
         logger.info("Deleting By Id Catechist");
 
+        if (this.presenceRepository.existsByCatechistId(id)) {
+            throw new ConflicWhenSavingInTheDatabaseException(
+                "Catechist Id: " + id + ", has presences linked and cannot be deleted!"
+            );
+        }
+
         var entity = this.repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Not found this ID: " + id));
+
+        var stepId = entity.getStep().getId();
+
+        var stepEntity = this.stepRepository.findById(stepId)
+            .orElseThrow(() -> new RuntimeException("Not found this ID: " + stepId));
+
         this.repository.delete(entity);
+        this.stepRepository.delete(stepEntity);
+        this.repository.flush();
     }
 }

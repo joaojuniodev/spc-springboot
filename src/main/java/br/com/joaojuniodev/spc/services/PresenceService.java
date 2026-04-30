@@ -1,7 +1,6 @@
 package br.com.joaojuniodev.spc.services;
 
 import br.com.joaojuniodev.spc.data.dtos.request.PresenceRequestDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.presence.CatechumenIsPresentDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.presence.PresenceResponseDTO;
 import br.com.joaojuniodev.spc.exceptions.ConflicWhenSavingInTheDatabaseException;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;

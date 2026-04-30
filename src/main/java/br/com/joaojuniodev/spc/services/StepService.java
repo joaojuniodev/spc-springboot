@@ -65,15 +65,9 @@ public class StepService {
 
         logger.info("Updating Step");
 
-        Set<Catechist> catechists = new HashSet<>();
-
-        if (step.getCatechistsId().length > 0) {
-            Arrays.stream(step.getCatechistsId()).map(id ->  catechists.add(catechistRepository.findById(id).orElseThrow()));
-        }
-
         var entity = this.repository.findById(step.getId())
             .orElseThrow(() -> new RuntimeException("Not found this ID: " + step.getId()));
-        entity.setCatechists(catechists);
+        entity.setNameCommunityOrParish(step.getCommunityOrParish());
 
         return this.mapper.convertStepEntityToResponseDTO(this.repository.save(entity));
     }

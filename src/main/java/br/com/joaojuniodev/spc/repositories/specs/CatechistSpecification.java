@@ -25,7 +25,7 @@ public class CatechistSpecification {
 
     private void hasStep(Long stepId) {
         this.spec = this.spec.and((root, query, cb) ->
-                cb.equal(root.get("step").get("id"), stepId));
+            cb.equal(root.get("step").get("id"), stepId));
     }
 
     private void hasFullName(String fullName) {

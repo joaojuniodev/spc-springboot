@@ -1,6 +1,7 @@
 package br.com.joaojuniodev.spc.mapper;
 
 import br.com.joaojuniodev.spc.data.dtos.request.*;
+import br.com.joaojuniodev.spc.data.dtos.request.catechist.CatechistRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.catechist.CatechistResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.catechist.CatechistSummaryDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseByPresenceDTO;
@@ -44,12 +45,12 @@ public class ObjectMapperManually {
     public ObjectMapperManually() {}
 
     public Catechist convertCatechistRequestToEntity(CatechistRequestDTO catechist) {
-        var step = stepRepository.findById(catechist.getStepId()).get();
+        var step = stepRepository.findById(catechist.getStep().getId()).get();
         return new Catechist(
             catechist.getId(),
             catechist.getFirstName(),
             catechist.getLastName(),
-            catechist.getNameCommunityOrParish(),
+            catechist.getCommunityOrParish(),
             step
         );
     }
@@ -111,17 +112,7 @@ public class ObjectMapperManually {
     }
 
     public Step convertStepRequestToEntity(StepRequestDTO step) {
-        Set<Catechist> catechists = new HashSet<>();
-        Set<Catechumen> catechumens = (Set<Catechumen>) catechumenRepository.findByStepId(step.getId()).orElseThrow();
-
-        if (step.getCatechistsId().length > 0) {
-            Arrays.stream(Arrays.stream(step.getCatechistsId())
-                .map(id -> catechists.add(catechistRepository.findById(id).orElseThrow(
-                    () -> new RuntimeException("Not found this ID [Catechist]: " + id)
-                ))).toArray());
-        }
-
-        return new Step(step.getId(), step.getStepName(), step.getCommunityOrParish(), catechists, catechumens);
+        return new Step(step.getId(), step.getStepName(), step.getCommunityOrParish());
     }
 
     public StepResponseDTO convertStepEntityToResponseDTO(Step entity) {
@@ -129,8 +120,12 @@ public class ObjectMapperManually {
             entity.getId(),
             entity.getStepName(),
             entity.getNameCommunityOrParish(),
-            entity.getCatechists().stream().map(this::convertCatechistEntityToSummaryDTO).toList(),
-            entity.getCatechumens().stream().map(this::convertCatechumenEntityToByStepResponseDTO).toList()
+            entity.getCatechists() != null
+                ? entity.getCatechists().stream().map(this::convertCatechistEntityToSummaryDTO).toList()
+                : Collections.emptyList(),
+            entity.getCatechumens() != null
+                ? entity.getCatechumens().stream().map(this::convertCatechumenEntityToByStepResponseDTO).toList()
+                : Collections.emptyList()
         );
     }
 
