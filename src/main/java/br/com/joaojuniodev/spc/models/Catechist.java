@@ -40,6 +40,15 @@ public class Catechist implements Serializable {
         this.step = step;
     }
 
+    public Catechist(Long id, String firstName, String lastName, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Step step, Set<Presence> presences) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nameCommunityOrParish = nameCommunityOrParish;
+        this.step = step;
+        this.presences = presences;
+    }
+
     public Long getId() {
         return id;
     }

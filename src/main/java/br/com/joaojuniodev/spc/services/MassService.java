@@ -2,11 +2,13 @@ package br.com.joaojuniodev.spc.services;
 
 import br.com.joaojuniodev.spc.data.dtos.request.MassRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.mass.MassResponseDTO;
+import br.com.joaojuniodev.spc.exceptions.ConflictInTheDatabaseException;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
 import br.com.joaojuniodev.spc.models.Mass;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.repositories.LiturgicalCalendarRepository;
 import br.com.joaojuniodev.spc.repositories.MassRepository;
+import br.com.joaojuniodev.spc.repositories.PresenceRepository;
 import br.com.joaojuniodev.spc.repositories.specs.MassSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,9 @@ public class MassService {
 
     @Autowired
     private MassRepository repository;
+
+    @Autowired
+    private PresenceRepository presenceRepository;
 
     @Autowired
     private LiturgicalCalendarRepository liturgicalCalendarRepository;
@@ -96,6 +101,12 @@ public class MassService {
     public void delete(Long id) {
 
         logger.info("Deleting By Id Mass");
+
+        var existsPresenceByMassId = presenceRepository.existsByMassId(id);
+
+        if (existsPresenceByMassId) {
+            throw new ConflictInTheDatabaseException("Existem presenças registradas a essa Missa");
+        }
 
         var entity = this.repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Not found this ID: " + id));

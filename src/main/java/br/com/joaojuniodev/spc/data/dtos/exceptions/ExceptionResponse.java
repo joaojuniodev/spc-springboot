@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class ExceptionResponse {
 
-    private Date timestamp;
     private String message;
     private String details;
+    private Date timestamp;
 
     public ExceptionResponse() {}
 
-    public ExceptionResponse(Date timestamp, String details, String message) {
-        this.timestamp = timestamp;
-        this.details = details;
+    public ExceptionResponse(String message, String details, Date timestamp) {
         this.message = message;
+        this.details = details;
+        this.timestamp = timestamp;
     }
 
     public Date getTimestamp() {

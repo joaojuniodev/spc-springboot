@@ -1,7 +1,6 @@
 package br.com.joaojuniodev.spc.controllers;
 
 import br.com.joaojuniodev.spc.data.dtos.request.PresenceRequestDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.presence.CatechumenIsPresentDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.presence.PresenceResponseDTO;
 import br.com.joaojuniodev.spc.services.PresenceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +35,8 @@ public class PresenceController {
         produces = { MediaType.APPLICATION_JSON_VALUE },
         consumes = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<PresenceResponseDTO> create(@RequestBody PresenceRequestDTO presence) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(presence));
+    public ResponseEntity<PresenceResponseDTO> register(@RequestBody PresenceRequestDTO presence) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.register(presence));
     }
 
     @PutMapping(

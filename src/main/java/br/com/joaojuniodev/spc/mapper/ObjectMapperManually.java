@@ -8,8 +8,8 @@ import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponse
 import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseByStepDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.liturgicalCalendar.LiturgicalCalendarResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.liturgicalCalendar.LiturgicalCalendarSummaryDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.mass.MassResponseDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.presence.CatechumenIsPresentDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.presence.PresenceResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.step.StepByCatechumenResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.step.StepOfCatechistResponseDTO;
@@ -107,10 +107,6 @@ public class ObjectMapperManually {
         return new CatechistSummaryDTO(entity.getId(), entity.getFirstName(), entity.getLastName());
     }
 
-    public CatechumenIsPresentDTO convertCatechumenToCatechumensIsPresentDTO(Catechumen entity) {
-        return new CatechumenIsPresentDTO(entity.getId(), entity.getFirstName(), entity.getLastName());
-    }
-
     public Step convertStepRequestToEntity(StepRequestDTO step) {
         return new Step(step.getId(), step.getStepName(), step.getCommunityOrParish());
     }
@@ -147,7 +143,7 @@ public class ObjectMapperManually {
             mass.getId(),
             massOfLiturgicalCalendar.getTitle(),
             LocalDateTime.parse(mass.getDateTime()),
-            mass.getNameCommunityOrParish(),
+            mass.getCommunityOrParish(),
             mass.getLocation(),
             massOfLiturgicalCalendar
         );
@@ -160,7 +156,7 @@ public class ObjectMapperManually {
             entity.getDateTime(),
             entity.getLocation(),
             entity.getNameCommunityOrParish(),
-            entity.getMassOfLiturgicalCalendar().getId(),
+            new LiturgicalCalendarSummaryDTO(entity.getMassOfLiturgicalCalendar().getId(), entity.getMassOfLiturgicalCalendar().getTitle()),
             entity.getRegisteredAttendance() != null
         );
     }

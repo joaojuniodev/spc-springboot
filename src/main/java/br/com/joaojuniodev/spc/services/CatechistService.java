@@ -2,9 +2,8 @@ package br.com.joaojuniodev.spc.services;
 
 import br.com.joaojuniodev.spc.data.dtos.request.catechist.CatechistRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.catechist.CatechistResponseDTO;
-import br.com.joaojuniodev.spc.exceptions.ConflicWhenSavingInTheDatabaseException;
+import br.com.joaojuniodev.spc.exceptions.ConflictInTheDatabaseException;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
-import br.com.joaojuniodev.spc.models.Catechist;
 import br.com.joaojuniodev.spc.models.Step;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.repositories.CatechistRepository;
@@ -15,9 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -105,7 +102,7 @@ public class CatechistService {
         logger.info("Deleting By Id Catechist");
 
         if (this.presenceRepository.existsByCatechistId(id)) {
-            throw new ConflicWhenSavingInTheDatabaseException(
+            throw new ConflictInTheDatabaseException(
                 "Catechist Id: " + id + ", has presences linked and cannot be deleted!"
             );
         }

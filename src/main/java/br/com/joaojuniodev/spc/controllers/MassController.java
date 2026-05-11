@@ -2,6 +2,7 @@ package br.com.joaojuniodev.spc.controllers;
 
 import br.com.joaojuniodev.spc.data.dtos.request.MassRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.mass.MassResponseDTO;
+import br.com.joaojuniodev.spc.exceptions.ConflictInTheDatabaseException;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.services.MassService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,6 @@ public class MassController {
     @GetMapping
     public ResponseEntity<List<MassResponseDTO>> getAll(
         @RequestParam(required = false) NameOfTheCommunityOrParishEnum communityOrParish,
-
         @RequestParam(required = false)
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         LocalDateTime occurredUntil
@@ -48,16 +48,16 @@ public class MassController {
         produces = { MediaType.APPLICATION_JSON_VALUE },
         consumes = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<MassResponseDTO> create(@RequestBody MassRequestDTO missa) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(missa));
+    public ResponseEntity<MassResponseDTO> create(@RequestBody MassRequestDTO mass) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(mass));
     }
 
     @PutMapping(
         produces = { MediaType.APPLICATION_JSON_VALUE },
         consumes = { MediaType.APPLICATION_JSON_VALUE }
     )
-    public ResponseEntity<MassResponseDTO> update(@RequestBody MassRequestDTO missa) {
-        return ResponseEntity.ok().body(service.update(missa));
+    public ResponseEntity<MassResponseDTO> update(@RequestBody MassRequestDTO mass) {
+        return ResponseEntity.ok().body(service.update(mass));
     }
 
     @DeleteMapping("/{id}")

@@ -37,6 +37,14 @@ public class Step implements Serializable {
         this.nameCommunityOrParish = nameCommunityOrParish;
     }
 
+    public Step(Long id, StepNameEnum stepName, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Set<Catechist> catechists, Set<Catechumen> catechumens) {
+        this.id = id;
+        this.stepName = stepName;
+        this.nameCommunityOrParish = nameCommunityOrParish;
+        this.catechists = catechists;
+        this.catechumens = catechumens;
+    }
+
     public Long getId() {
         return id;
     }

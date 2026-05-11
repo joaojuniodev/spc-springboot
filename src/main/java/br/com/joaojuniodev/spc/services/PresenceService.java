@@ -2,10 +2,12 @@ package br.com.joaojuniodev.spc.services;
 
 import br.com.joaojuniodev.spc.data.dtos.request.PresenceRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.presence.PresenceResponseDTO;
-import br.com.joaojuniodev.spc.exceptions.ConflicWhenSavingInTheDatabaseException;
+import br.com.joaojuniodev.spc.exceptions.ConflictInTheDatabaseException;
+import br.com.joaojuniodev.spc.exceptions.RequiredFieldsException;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
 import br.com.joaojuniodev.spc.models.Mass;
 import br.com.joaojuniodev.spc.models.Presence;
+import br.com.joaojuniodev.spc.models.enums.PresenceStatusEnum;
 import br.com.joaojuniodev.spc.repositories.CatechistRepository;
 import br.com.joaojuniodev.spc.repositories.CatechumenRepository;
 import br.com.joaojuniodev.spc.repositories.MassRepository;
@@ -61,15 +63,17 @@ public class PresenceService {
         return this.mapper.convertPresenceEntityToResponseDTO(entity);
     }
 
-    public PresenceResponseDTO create(PresenceRequestDTO presence) {
+    public PresenceResponseDTO register(PresenceRequestDTO presence) {
 
         logger.info("Creating Presence");
 
         Presence entity = this.mapper.convertPresenceRequestToEntity(presence);
 
         if (this.repository.existsByMassIdAndCatechumenId(entity.getMass().getId(), entity.getCatechumen().getId())) {
-            throw new ConflicWhenSavingInTheDatabaseException("Catechumen Id: " + entity.getCatechumen().getId() + ", has already been saved!");
+            throw new ConflictInTheDatabaseException("Catechumen Id: " + entity.getCatechumen().getId() + ", has already been saved!");
         }
+
+        ensureJustification(presence.getStatus(), presence.getJustification());
 
         var savedPresence = this.repository.save(entity);
 
@@ -78,6 +82,12 @@ public class PresenceService {
         massRepository.save(massWithRegisteredPresence);
 
         return this.mapper.convertPresenceEntityToResponseDTO(savedPresence);
+    }
+
+    private void ensureJustification(PresenceStatusEnum status, String justification) {
+        if ((status.equals(PresenceStatusEnum.PRESENT_LATE) || status.equals(PresenceStatusEnum.ABSENT)) && justification == null) {
+            throw new RequiredFieldsException("Justify the recurring delay in registering attendance");
+        }
     }
 
     public PresenceResponseDTO update(PresenceRequestDTO presence) {

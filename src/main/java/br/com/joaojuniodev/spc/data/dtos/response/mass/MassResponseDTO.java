@@ -1,5 +1,6 @@
 package br.com.joaojuniodev.spc.data.dtos.response.mass;
 
+import br.com.joaojuniodev.spc.data.dtos.response.liturgicalCalendar.LiturgicalCalendarSummaryDTO;
 import br.com.joaojuniodev.spc.models.enums.MassLocationEnum;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 
@@ -12,19 +13,19 @@ public class MassResponseDTO {
     private String title;
     private LocalDateTime dateTime;
     private MassLocationEnum location;
-    private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
-    private Long massOfLiturgicalCalendarId;
+    private NameOfTheCommunityOrParishEnum communityOrParish;
+    private LiturgicalCalendarSummaryDTO massOfLiturgicalCalendar;
     private Boolean registeredAttendance;
 
     public MassResponseDTO() {}
 
-    public MassResponseDTO(Long id, String title, LocalDateTime dateTime, MassLocationEnum location, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Long massOfLiturgicalCalendarId, Boolean registeredAttendance) {
+    public MassResponseDTO(Long id, String title, LocalDateTime dateTime, MassLocationEnum location, NameOfTheCommunityOrParishEnum communityOrParish, LiturgicalCalendarSummaryDTO massOfLiturgicalCalendar, Boolean registeredAttendance) {
         this.id = id;
         this.title = title;
         this.dateTime = dateTime;
         this.location = location;
-        this.nameCommunityOrParish = nameCommunityOrParish;
-        this.massOfLiturgicalCalendarId = massOfLiturgicalCalendarId;
+        this.communityOrParish = communityOrParish;
+        this.massOfLiturgicalCalendar = massOfLiturgicalCalendar;
         this.registeredAttendance = registeredAttendance;
     }
 
@@ -52,12 +53,12 @@ public class MassResponseDTO {
         this.location = location;
     }
 
-    public Long getMassOfLiturgicalCalendarId() {
-        return massOfLiturgicalCalendarId;
+    public LiturgicalCalendarSummaryDTO getMassOfLiturgicalCalendar() {
+        return massOfLiturgicalCalendar;
     }
 
-    public void setMassOfLiturgicalCalendarId(Long massOfLiturgicalCalendarId) {
-        this.massOfLiturgicalCalendarId = massOfLiturgicalCalendarId;
+    public void setMassOfLiturgicalCalendar(LiturgicalCalendarSummaryDTO massOfLiturgicalCalendar) {
+        this.massOfLiturgicalCalendar = massOfLiturgicalCalendar;
     }
 
     public LocalDateTime getDateTime() {
@@ -68,12 +69,12 @@ public class MassResponseDTO {
         this.dateTime = dateTime;
     }
 
-    public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {
-        return nameCommunityOrParish;
+    public NameOfTheCommunityOrParishEnum getCommunityOrParish() {
+        return communityOrParish;
     }
 
-    public void setNameCommunityOrParish(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
-        this.nameCommunityOrParish = nameCommunityOrParish;
+    public void setCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
+        this.communityOrParish = communityOrParish;
     }
 
     public Boolean getRegisteredAttendance() {
@@ -89,7 +90,7 @@ public class MassResponseDTO {
         if (o == null || getClass() != o.getClass()) return false;
 
         MassResponseDTO that = (MassResponseDTO) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getDateTime(), that.getDateTime()) && Objects.equals(getMassOfLiturgicalCalendarId(), that.getMassOfLiturgicalCalendarId()) && Objects.equals(getRegisteredAttendance(), that.getRegisteredAttendance());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getDateTime(), that.getDateTime()) && getLocation() == that.getLocation() && getCommunityOrParish() == that.getCommunityOrParish() && Objects.equals(getMassOfLiturgicalCalendar(), that.getMassOfLiturgicalCalendar()) && Objects.equals(getRegisteredAttendance(), that.getRegisteredAttendance());
     }
 
     @Override
@@ -97,7 +98,9 @@ public class MassResponseDTO {
         int result = Objects.hashCode(getId());
         result = 31 * result + Objects.hashCode(getTitle());
         result = 31 * result + Objects.hashCode(getDateTime());
-        result = 31 * result + Objects.hashCode(getMassOfLiturgicalCalendarId());
+        result = 31 * result + Objects.hashCode(getLocation());
+        result = 31 * result + Objects.hashCode(getCommunityOrParish());
+        result = 31 * result + Objects.hashCode(getMassOfLiturgicalCalendar());
         result = 31 * result + Objects.hashCode(getRegisteredAttendance());
         return result;
     }
