@@ -12,17 +12,19 @@ public class CatechumenResponseDTO {
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
-    private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
+    private NameOfTheCommunityOrParishEnum communityOrParish;
     private StepByCatechumenResponseDTO step;
+    private Integer currentFrequency;
+    private Integer totalFrequency;
 
     public CatechumenResponseDTO() {}
 
-    public CatechumenResponseDTO(Long id, String firstName, String lastName, LocalDate birthDate, NameOfTheCommunityOrParishEnum nameCommunityOrParish, StepByCatechumenResponseDTO step) {
+    public CatechumenResponseDTO(Long id, String firstName, String lastName, LocalDate birthDate, NameOfTheCommunityOrParishEnum communityOrParish, StepByCatechumenResponseDTO step) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
-        this.nameCommunityOrParish = nameCommunityOrParish;
+        this.communityOrParish = communityOrParish;
         this.step = step;
     }
 
@@ -58,12 +60,12 @@ public class CatechumenResponseDTO {
         this.birthDate = birthDate;
     }
 
-    public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {
-        return nameCommunityOrParish;
+    public NameOfTheCommunityOrParishEnum getCommunityOrParish() {
+        return communityOrParish;
     }
 
-    public void setNameCommunityOrParish(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
-        this.nameCommunityOrParish = nameCommunityOrParish;
+    public void setCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
+        this.communityOrParish = communityOrParish;
     }
 
     public StepByCatechumenResponseDTO getStep() {
@@ -74,12 +76,28 @@ public class CatechumenResponseDTO {
         this.step = step;
     }
 
+    public Integer getCurrentFrequency() {
+        return currentFrequency;
+    }
+
+    public void setCurrentFrequency(Integer currentFrequency) {
+        this.currentFrequency = currentFrequency;
+    }
+
+    public Integer getTotalFrequency() {
+        return totalFrequency;
+    }
+
+    public void setTotalFrequency(Integer totalFrequency) {
+        this.totalFrequency = totalFrequency;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
         CatechumenResponseDTO that = (CatechumenResponseDTO) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getBirthDate(), that.getBirthDate()) && getNameCommunityOrParish() == that.getNameCommunityOrParish() && Objects.equals(getStep(), that.getStep());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getBirthDate(), that.getBirthDate()) && getCommunityOrParish() == that.getCommunityOrParish() && Objects.equals(getStep(), that.getStep());
     }
 
     @Override
@@ -88,7 +106,7 @@ public class CatechumenResponseDTO {
         result = 31 * result + Objects.hashCode(getFirstName());
         result = 31 * result + Objects.hashCode(getLastName());
         result = 31 * result + Objects.hashCode(getBirthDate());
-        result = 31 * result + Objects.hashCode(getNameCommunityOrParish());
+        result = 31 * result + Objects.hashCode(getCommunityOrParish());
         result = 31 * result + Objects.hashCode(getStep());
         return result;
     }

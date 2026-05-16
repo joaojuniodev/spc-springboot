@@ -16,6 +16,8 @@ import br.com.joaojuniodev.spc.data.dtos.response.step.StepOfCatechistResponseDT
 import br.com.joaojuniodev.spc.data.dtos.response.step.StepResponseDTO;
 import br.com.joaojuniodev.spc.models.*;
 import br.com.joaojuniodev.spc.repositories.*;
+import br.com.joaojuniodev.spc.repositories.specs.MassSpecification;
+import br.com.joaojuniodev.spc.repositories.specs.PresenceSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

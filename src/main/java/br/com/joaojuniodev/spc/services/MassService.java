@@ -59,7 +59,6 @@ public class MassService {
     }
 
     public List<LocalDateTime> getMassesDatesByCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
-
         logger.info("Finding Masses Dates by Community or Parish");
 
         return this.repository.findAllMassesDates(communityOrParish);
