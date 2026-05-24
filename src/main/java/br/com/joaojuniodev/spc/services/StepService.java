@@ -3,7 +3,6 @@ package br.com.joaojuniodev.spc.services;
 import br.com.joaojuniodev.spc.data.dtos.request.StepRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.step.StepResponseDTO;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
-import br.com.joaojuniodev.spc.models.Catechist;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.repositories.CatechistRepository;
 import br.com.joaojuniodev.spc.repositories.StepRepository;
@@ -13,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
 @Service
 public class StepService {

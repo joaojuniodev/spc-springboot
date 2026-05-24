@@ -12,10 +12,6 @@ public class CatechumenResponseByPresenceDTO {
     private StepNameEnum step;
     private List<CatechistSummaryDTO> catechists;
 
-    private Integer currentFrequency;
-    private Integer totalFrequency;
-    private Integer frequencyWithCertificate;
-
     public CatechumenResponseByPresenceDTO() {}
 
     public CatechumenResponseByPresenceDTO(Long id, String fullName, StepNameEnum step, List<CatechistSummaryDTO> catechists) {

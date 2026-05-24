@@ -2,9 +2,7 @@ package br.com.joaojuniodev.spc.services;
 
 import br.com.joaojuniodev.spc.data.dtos.request.CatechumenRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.presence.PresenceResponseDTO;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
-import br.com.joaojuniodev.spc.models.Catechumen;
 import br.com.joaojuniodev.spc.models.LiturgicalCalendar;
 import br.com.joaojuniodev.spc.models.Mass;
 import br.com.joaojuniodev.spc.models.Presence;
@@ -16,14 +14,11 @@ import br.com.joaojuniodev.spc.repositories.specs.PresenceSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @Service
@@ -106,7 +101,7 @@ public class CatechumenService {
 
     private List<Presence> getPresencesOfCatechumen(CatechumenResponseDTO catechumen) {
         PresenceSpecification specPresence = new PresenceSpecification();
-        specPresence.addToSpecifications(catechumen.getId(), null);
+        specPresence.addToSpecifications(catechumen.getId(), null, null, null);
 
         return presenceRepository.findAll(specPresence.apply());
     }
@@ -120,7 +115,7 @@ public class CatechumenService {
         var today = LocalDateTime.now();
 
         MassSpecification specMass = new MassSpecification();
-        specMass.addToSpecifications(null, today);
+        specMass.addToSpecifications(null, null, today);
 
         List<Mass> masses = massRepository.findAll(specMass.apply());
         return returnedMassLength(masses, totalDatesOfLiturgicalCalendar);

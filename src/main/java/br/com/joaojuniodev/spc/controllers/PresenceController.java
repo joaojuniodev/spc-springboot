@@ -21,9 +21,11 @@ public class PresenceController {
     @GetMapping
     public ResponseEntity<List<PresenceResponseDTO>> getAll(
         @RequestParam(required = false) Long catechumenId,
-        @RequestParam(required = false) String titleMass
+        @RequestParam(required = false) Long massId,
+        @RequestParam(required = false) String titleMass,
+        @RequestParam(required = false) String fullName
     ) {
-        return ResponseEntity.ok().body(service.filter(catechumenId, titleMass));
+        return ResponseEntity.ok().body(service.filter(catechumenId, massId, titleMass, fullName));
     }
 
     @GetMapping("/{id}")

@@ -2,7 +2,6 @@ package br.com.joaojuniodev.spc.controllers;
 
 import br.com.joaojuniodev.spc.data.dtos.request.MassRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.mass.MassResponseDTO;
-import br.com.joaojuniodev.spc.exceptions.ConflictInTheDatabaseException;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.services.MassService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +24,12 @@ public class MassController {
     @GetMapping
     public ResponseEntity<List<MassResponseDTO>> getAll(
         @RequestParam(required = false) NameOfTheCommunityOrParishEnum communityOrParish,
+        @RequestParam(required = false) String title,
         @RequestParam(required = false)
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         LocalDateTime occurredUntil
     ) {
-        return ResponseEntity.ok().body(service.filter(communityOrParish, occurredUntil));
+        return ResponseEntity.ok().body(service.filter(communityOrParish, title, occurredUntil));
     }
 
     @GetMapping("/{id}")

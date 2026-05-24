@@ -35,12 +35,12 @@ public class MassService {
     @Autowired
     private ObjectMapperManually mapper;
 
-    public List<MassResponseDTO> filter(NameOfTheCommunityOrParishEnum communityOrParish, LocalDateTime occurredUntil) {
+    public List<MassResponseDTO> filter(NameOfTheCommunityOrParishEnum communityOrParish, String title, LocalDateTime occurredUntil) {
 
         logger.info("Filtering All Masses");
 
         MassSpecification spec = new MassSpecification();
-        spec.addToSpecifications(communityOrParish, occurredUntil);
+        spec.addToSpecifications(communityOrParish, title, occurredUntil);
 
         return this.repository
             .findAll(spec.apply())

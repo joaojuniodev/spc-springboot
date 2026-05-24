@@ -2,7 +2,6 @@ package br.com.joaojuniodev.spc.controllers;
 
 import br.com.joaojuniodev.spc.data.dtos.request.CatechumenRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseDTO;
-import br.com.joaojuniodev.spc.models.enums.StepNameEnum;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.services.CatechumenService;
 import org.springframework.beans.factory.annotation.Autowired;

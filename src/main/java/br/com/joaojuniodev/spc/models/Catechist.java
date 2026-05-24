@@ -30,6 +30,10 @@ public class Catechist implements Serializable {
     @OneToMany(mappedBy = "catechist")
     private Set<Presence> presences;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Catechist() {}
 
     public Catechist(Long id, String firstName, String lastName, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Step step) {
@@ -95,6 +99,14 @@ public class Catechist implements Serializable {
 
     public void setPresences(Set<Presence> presences) {
         this.presences = presences;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

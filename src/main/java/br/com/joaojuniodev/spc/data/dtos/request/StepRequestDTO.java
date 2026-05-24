@@ -3,7 +3,6 @@ package br.com.joaojuniodev.spc.data.dtos.request;
 import br.com.joaojuniodev.spc.models.enums.StepNameEnum;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class StepRequestDTO {

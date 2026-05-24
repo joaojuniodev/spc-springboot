@@ -40,12 +40,12 @@ public class PresenceService {
     @Autowired
     private ObjectMapperManually mapper;
 
-    public List<PresenceResponseDTO> filter(Long catechumenId, String titleMass) {
+    public List<PresenceResponseDTO> filter(Long catechumenId, Long massId, String titleMass, String fullNameCatechumen) {
 
         logger.info("Filtering All Presences");
 
         PresenceSpecification spec = new PresenceSpecification();
-        spec.addToSpecifications(catechumenId, titleMass);
+        spec.addToSpecifications(catechumenId, massId, titleMass, fullNameCatechumen);
 
         return this.repository
             .findAll(spec.apply())

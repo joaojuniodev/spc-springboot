@@ -14,8 +14,9 @@ public class MassSpecification {
         spec = Specification.where(null);
     }
 
-    public void addToSpecifications(NameOfTheCommunityOrParishEnum communityOrParish, LocalDateTime occurredUntil) {
+    public void addToSpecifications(NameOfTheCommunityOrParishEnum communityOrParish, String title, LocalDateTime occurredUntil) {
         if (communityOrParish != null) hasCommunityOrParish(communityOrParish);
+        if (title != null) hasTitle(title);
         if (occurredUntil != null) hasOccurredUntil(occurredUntil);
     }
 
@@ -26,6 +27,10 @@ public class MassSpecification {
     private void hasCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
         spec = spec.and((root, query, cb) ->
             cb.equal(root.get("nameCommunityOrParish"), communityOrParish));
+    }
+
+    private void hasTitle(String title) {
+        spec = spec.and((root, query, cb) -> cb.equal(root.get("title"), title));
     }
 
     private void hasOccurredUntil(LocalDateTime occurredUntil) {

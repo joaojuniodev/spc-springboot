@@ -3,7 +3,6 @@ package br.com.joaojuniodev.spc.controllers;
 import br.com.joaojuniodev.spc.data.dtos.response.liturgicalCalendar.LiturgicalCalendarResponseDTO;
 import br.com.joaojuniodev.spc.services.LiturgicalCalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
