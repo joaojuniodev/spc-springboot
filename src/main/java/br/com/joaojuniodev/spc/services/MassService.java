@@ -61,7 +61,11 @@ public class MassService {
     public List<LocalDateTime> getMassesDatesByCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
         logger.info("Finding Masses Dates by Community or Parish");
 
-        return this.repository.findAllMassesDates(communityOrParish);
+        if (communityOrParish != null) {
+            return this.repository.findAllMassesDatesByCommunityOrParish(communityOrParish);
+        }
+
+        return this.repository.findAllMassesDates();
     }
 
     public MassResponseDTO create(MassRequestDTO mass) {

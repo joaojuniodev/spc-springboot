@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -132,12 +133,12 @@ public class User implements UserDetails {
         this.enabled = enabled;
     }
 
-    public List<Permission> getPermissions() {
-        return permissions;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     @Override

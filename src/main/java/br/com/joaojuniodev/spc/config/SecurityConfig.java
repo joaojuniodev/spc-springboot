@@ -5,9 +5,10 @@ import br.com.joaojuniodev.spc.infrastructure.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.HttpSecurityDsl;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -22,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@EnableMethodSecurity
 @EnableWebSecurity
 public class SecurityConfig {
 
@@ -35,7 +37,7 @@ public class SecurityConfig {
     @Bean
     PasswordEncoder passwordEncoder() {
         PasswordEncoder pbkdf2Encoder = new Pbkdf2PasswordEncoder(
-            "", 0, 1815000,
+            "", 8, 1815000,
             Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA256
         );
 
@@ -65,10 +67,18 @@ public class SecurityConfig {
             .authorizeHttpRequests(
                 authorizeHttpRequests -> authorizeHttpRequests
                 .requestMatchers(
-                "/auth/**",
+                    "/auth/sign",
+                    "/auth/catechist",
+                    "/auth/refresh/**",
+                    "/auth/register",
                     "/swagger-ui/**",
                     "/v3/api-docs/**"
                 ).permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/catechists/v1").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/presences/v1").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/masses/v1").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/masses/v1/massesDates").permitAll()
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/**").authenticated()
                 .requestMatchers("/users").denyAll()
             )

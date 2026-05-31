@@ -1,11 +1,17 @@
 package br.com.joaojuniodev.spc.data.dtos.security;
 
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
+
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class TokenDTO {
 
     private String username;
+    private String fullName;
+    private NameOfTheCommunityOrParishEnum communityOrParish;
+    private List<String> roles;
     private Boolean authenticated;
     private Date created;
     private Date expiration;
@@ -14,8 +20,11 @@ public class TokenDTO {
 
     public TokenDTO() {}
 
-    public TokenDTO(String username, Boolean authenticated, Date created, Date expiration, String accessToken, String refreshToken) {
+    public TokenDTO(String username, String fullName, NameOfTheCommunityOrParishEnum communityOrParish, List<String> roles, Boolean authenticated, Date created, Date expiration, String accessToken, String refreshToken) {
         this.username = username;
+        this.fullName = fullName;
+        this.communityOrParish = communityOrParish;
+        this.roles = roles;
         this.authenticated = authenticated;
         this.created = created;
         this.expiration = expiration;
@@ -29,6 +38,30 @@ public class TokenDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public NameOfTheCommunityOrParishEnum getCommunityOrParish() {
+        return communityOrParish;
+    }
+
+    public void setCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
+        this.communityOrParish = communityOrParish;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
     public Boolean getAuthenticated() {

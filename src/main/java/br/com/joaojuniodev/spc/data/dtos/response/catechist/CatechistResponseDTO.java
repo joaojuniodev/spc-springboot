@@ -8,6 +8,7 @@ import java.util.Objects;
 public class CatechistResponseDTO {
 
     private Long id;
+    private String userName;
     private String firstName;
     private String lastName;
     private NameOfTheCommunityOrParishEnum nameCommunityOrParish;
@@ -15,8 +16,9 @@ public class CatechistResponseDTO {
 
     public CatechistResponseDTO() {}
 
-    public CatechistResponseDTO(Long id, String firstName, String lastName, NameOfTheCommunityOrParishEnum nameCommunityOrParish, StepOfCatechistResponseDTO step) {
+    public CatechistResponseDTO(Long id, String userName, String firstName, String lastName, NameOfTheCommunityOrParishEnum nameCommunityOrParish, StepOfCatechistResponseDTO step) {
         this.id = id;
+        this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nameCommunityOrParish = nameCommunityOrParish;
@@ -29,6 +31,22 @@ public class CatechistResponseDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public NameOfTheCommunityOrParishEnum getNameCommunityOrParish() {
+        return nameCommunityOrParish;
+    }
+
+    public void setNameCommunityOrParish(NameOfTheCommunityOrParishEnum nameCommunityOrParish) {
+        this.nameCommunityOrParish = nameCommunityOrParish;
     }
 
     public String getFirstName() {

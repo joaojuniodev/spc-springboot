@@ -63,6 +63,7 @@ public class ObjectMapperManually {
             : null;
         return new CatechistResponseDTO(
             entity.getId(),
+            entity.getUser().getUsername(),
             entity.getFirstName(),
             entity.getLastName(),
             entity.getNameCommunityOrParish(),

@@ -2,6 +2,7 @@ package br.com.joaojuniodev.spc.infrastructure.security;
 
 import br.com.joaojuniodev.spc.data.dtos.security.TokenDTO;
 import br.com.joaojuniodev.spc.exceptions.InvalidJwtAuthenticationException;
+import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -28,7 +29,7 @@ public class JwtTokenProvider {
     @Value("${security.jwt.token.secret-key:57cr37}")
     private String secretKey = "57cr37";
 
-    @Value("${security.jwt.token.expire-length.3600000}")
+    @Value("${security.jwt.token.expire-length:3600000}")
     private long validationInMilliseconds = 3600000;
 
     @Autowired
@@ -42,15 +43,23 @@ public class JwtTokenProvider {
         algorithm = Algorithm.HMAC256(secretKey.getBytes());
     }
 
-    public TokenDTO createAccessToken(String username, List<String> roles) {
+    public TokenDTO createAccessToken(String username, String fullName, List<String> roles) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validationInMilliseconds);
         String accessToken = getAccessToken(username, now, validity, roles);
         String refreshToken = getRefreshToken(username, now, roles);
-        return new TokenDTO(username, true, now, validity, accessToken, refreshToken);
+        return new TokenDTO(username, fullName, null, roles, true, now, validity, accessToken, refreshToken);
     }
 
-    public TokenDTO refreshToken(String refreshToken) {
+    public TokenDTO createCatechistAccessToken(String username, String fullName, NameOfTheCommunityOrParishEnum communityOrParish, List<String> roles) {
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + validationInMilliseconds);
+        String accessToken = getAccessToken(username, now, validity, roles);
+        String refreshToken = getRefreshToken(username, now, roles);
+        return new TokenDTO(username, fullName, communityOrParish, roles, true, now, validity, accessToken, refreshToken);
+    }
+
+    public TokenDTO refreshToken(String refreshToken, String fullName) {
         var token = "";
         if (containsBearerToken(refreshToken)) {
             token = refreshToken.substring("Bearer ".length());
@@ -61,7 +70,7 @@ public class JwtTokenProvider {
 
         String username = decodedJWT.getSubject();
         List<String> roles = decodedJWT.getClaim("roles").asList(String.class);
-        return createAccessToken(username, roles);
+        return createAccessToken(username, fullName, roles);
     }
 
     private String getAccessToken(String username, Date now, Date validity, List<String> roles) {

@@ -39,7 +39,7 @@ public class MassController {
 
     @GetMapping("/massesDates")
     public ResponseEntity<List<LocalDateTime>> getMassesDatesByCommunityOrParish(
-        @RequestParam NameOfTheCommunityOrParishEnum communityOrParish
+        @RequestParam(required = false) NameOfTheCommunityOrParishEnum communityOrParish
     ) {
         return ResponseEntity.ok().body(service.getMassesDatesByCommunityOrParish(communityOrParish));
     }

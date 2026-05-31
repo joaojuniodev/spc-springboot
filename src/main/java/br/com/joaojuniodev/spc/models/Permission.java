@@ -3,7 +3,10 @@ package br.com.joaojuniodev.spc.models;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.Objects;
+
 @Entity
+@Table(name = "permissions")
 public class Permission implements GrantedAuthority {
 
     @Id
@@ -43,5 +46,18 @@ public class Permission implements GrantedAuthority {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Permission that = (Permission) o;
+        return Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
     }
 }

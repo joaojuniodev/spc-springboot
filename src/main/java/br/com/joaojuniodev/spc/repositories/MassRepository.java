@@ -17,8 +17,11 @@ public interface MassRepository extends JpaRepository<Mass, Long>, JpaSpecificat
 
     List<Mass> findAll(Specification<Mass> spec);
 
+    @Query("SELECT m.dateTime FROM Mass m")
+    List<LocalDateTime> findAllMassesDates();
+
     @Query("SELECT m.dateTime FROM Mass m WHERE m.nameCommunityOrParish = :nameCommunityOrParish")
-    List<LocalDateTime> findAllMassesDates(
+    List<LocalDateTime> findAllMassesDatesByCommunityOrParish(
         @Param("nameCommunityOrParish") NameOfTheCommunityOrParishEnum nameCommunityOrParish
     );
 }
