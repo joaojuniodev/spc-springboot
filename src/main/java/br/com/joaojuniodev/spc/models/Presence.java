@@ -10,7 +10,7 @@ import java.util.Objects;
 @Table(
     name = "presences",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"catechumen_id", "mass_id", "catechist_id"})
+        @UniqueConstraint(columnNames = {"catechumen_id", "mass_id", "user_id"})
     }
 )
 public class Presence implements Serializable {
@@ -28,21 +28,22 @@ public class Presence implements Serializable {
     private Mass mass;
 
     @ManyToOne
-    @JoinColumn(name = "catechist_id", nullable = false)
-    private Catechist catechist;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(nullable = false)
     private PresenceStatusEnum status;
-    
+
+    @Column
     private String justification;
 
     public Presence() {}
 
-    public Presence(Long id, Catechumen catechumen, Mass mass, Catechist catechist, PresenceStatusEnum status, String justification) {
+    public Presence(Long id, Catechumen catechumen, Mass mass, User user, PresenceStatusEnum status, String justification) {
         this.id = id;
         this.catechumen = catechumen;
         this.mass = mass;
-        this.catechist = catechist;
+        this.user = user;
         this.status = status;
         this.justification = justification;
     }
@@ -87,12 +88,12 @@ public class Presence implements Serializable {
         this.justification = justification;
     }
 
-    public Catechist getCatechist() {
-        return catechist;
+    public User getUser() {
+        return user;
     }
 
-    public void setCatechist(Catechist catechist) {
-        this.catechist = catechist;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

@@ -101,9 +101,9 @@ public class CatechistService {
 
         logger.info("Deleting By Id Catechist");
 
-        if (this.presenceRepository.existsByCatechistId(id)) {
+        if (this.presenceRepository.existsByUserId(id)) {
             throw new ConflictInTheDatabaseException(
-                "Catechist Id: " + id + ", has presences linked and cannot be deleted!"
+                "User Id: " + id + ", has presences linked and cannot be deleted!"
             );
         }
 

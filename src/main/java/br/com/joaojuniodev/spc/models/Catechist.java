@@ -27,9 +27,6 @@ public class Catechist implements Serializable {
     @JoinColumn(name = "step_id")
     private Step step;
 
-    @OneToMany(mappedBy = "catechist")
-    private Set<Presence> presences;
-
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -42,15 +39,6 @@ public class Catechist implements Serializable {
         this.lastName = lastName;
         this.nameCommunityOrParish = nameCommunityOrParish;
         this.step = step;
-    }
-
-    public Catechist(Long id, String firstName, String lastName, NameOfTheCommunityOrParishEnum nameCommunityOrParish, Step step, Set<Presence> presences) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.nameCommunityOrParish = nameCommunityOrParish;
-        this.step = step;
-        this.presences = presences;
     }
 
     public Long getId() {
@@ -91,14 +79,6 @@ public class Catechist implements Serializable {
 
     public void setStep(Step step) {
         this.step = step;
-    }
-
-    public Set<Presence> getPresences() {
-        return presences;
-    }
-
-    public void setPresences(Set<Presence> presences) {
-        this.presences = presences;
     }
 
     public User getUser() {

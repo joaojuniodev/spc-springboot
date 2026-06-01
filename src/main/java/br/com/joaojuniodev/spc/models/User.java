@@ -4,10 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -38,6 +35,9 @@ public class User implements UserDetails {
     @Column
     private Boolean enabled;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Presence> presences;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "user_role",
@@ -57,6 +57,18 @@ public class User implements UserDetails {
         this.accountNonLocked = accountNonLocked;
         this.credentialsNonExpired = credentialsNonExpired;
         this.enabled = enabled;
+    }
+
+    public User(Long id, String username, String password, String fullName, Boolean accountNonExpired, Boolean accountNonLocked, Boolean credentialsNonExpired, Boolean enabled, Set<Presence> presences) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.fullName = fullName;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
+        this.presences = presences;
     }
 
     @Override
@@ -131,6 +143,14 @@ public class User implements UserDetails {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Set<Presence> getPresences() {
+        return presences;
+    }
+
+    public void setPresences(Set<Presence> presences) {
+        this.presences = presences;
     }
 
     public List<Role> getRoles() {

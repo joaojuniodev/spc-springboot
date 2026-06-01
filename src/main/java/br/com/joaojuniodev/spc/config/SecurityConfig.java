@@ -75,7 +75,6 @@ public class SecurityConfig {
                     "/v3/api-docs/**"
                 ).permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/catechists/v1").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/presences/v1").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/masses/v1").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/masses/v1/massesDates").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")

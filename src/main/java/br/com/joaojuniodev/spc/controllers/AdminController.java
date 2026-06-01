@@ -1,7 +1,7 @@
 package br.com.joaojuniodev.spc.controllers;
 
 import br.com.joaojuniodev.spc.data.dtos.security.AdminCreateUserDTO;
-import br.com.joaojuniodev.spc.data.dtos.security.UserResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.user.UserResponseDTO;
 import br.com.joaojuniodev.spc.services.AuthService;
 import br.com.joaojuniodev.spc.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

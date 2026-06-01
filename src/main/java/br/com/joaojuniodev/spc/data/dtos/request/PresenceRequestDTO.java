@@ -9,7 +9,7 @@ import java.util.Objects;
 public class PresenceRequestDTO {
 
     private Long id;
-    private Long catechistId;
+    private String username;
     private Long catechumenId;
     private Long massId;
     @Enumerated(EnumType.STRING)
@@ -18,9 +18,9 @@ public class PresenceRequestDTO {
 
     public PresenceRequestDTO() {}
 
-    public PresenceRequestDTO(Long id, Long catechistId, Long catechumenId, Long massId, PresenceStatusEnum status, String justification) {
+    public PresenceRequestDTO(Long id, String username, Long catechumenId, Long massId, PresenceStatusEnum status, String justification) {
         this.id = id;
-        this.catechistId = catechistId;
+        this.username = username;
         this.catechumenId = catechumenId;
         this.massId = massId;
         this.status = status;
@@ -35,12 +35,12 @@ public class PresenceRequestDTO {
         this.id = id;
     }
 
-    public Long getCatechistId() {
-        return catechistId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setCatechistId(Long catechistId) {
-        this.catechistId = catechistId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Long getCatechumenId() {
@@ -80,13 +80,13 @@ public class PresenceRequestDTO {
         if (o == null || getClass() != o.getClass()) return false;
 
         PresenceRequestDTO that = (PresenceRequestDTO) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getCatechistId(), that.getCatechistId()) && Objects.equals(getCatechumenId(), that.getCatechumenId()) && Objects.equals(getMassId(), that.getMassId()) && getStatus() == that.getStatus() && Objects.equals(getJustification(), that.getJustification());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getUsername(), that.getUsername()) && Objects.equals(getCatechumenId(), that.getCatechumenId()) && Objects.equals(getMassId(), that.getMassId()) && getStatus() == that.getStatus() && Objects.equals(getJustification(), that.getJustification());
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hashCode(getId());
-        result = 31 * result + Objects.hashCode(getCatechistId());
+        result = 31 * result + Objects.hashCode(getUsername());
         result = 31 * result + Objects.hashCode(getCatechumenId());
         result = 31 * result + Objects.hashCode(getMassId());
         result = 31 * result + Objects.hashCode(getStatus());

@@ -14,6 +14,7 @@ import br.com.joaojuniodev.spc.data.dtos.response.presence.PresenceResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.step.StepByCatechumenResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.step.StepOfCatechistResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.step.StepResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.user.UserSummaryDTO;
 import br.com.joaojuniodev.spc.models.*;
 import br.com.joaojuniodev.spc.repositories.*;
 import br.com.joaojuniodev.spc.repositories.specs.MassSpecification;
@@ -28,6 +29,9 @@ import java.util.*;
 
 @Component
 public class ObjectMapperManually {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private StepRepository stepRepository;
@@ -165,24 +169,29 @@ public class ObjectMapperManually {
     }
 
     public Presence convertPresenceRequestToEntity(PresenceRequestDTO presence) {
-        Catechist catechist = null;
+        User user = null;
         Catechumen catechumen = null;
         Mass mass = null;
         if (presence.getCatechumenId() != null) catechumen = catechumenRepository.findById(presence.getCatechumenId()).orElseThrow();
         if (presence.getMassId() != null) mass = massRepository.findById(presence.getMassId()).orElseThrow();
-        if (presence.getCatechistId() != null) catechist = catechistRepository.findById(presence.getCatechistId()).orElseThrow();
-        return new Presence(presence.getId(), catechumen, mass, catechist, presence.getStatus(), presence.getJustification());
+        if (presence.getUsername() != null) user = userRepository.findByUserName(presence.getUsername());
+        return new Presence(presence.getId(), catechumen, mass, user, presence.getStatus(), presence.getJustification());
     }
 
     public PresenceResponseDTO convertPresenceEntityToResponseDTO(Presence entity) {
+        var userSummary = convertUserEntityToUserSummaryDTO(entity.getUser());
         return new PresenceResponseDTO(
             entity.getId(),
             convertCatechumenEntityToByPresenceResponseDTO(entity.getCatechumen()),
             convertMassEntityToResponseDTO(entity.getMass()),
-            convertCatechistEntityToSummaryDTO(entity.getCatechist()),
+            userSummary,
             entity.getStatus(),
             entity.getJustification()
         );
+    }
+
+    private UserSummaryDTO convertUserEntityToUserSummaryDTO(User entity) {
+        return new UserSummaryDTO(entity.getUsername(), entity.getFullName());
     }
 
     public LiturgicalCalendarResponseDTO convertLiturgicalCalendarEntityToResponseDTO(LiturgicalCalendar entity) {

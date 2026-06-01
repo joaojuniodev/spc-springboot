@@ -1,5 +1,6 @@
 package br.com.joaojuniodev.spc.services;
 
+import br.com.joaojuniodev.spc.data.dtos.response.user.UserResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.security.*;
 import br.com.joaojuniodev.spc.exceptions.NotFoundException;
 import br.com.joaojuniodev.spc.exceptions.ObjectIsNullException;

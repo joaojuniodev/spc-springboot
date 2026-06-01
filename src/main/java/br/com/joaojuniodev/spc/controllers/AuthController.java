@@ -3,13 +3,12 @@ package br.com.joaojuniodev.spc.controllers;
 import br.com.joaojuniodev.spc.data.dtos.security.AccountCredentialsDTO;
 import br.com.joaojuniodev.spc.data.dtos.security.CatechistCredentialsDTO;
 import br.com.joaojuniodev.spc.data.dtos.security.RegisterUserDTO;
-import br.com.joaojuniodev.spc.data.dtos.security.UserResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.user.UserResponseDTO;
 import br.com.joaojuniodev.spc.services.AuthService;
 import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

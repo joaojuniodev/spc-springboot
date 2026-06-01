@@ -1,4 +1,4 @@
-package br.com.joaojuniodev.spc.data.dtos.security;
+package br.com.joaojuniodev.spc.data.dtos.response.user;
 
 import java.util.Objects;
 
