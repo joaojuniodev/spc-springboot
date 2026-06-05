@@ -21,9 +21,10 @@ public class StepController {
 
     @GetMapping
     public ResponseEntity<List<StepResponseDTO>> getAll(
-        @RequestParam(required = false) NameOfTheCommunityOrParishEnum communityOrParish
+        @RequestParam(required = false) NameOfTheCommunityOrParishEnum communityOrParish,
+        @RequestParam(required = false) Long catechistId
     ) {
-        return ResponseEntity.ok().body(service.filter(communityOrParish));
+        return ResponseEntity.ok().body(service.filter(communityOrParish, catechistId));
     }
 
     @GetMapping("/{id}")

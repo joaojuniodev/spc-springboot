@@ -2,6 +2,7 @@ package br.com.joaojuniodev.spc.controllers;
 
 import br.com.joaojuniodev.spc.data.dtos.request.MassRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.mass.MassResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.mass.NumberOfMassesDTO;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.services.MassService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,11 @@ public class MassController {
         @RequestParam(required = false) NameOfTheCommunityOrParishEnum communityOrParish
     ) {
         return ResponseEntity.ok().body(service.getMassesDatesByCommunityOrParish(communityOrParish));
+    }
+
+    @GetMapping("/numberOfMasses")
+    public ResponseEntity<NumberOfMassesDTO> getNumberOfMasses() {
+        return ResponseEntity.ok().body(service.getNumberOfMasses());
     }
 
     @PostMapping(

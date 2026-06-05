@@ -22,10 +22,11 @@ public class CatechistController {
     @GetMapping
     public ResponseEntity<List<CatechistResponseDTO>> getAll(
         @RequestParam(required = false) Long stepId,
+        @RequestParam(required = false) String username,
         @RequestParam(required = false) String fullName,
         @RequestParam(required = false) NameOfTheCommunityOrParishEnum communityOrParish
     ) {
-        return ResponseEntity.ok().body(service.filter(stepId, fullName, communityOrParish));
+        return ResponseEntity.ok().body(service.filter(stepId, username, fullName, communityOrParish));
     }
 
     @GetMapping("/{id}")

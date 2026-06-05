@@ -2,6 +2,7 @@ package br.com.joaojuniodev.spc.services;
 
 import br.com.joaojuniodev.spc.data.dtos.response.liturgicalCalendar.LiturgicalCalendarResponseDTO;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
+import br.com.joaojuniodev.spc.models.LiturgicalCalendar;
 import br.com.joaojuniodev.spc.repositories.LiturgicalCalendarRepository;
 import br.com.joaojuniodev.spc.repositories.specs.LiturgicalCalendarSpecification;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -34,5 +36,14 @@ public class LiturgicalCalendarService {
             .stream()
             .map(entity -> mapper.convertLiturgicalCalendarEntityToResponseDTO(entity))
             .toList();
+    }
+
+    public LiturgicalCalendarResponseDTO previous() {
+        logger.info("Getting previous Mass of Liturgical Calendar");
+
+        LiturgicalCalendar previous = repository
+            .findFirstByDateLessThanOrderByDateDesc(LocalDate.now())
+            .orElse(null);
+        return mapper.convertLiturgicalCalendarEntityToResponseDTO(previous);
     }
 }

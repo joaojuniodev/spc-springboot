@@ -1,12 +1,15 @@
-package br.com.joaojuniodev.spc.data.dtos.response.catechumens;
+package br.com.joaojuniodev.spc.data.dtos.response.catechumen;
 
 import br.com.joaojuniodev.spc.data.dtos.response.step.StepByCatechumenResponseDTO;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class CatechumenResponseDTO {
+@Relation(collectionRelation = "catechumens")
+public class CatechumenResponseDTO extends RepresentationModel<CatechumenResponseDTO> {
 
     private Long id;
     private String firstName;
@@ -14,6 +17,8 @@ public class CatechumenResponseDTO {
     private LocalDate birthDate;
     private NameOfTheCommunityOrParishEnum communityOrParish;
     private StepByCatechumenResponseDTO step;
+    private Integer presences;
+    private Integer absences;
     private Integer currentFrequency;
     private Integer totalFrequency;
 
@@ -74,6 +79,22 @@ public class CatechumenResponseDTO {
 
     public void setStep(StepByCatechumenResponseDTO step) {
         this.step = step;
+    }
+
+    public Integer getPresences() {
+        return presences;
+    }
+
+    public void setPresences(Integer presences) {
+        this.presences = presences;
+    }
+
+    public Integer getAbsences() {
+        return absences;
+    }
+
+    public void setAbsences(Integer absences) {
+        this.absences = absences;
     }
 
     public Integer getCurrentFrequency() {

@@ -10,9 +10,12 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface LiturgicalCalendarRepository extends JpaRepository<LiturgicalCalendar, Long>, JpaSpecificationExecutor<LiturgicalCalendar> {
 
     List<LiturgicalCalendar> findAll(Specification<LiturgicalCalendar> spec);
+
+    Optional<LiturgicalCalendar> findFirstByDateLessThanOrderByDateDesc(LocalDate date);
 }

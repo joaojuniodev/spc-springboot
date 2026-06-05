@@ -17,8 +17,9 @@ public class CatechistSpecification {
         return this.spec;
     }
 
-    public void addToSpecifications(Long stepId, String fullName, NameOfTheCommunityOrParishEnum communityOrParish) {
+    public void addToSpecifications(Long stepId, String username, String fullName, NameOfTheCommunityOrParishEnum communityOrParish) {
         if (stepId != null) hasStep(stepId);
+        if (username != null) hasUsername(username);
         if (fullName != null) hasFullName(fullName);
         if (communityOrParish != null) hasCommunityOrParish(communityOrParish);
     }
@@ -26,6 +27,11 @@ public class CatechistSpecification {
     private void hasStep(Long stepId) {
         this.spec = this.spec.and((root, query, cb) ->
             cb.equal(root.get("step").get("id"), stepId));
+    }
+
+    private void hasUsername(String username) {
+        this.spec = this.spec.and((root, query, cb) ->
+            cb.equal(root.get("user").get("username"), username));
     }
 
     private void hasFullName(String fullName) {

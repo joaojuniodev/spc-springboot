@@ -1,10 +1,18 @@
 package br.com.joaojuniodev.spc.controllers;
 
-import br.com.joaojuniodev.spc.data.dtos.request.CatechumenRequestDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.request.catechumen.CatechumenRequestDTO;
+import br.com.joaojuniodev.spc.data.dtos.request.catechumen.ParamsAPI;
+import br.com.joaojuniodev.spc.data.dtos.response.catechumen.CatechumenDashboardResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.catechumen.CatechumenResponseDTO;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.services.CatechumenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.hateoas.PagedModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +28,26 @@ public class CatechumenController {
     private CatechumenService service;
 
     @GetMapping
-    public ResponseEntity<List<CatechumenResponseDTO>> getAll(
+    // apenas admin e coordenador podem listar TODOS os catequizandos
+    public ResponseEntity<PagedModel<EntityModel<CatechumenResponseDTO>>> getAll(
+        @RequestParam(required = false, value = "page", defaultValue = "0") Integer page,
+        @RequestParam(required = false, value = "size", defaultValue = "20") Integer size,
+        @RequestParam(required = false, value = "direction", defaultValue = "asc") String direction,
+
         @RequestParam(required = false) String fullName,
         @RequestParam(required = false) Long stepId,
         @RequestParam(required = false) Long catechistId,
         @RequestParam(required = false) NameOfTheCommunityOrParishEnum communityOrParish
     ) {
-        return ResponseEntity.ok().body(service.filter(fullName, stepId, catechistId, communityOrParish));
+        var sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "firstName"));
+        ParamsAPI params = new ParamsAPI(fullName, stepId, catechistId, communityOrParish);
+        return ResponseEntity.ok().body(service.filter(params, pageable));
+    }
+
+    @GetMapping("/dashboard")
+    public ResponseEntity<CatechumenDashboardResponseDTO> retrieveDashboard() {
+        return ResponseEntity.ok().body(service.retrieveDashboard());
     }
 
     @GetMapping("/{id}")

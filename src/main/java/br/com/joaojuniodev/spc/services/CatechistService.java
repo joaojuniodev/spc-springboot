@@ -34,12 +34,12 @@ public class CatechistService {
     @Autowired
     private ObjectMapperManually mapper;
 
-    public List<CatechistResponseDTO> filter(Long stepId, String fullName, NameOfTheCommunityOrParishEnum communityOrParish) {
+    public List<CatechistResponseDTO> filter(Long stepId, String username, String fullName, NameOfTheCommunityOrParishEnum communityOrParish) {
 
         logger.info("Filtering Catechists");
 
         CatechistSpecification spec = new CatechistSpecification();
-        spec.addToSpecifications(stepId, fullName, communityOrParish);
+        spec.addToSpecifications(stepId, username, fullName, communityOrParish);
 
         return this.repository
             .findAll(spec.apply())

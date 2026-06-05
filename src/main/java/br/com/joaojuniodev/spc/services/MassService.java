@@ -2,8 +2,10 @@ package br.com.joaojuniodev.spc.services;
 
 import br.com.joaojuniodev.spc.data.dtos.request.MassRequestDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.mass.MassResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.mass.NumberOfMassesDTO;
 import br.com.joaojuniodev.spc.exceptions.ConflictInTheDatabaseException;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
+import br.com.joaojuniodev.spc.models.LiturgicalCalendar;
 import br.com.joaojuniodev.spc.models.Mass;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.repositories.LiturgicalCalendarRepository;
@@ -16,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class MassService {
@@ -66,6 +70,47 @@ public class MassService {
         }
 
         return this.repository.findAllMassesDates();
+    }
+
+    public NumberOfMassesDTO getNumberOfMasses() {
+        logger.info("Finding for number of Masses");
+
+        var totalDatesOfLiturgicalCalendar = liturgicalCalendarRepository.findAll();
+
+        var totalMasses = getTotalMasses(totalDatesOfLiturgicalCalendar);
+        var totalMassesToThisToday = getMassesToThisToday(totalDatesOfLiturgicalCalendar);
+        return new NumberOfMassesDTO(totalMasses, totalMassesToThisToday);
+    }
+
+    public Integer getTotalMasses(List<LiturgicalCalendar> totalDatesOfLiturgicalCalendar) {
+        List<Mass> masses = repository.findAll();
+        return returnedMassLength(masses, totalDatesOfLiturgicalCalendar);
+    }
+
+    public Integer getMassesToThisToday(List<LiturgicalCalendar> totalDatesOfLiturgicalCalendar) {
+        var today = LocalDateTime.now();
+
+        MassSpecification specMass = new MassSpecification();
+        specMass.addToSpecifications(null, null, today);
+
+        List<Mass> masses = repository.findAll(specMass.apply());
+        return returnedMassLength(masses, totalDatesOfLiturgicalCalendar);
+    }
+
+    private int returnedMassLength(List<Mass> masses, List<LiturgicalCalendar> totalDatesOfLiturgicalCalendar) {
+        var counterMass = new ArrayList<Long>();
+
+        for (Mass mass : masses) {
+            for (LiturgicalCalendar liturgicalCalendar : totalDatesOfLiturgicalCalendar) {
+                if (Objects.equals(liturgicalCalendar.getId(), mass.getMassOfLiturgicalCalendar().getId())) {
+                    if (!counterMass.contains(liturgicalCalendar.getId())) {
+                        counterMass.add(liturgicalCalendar.getId());
+                    }
+                }
+            }
+        }
+
+        return counterMass.toArray().length;
     }
 
     public MassResponseDTO create(MassRequestDTO mass) {

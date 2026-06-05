@@ -21,4 +21,9 @@ public class LiturgicalCalendarController {
     ) {
         return ResponseEntity.ok().body(service.filter(title));
     }
+
+    @GetMapping("/previous")
+    public ResponseEntity<LiturgicalCalendarResponseDTO> previous( ) {
+        return ResponseEntity.ok().body(service.previous());
+    }
 }

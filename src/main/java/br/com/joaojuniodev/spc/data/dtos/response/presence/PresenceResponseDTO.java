@@ -1,6 +1,6 @@
 package br.com.joaojuniodev.spc.data.dtos.response.presence;
 
-import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseByPresenceDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.catechumen.CatechumenResponseByPresenceDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.mass.MassResponseDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.user.UserSummaryDTO;
 import br.com.joaojuniodev.spc.models.enums.PresenceStatusEnum;

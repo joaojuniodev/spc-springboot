@@ -28,12 +28,12 @@ public class StepService {
     @Autowired
     private ObjectMapperManually mapper;
 
-    public List<StepResponseDTO> filter(NameOfTheCommunityOrParishEnum communityOrParish) {
+    public List<StepResponseDTO> filter(NameOfTheCommunityOrParishEnum communityOrParish, Long catechistId) {
 
         logger.info("Filtering All Steps");
 
         StepSpecification spec = new StepSpecification();
-        spec.addToSpecifications(communityOrParish);
+        spec.addToSpecifications(communityOrParish, catechistId);
 
         return this.repository
             .findAll(spec.apply())

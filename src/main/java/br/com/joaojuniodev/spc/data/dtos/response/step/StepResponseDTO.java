@@ -1,7 +1,7 @@
 package br.com.joaojuniodev.spc.data.dtos.response.step;
 
 import br.com.joaojuniodev.spc.data.dtos.response.catechist.CatechistSummaryDTO;
-import br.com.joaojuniodev.spc.data.dtos.response.catechumens.CatechumenResponseByStepDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.catechumen.CatechumenResponseByStepDTO;
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import br.com.joaojuniodev.spc.models.enums.StepNameEnum;
 

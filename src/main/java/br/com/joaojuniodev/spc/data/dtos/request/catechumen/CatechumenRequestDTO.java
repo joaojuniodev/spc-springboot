@@ -1,4 +1,4 @@
-package br.com.joaojuniodev.spc.data.dtos.request;
+package br.com.joaojuniodev.spc.data.dtos.request.catechumen;
 
 import br.com.joaojuniodev.spc.models.enums.NameOfTheCommunityOrParishEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;

@@ -1,4 +1,4 @@
-package br.com.joaojuniodev.spc.data.dtos.response.catechumens;
+package br.com.joaojuniodev.spc.data.dtos.response.catechumen;
 
 import java.time.LocalDate;
 import java.util.Objects;
