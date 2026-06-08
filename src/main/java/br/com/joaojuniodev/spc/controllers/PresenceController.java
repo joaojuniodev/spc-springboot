@@ -40,7 +40,7 @@ public class PresenceController {
         consumes = { MediaType.APPLICATION_JSON_VALUE }
     )
     public ResponseEntity<PresenceResponseDTO> register(@RequestBody PresenceRequestDTO presence) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.register(presence));
+        return ResponseEntity.ok().body(service.register(presence));
     }
 
     @PutMapping(

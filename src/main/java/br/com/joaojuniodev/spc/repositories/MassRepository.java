@@ -17,10 +17,19 @@ public interface MassRepository extends JpaRepository<Mass, Long>, JpaSpecificat
 
     List<Mass> findAll(Specification<Mass> spec);
 
-    @Query("SELECT m.dateTime FROM Mass m")
+    @Query("""
+        SELECT m.dateTime
+        FROM Mass m
+        ORDER BY FUNCTION('TIME', m.dateTime) ASC
+    """)
     List<LocalDateTime> findAllMassesDates();
 
-    @Query("SELECT m.dateTime FROM Mass m WHERE m.nameCommunityOrParish = :nameCommunityOrParish")
+    @Query("""
+        SELECT m.dateTime
+        FROM Mass m
+        WHERE m.nameCommunityOrParish = :nameCommunityOrParish
+        ORDER BY FUNCTION('TIME', m.dateTime) ASC
+    """)
     List<LocalDateTime> findAllMassesDatesByCommunityOrParish(
         @Param("nameCommunityOrParish") NameOfTheCommunityOrParishEnum nameCommunityOrParish
     );

@@ -28,9 +28,11 @@ public class MassController {
         @RequestParam(required = false) String title,
         @RequestParam(required = false)
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-        LocalDateTime occurredUntil
+        LocalDateTime occurredUntil,
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+        LocalDateTime occurredUntilByMassTitle
     ) {
-        return ResponseEntity.ok().body(service.filter(communityOrParish, title, occurredUntil));
+        return ResponseEntity.ok().body(service.filter(communityOrParish, title, occurredUntil, occurredUntilByMassTitle));
     }
 
     @GetMapping("/{id}")

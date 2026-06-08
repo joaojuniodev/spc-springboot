@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,12 +40,12 @@ public class MassService {
     @Autowired
     private ObjectMapperManually mapper;
 
-    public List<MassResponseDTO> filter(NameOfTheCommunityOrParishEnum communityOrParish, String title, LocalDateTime occurredUntil) {
+    public List<MassResponseDTO> filter(NameOfTheCommunityOrParishEnum communityOrParish, String title, LocalDateTime occurredUntil, LocalDateTime occurredUntilByMassTitle) {
 
         logger.info("Filtering All Masses");
 
         MassSpecification spec = new MassSpecification();
-        spec.addToSpecifications(communityOrParish, title, occurredUntil);
+        spec.addToSpecifications(communityOrParish, title, occurredUntil, occurredUntilByMassTitle);
 
         return this.repository
             .findAll(spec.apply())
@@ -65,11 +66,17 @@ public class MassService {
     public List<LocalDateTime> getMassesDatesByCommunityOrParish(NameOfTheCommunityOrParishEnum communityOrParish) {
         logger.info("Finding Masses Dates by Community or Parish");
 
+        List<LocalDateTime> dates;
+
         if (communityOrParish != null) {
-            return this.repository.findAllMassesDatesByCommunityOrParish(communityOrParish);
+            dates = repository.findAllMassesDatesByCommunityOrParish(communityOrParish);
+        } else {
+            dates = repository.findAllMassesDates();
         }
 
-        return this.repository.findAllMassesDates();
+        return  dates.stream()
+            .sorted(Comparator.comparing(LocalDateTime::toLocalTime))
+            .toList();
     }
 
     public NumberOfMassesDTO getNumberOfMasses() {
@@ -91,7 +98,7 @@ public class MassService {
         var today = LocalDateTime.now();
 
         MassSpecification specMass = new MassSpecification();
-        specMass.addToSpecifications(null, null, today);
+        specMass.addToSpecifications(null, null, today, null);
 
         List<Mass> masses = repository.findAll(specMass.apply());
         return returnedMassLength(masses, totalDatesOfLiturgicalCalendar);
