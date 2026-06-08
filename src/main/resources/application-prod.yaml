@@ -18,3 +18,4 @@ spring:
     locations: classpath:db/migration
     out-of-order: false
     baseline-on-migrate: false
+    repair-on-migrate: true
