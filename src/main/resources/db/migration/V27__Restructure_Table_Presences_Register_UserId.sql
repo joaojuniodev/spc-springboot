@@ -1,12 +1,8 @@
--- ============================================================
 -- V27__Restructure_Table_Presences_Register_UserId.sql
--- ============================================================
 
--- ============================================================
--- PASSO 1: Inserir usuários apenas se ainda não existirem
--- ============================================================
+-- PASSO 1: Inserir usuários apenas se não existirem
 INSERT INTO `users` (`username`, `password`, `full_name`, `account_non_expired`, `account_non_locked`, `credentials_non_expired`, `enabled`)
-SELECT * FROM (SELECT 'luciana.morelato' AS username, '{pbkdf2}fd8bf96b9a48d9bdb54499365a99f483ce5bce095eaecbf6237862e16e9e8bea313a1fc382eec529' AS password, 'Luciana Ap. Morelato Coutinho' AS full_name, 1, 1, 1, 1) AS tmp
+SELECT * FROM (SELECT 'luciana.morelato', '{pbkdf2}fd8bf96b9a48d9bdb54499365a99f483ce5bce095eaecbf6237862e16e9e8bea313a1fc382eec529', 'Luciana Ap. Morelato Coutinho', 1, 1, 1, 1) AS tmp
 WHERE NOT EXISTS (SELECT 1 FROM `users` WHERE username = 'luciana.morelato');
 
 INSERT INTO `users` (`username`, `password`, `full_name`, `account_non_expired`, `account_non_locked`, `credentials_non_expired`, `enabled`)
@@ -65,87 +61,24 @@ INSERT INTO `users` (`username`, `password`, `full_name`, `account_non_expired`,
 SELECT * FROM (SELECT 'eloisy', '{pbkdf2}68c493829cd0996b464a3499b8bfe2a6462a06a5a52a981a99f16bfb33fe434633a12051d1121c23', 'Eloisy', 1, 1, 1, 1) AS tmp
 WHERE NOT EXISTS (SELECT 1 FROM `users` WHERE username = 'eloisy');
 
--- ============================================================
--- PASSO 2: Atribuir ROLE_CATECHIST apenas se ainda não tiver
--- ============================================================
-INSERT INTO `user_role` (`user_id`, `role_id`)
-SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST'
-WHERE u.username = 'luciana.morelato'
-AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
+-- PASSO 2: Atribuir ROLE_CATECHIST apenas se não tiver
+INSERT INTO `user_role` (`user_id`, `role_id`) SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST' WHERE u.username = 'luciana.morelato' AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
+INSERT INTO `user_role` (`user_id`, `role_id`) SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST' WHERE u.username = 'luciana.cordeiro' AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
+INSERT INTO `user_role` (`user_id`, `role_id`) SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST' WHERE u.username = 'lilian.tucci' AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
+INSERT INTO `user_role` (`user_id`, `role_id`) SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST' WHERE u.username = 'lionete.azarias' AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
+INSERT INTO `user_role` (`user_id`, `role_id`) SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST' WHERE u.username = 'irene.aquino' AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
+INSERT INTO `user_role` (`user_id`, `role_id`) SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST' WHERE u.username = 'tabita.rodrigues' AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
+INSERT INTO `user_role` (`user_id`, `role_id`) SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST' WHERE u.username = 'fernanda.pereira' AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
+INSERT INTO `user_role` (`user_id`, `role_id`) SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST' WHERE u.username = 'maria.oliveira' AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
+INSERT INTO `user_role` (`user_id`, `role_id`) SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST' WHERE u.username = 'anamaria.beraldo' AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
+INSERT INTO `user_role` (`user_id`, `role_id`) SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST' WHERE u.username = 'joao.castro' AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
+INSERT INTO `user_role` (`user_id`, `role_id`) SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST' WHERE u.username = 'mariaines.santos' AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
+INSERT INTO `user_role` (`user_id`, `role_id`) SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST' WHERE u.username = 'ligia.souza' AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
+INSERT INTO `user_role` (`user_id`, `role_id`) SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST' WHERE u.username = 'stella.souza' AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
+INSERT INTO `user_role` (`user_id`, `role_id`) SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST' WHERE u.username = 'daniele.souza' AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
+INSERT INTO `user_role` (`user_id`, `role_id`) SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST' WHERE u.username = 'eloisy' AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
 
-INSERT INTO `user_role` (`user_id`, `role_id`)
-SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST'
-WHERE u.username = 'luciana.cordeiro'
-AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
-
-INSERT INTO `user_role` (`user_id`, `role_id`)
-SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST'
-WHERE u.username = 'lilian.tucci'
-AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
-
-INSERT INTO `user_role` (`user_id`, `role_id`)
-SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST'
-WHERE u.username = 'lionete.azarias'
-AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
-
-INSERT INTO `user_role` (`user_id`, `role_id`)
-SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST'
-WHERE u.username = 'irene.aquino'
-AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
-
-INSERT INTO `user_role` (`user_id`, `role_id`)
-SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST'
-WHERE u.username = 'tabita.rodrigues'
-AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
-
-INSERT INTO `user_role` (`user_id`, `role_id`)
-SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST'
-WHERE u.username = 'fernanda.pereira'
-AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
-
-INSERT INTO `user_role` (`user_id`, `role_id`)
-SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST'
-WHERE u.username = 'maria.oliveira'
-AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
-
-INSERT INTO `user_role` (`user_id`, `role_id`)
-SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST'
-WHERE u.username = 'anamaria.beraldo'
-AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
-
-INSERT INTO `user_role` (`user_id`, `role_id`)
-SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST'
-WHERE u.username = 'joao.castro'
-AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
-
-INSERT INTO `user_role` (`user_id`, `role_id`)
-SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST'
-WHERE u.username = 'mariaines.santos'
-AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
-
-INSERT INTO `user_role` (`user_id`, `role_id`)
-SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST'
-WHERE u.username = 'ligia.souza'
-AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
-
-INSERT INTO `user_role` (`user_id`, `role_id`)
-SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST'
-WHERE u.username = 'stella.souza'
-AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
-
-INSERT INTO `user_role` (`user_id`, `role_id`)
-SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST'
-WHERE u.username = 'daniele.souza'
-AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
-
-INSERT INTO `user_role` (`user_id`, `role_id`)
-SELECT u.id, r.id FROM `users` u JOIN `roles` r ON r.name = 'ROLE_CATECHIST'
-WHERE u.username = 'eloisy'
-AND NOT EXISTS (SELECT 1 FROM `user_role` WHERE user_id = u.id AND role_id = r.id);
-
--- ============================================================
--- PASSO 3: Vincular user_id em cada catequista (apenas se NULL)
--- ============================================================
+-- PASSO 3: Vincular user_id nos catequistas (apenas se NULL)
 UPDATE `catechists` SET `user_id` = (SELECT id FROM `users` WHERE username = 'luciana.morelato') WHERE id = 1  AND user_id IS NULL;
 UPDATE `catechists` SET `user_id` = (SELECT id FROM `users` WHERE username = 'luciana.cordeiro') WHERE id = 2  AND user_id IS NULL;
 UPDATE `catechists` SET `user_id` = (SELECT id FROM `users` WHERE username = 'lilian.tucci')     WHERE id = 3  AND user_id IS NULL;
@@ -162,136 +95,32 @@ UPDATE `catechists` SET `user_id` = (SELECT id FROM `users` WHERE username = 'st
 UPDATE `catechists` SET `user_id` = (SELECT id FROM `users` WHERE username = 'daniele.souza')    WHERE id = 14 AND user_id IS NULL;
 UPDATE `catechists` SET `user_id` = (SELECT id FROM `users` WHERE username = 'eloisy')           WHERE id = 15 AND user_id IS NULL;
 
--- ============================================================
--- PASSO 4: Popular user_id em presences via catequista (apenas onde ainda NULL)
--- ============================================================
+-- PASSO 4: Popular user_id em presences via catequista (apenas onde NULL)
 UPDATE presences p
 JOIN catechists c ON c.id = p.catechist_id
 SET p.user_id = c.user_id
 WHERE p.user_id IS NULL;
 
--- ============================================================
 -- PASSO 5: Tornar user_id obrigatório
--- ============================================================
 ALTER TABLE presences MODIFY COLUMN user_id BIGINT NOT NULL;
 
--- ============================================================
--- PASSO 6: Remover UNIQUE antiga apenas se existir
--- ============================================================
-SET @exists_unique = (
-  SELECT COUNT(*) FROM information_schema.TABLE_CONSTRAINTS
-  WHERE TABLE_SCHEMA = DATABASE()
-  AND TABLE_NAME = 'presences'
-  AND CONSTRAINT_NAME = 'uk_presences_catechumen_mass_catechist'
-);
-SET @sql_drop_unique = IF(@exists_unique > 0,
-  'ALTER TABLE presences DROP INDEX uk_presences_catechumen_mass_catechist',
-  'SELECT 1'
-);
-PREPARE stmt FROM @sql_drop_unique;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
+-- PASSO 6: Remover UNIQUE antiga
+ALTER TABLE presences DROP INDEX uk_presences_catechumen_mass_catechist;
 
--- ============================================================
--- PASSO 7: Remover INDEX do catechist_id apenas se existir
--- ============================================================
-SET @exists_idx = (
-  SELECT COUNT(*) FROM information_schema.STATISTICS
-  WHERE TABLE_SCHEMA = DATABASE()
-  AND TABLE_NAME = 'presences'
-  AND INDEX_NAME = 'idx_presences_catechist_id'
-);
-SET @sql_drop_idx = IF(@exists_idx > 0,
-  'ALTER TABLE presences DROP INDEX idx_presences_catechist_id',
-  'SELECT 1'
-);
-PREPARE stmt FROM @sql_drop_idx;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
+-- PASSO 7: Remover INDEX do catechist_id
+ALTER TABLE presences DROP INDEX idx_presences_catechist_id;
 
--- ============================================================
--- PASSO 8: Remover FK do catechist_id apenas se existir
--- ============================================================
-SET @exists_fk = (
-  SELECT COUNT(*) FROM information_schema.TABLE_CONSTRAINTS
-  WHERE TABLE_SCHEMA = DATABASE()
-  AND TABLE_NAME = 'presences'
-  AND CONSTRAINT_NAME = 'fk_presences_catechists'
-  AND CONSTRAINT_TYPE = 'FOREIGN KEY'
-);
-SET @sql_drop_fk = IF(@exists_fk > 0,
-  'ALTER TABLE presences DROP FOREIGN KEY fk_presences_catechists',
-  'SELECT 1'
-);
-PREPARE stmt FROM @sql_drop_fk;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
+-- PASSO 8: Remover FK do catechist_id
+ALTER TABLE presences DROP FOREIGN KEY fk_presences_catechists;
 
--- ============================================================
--- PASSO 9: Remover coluna catechist_id apenas se existir
--- ============================================================
-SET @exists_col = (
-  SELECT COUNT(*) FROM information_schema.COLUMNS
-  WHERE TABLE_SCHEMA = DATABASE()
-  AND TABLE_NAME = 'presences'
-  AND COLUMN_NAME = 'catechist_id'
-);
-SET @sql_drop_col = IF(@exists_col > 0,
-  'ALTER TABLE presences DROP COLUMN catechist_id',
-  'SELECT 1'
-);
-PREPARE stmt FROM @sql_drop_col;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
+-- PASSO 9: Remover coluna catechist_id
+ALTER TABLE presences DROP COLUMN catechist_id;
 
--- ============================================================
--- PASSO 10: Adicionar INDEX para user_id apenas se não existir
--- ============================================================
-SET @exists_idx_user = (
-  SELECT COUNT(*) FROM information_schema.STATISTICS
-  WHERE TABLE_SCHEMA = DATABASE()
-  AND TABLE_NAME = 'presences'
-  AND INDEX_NAME = 'idx_presences_user_id'
-);
-SET @sql_add_idx = IF(@exists_idx_user = 0,
-  'ALTER TABLE presences ADD INDEX idx_presences_user_id (user_id)',
-  'SELECT 1'
-);
-PREPARE stmt FROM @sql_add_idx;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
+-- PASSO 10: Adicionar INDEX para user_id
+ALTER TABLE presences ADD INDEX idx_presences_user_id (user_id);
 
--- ============================================================
--- PASSO 11: Adicionar FK para user_id apenas se não existir
--- ============================================================
-SET @exists_fk_user = (
-  SELECT COUNT(*) FROM information_schema.TABLE_CONSTRAINTS
-  WHERE TABLE_SCHEMA = DATABASE()
-  AND TABLE_NAME = 'presences'
-  AND CONSTRAINT_NAME = 'fk_presences_user'
-  AND CONSTRAINT_TYPE = 'FOREIGN KEY'
-);
-SET @sql_add_fk = IF(@exists_fk_user = 0,
-  'ALTER TABLE presences ADD CONSTRAINT fk_presences_user FOREIGN KEY (user_id) REFERENCES users(id)',
-  'SELECT 1'
-);
-PREPARE stmt FROM @sql_add_fk;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
+-- PASSO 11: Adicionar FK para user_id
+ALTER TABLE presences ADD CONSTRAINT fk_presences_user FOREIGN KEY (user_id) REFERENCES users(id);
 
--- ============================================================
--- PASSO 12: Recriar UNIQUE com user_id apenas se não existir
--- ============================================================
-SET @exists_unique_user = (
-  SELECT COUNT(*) FROM information_schema.TABLE_CONSTRAINTS
-  WHERE TABLE_SCHEMA = DATABASE()
-  AND TABLE_NAME = 'presences'
-  AND CONSTRAINT_NAME = 'uk_presences_catechumen_mass_user'
-);
-SET @sql_add_unique = IF(@exists_unique_user = 0,
-  'ALTER TABLE presences ADD CONSTRAINT uk_presences_catechumen_mass_user UNIQUE (catechumen_id, mass_id, user_id)',
-  'SELECT 1'
-);
-PREPARE stmt FROM @sql_add_unique;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
+-- PASSO 12: Recriar UNIQUE com user_id
+ALTER TABLE presences ADD CONSTRAINT uk_presences_catechumen_mass_user UNIQUE (catechumen_id, mass_id, user_id);
