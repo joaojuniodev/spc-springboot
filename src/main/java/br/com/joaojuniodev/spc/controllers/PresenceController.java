@@ -1,10 +1,12 @@
 package br.com.joaojuniodev.spc.controllers;
 
 import br.com.joaojuniodev.spc.data.dtos.request.PresenceRequestDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.presence.PresenceRegisterDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.presence.PresenceRegisterRetroactiveDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.presence.PresenceResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.presence.PresenceUserSummaryDTO;
 import br.com.joaojuniodev.spc.services.PresenceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,18 +37,22 @@ public class PresenceController {
         return ResponseEntity.ok().body(service.getById(id));
     }
 
-    @PostMapping(
-        produces = { MediaType.APPLICATION_JSON_VALUE },
-        consumes = { MediaType.APPLICATION_JSON_VALUE }
-    )
-    public ResponseEntity<PresenceResponseDTO> register(@RequestBody PresenceRequestDTO presence) {
-        return ResponseEntity.ok().body(service.register(presence));
+    @PostMapping
+    public ResponseEntity<PresenceRegisterDTO> registerPresences(@RequestBody List<PresenceRequestDTO> presences) {
+        return ResponseEntity.ok().body(service.registerPresences(presences));
     }
 
-    @PutMapping(
-        produces = { MediaType.APPLICATION_JSON_VALUE },
-        consumes = { MediaType.APPLICATION_JSON_VALUE }
-    )
+    @PostMapping("/retroactive")
+    public ResponseEntity<PresenceRegisterRetroactiveDTO> registerRetroactive(@RequestBody PresenceRequestDTO presence) {
+        return ResponseEntity.ok().body(service.registerRetroactive(presence));
+    }
+
+    @GetMapping("/summary-by-mass")
+    public ResponseEntity<List<PresenceUserSummaryDTO>> getSummaryByMass(@RequestParam Long massId) {
+        return ResponseEntity.ok().body(service.getSummaryByMass(massId));
+    }
+
+    @PutMapping
     public ResponseEntity<PresenceResponseDTO> update(@RequestBody PresenceRequestDTO presence) {
         return ResponseEntity.ok().body(service.update(presence));
     }

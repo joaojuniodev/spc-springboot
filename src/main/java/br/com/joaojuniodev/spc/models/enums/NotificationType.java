@@ -1,0 +1,9 @@
+package br.com.joaojuniodev.spc.models.enums;
+
+public enum NotificationType {
+
+    SUCCESS,
+    INFO,
+    ERROR,
+    WARNING;
+}

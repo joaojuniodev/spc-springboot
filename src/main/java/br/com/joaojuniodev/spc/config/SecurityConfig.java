@@ -72,7 +72,8 @@ public class SecurityConfig {
                     "/auth/refresh/**",
                     "/auth/register",
                     "/swagger-ui/**",
-                    "/v3/api-docs/**"
+                    "/v3/api-docs/**",
+                    "/ws/**"
                 ).permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/catechists/v1").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/masses/v1").permitAll()

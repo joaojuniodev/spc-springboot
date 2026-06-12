@@ -1,14 +1,19 @@
 package br.com.joaojuniodev.spc.services;
 
 import br.com.joaojuniodev.spc.data.dtos.request.PresenceRequestDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.presence.PresenceRegisterDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.presence.PresenceRegisterRetroactiveDTO;
 import br.com.joaojuniodev.spc.data.dtos.response.presence.PresenceResponseDTO;
+import br.com.joaojuniodev.spc.data.dtos.response.presence.PresenceUserSummaryDTO;
 import br.com.joaojuniodev.spc.exceptions.ConflictInTheDatabaseException;
+import br.com.joaojuniodev.spc.exceptions.NotFoundException;
 import br.com.joaojuniodev.spc.exceptions.RequiredFieldsException;
 import br.com.joaojuniodev.spc.mapper.ObjectMapperManually;
+import br.com.joaojuniodev.spc.models.Catechumen;
 import br.com.joaojuniodev.spc.models.Mass;
 import br.com.joaojuniodev.spc.models.Presence;
+import br.com.joaojuniodev.spc.models.User;
 import br.com.joaojuniodev.spc.models.enums.PresenceStatusEnum;
-import br.com.joaojuniodev.spc.repositories.CatechistRepository;
 import br.com.joaojuniodev.spc.repositories.CatechumenRepository;
 import br.com.joaojuniodev.spc.repositories.MassRepository;
 import br.com.joaojuniodev.spc.repositories.PresenceRepository;
@@ -16,6 +21,7 @@ import br.com.joaojuniodev.spc.repositories.specs.PresenceSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,10 +38,10 @@ public class PresenceService {
     private CatechumenRepository catechumenRepository;
 
     @Autowired
-    private CatechistRepository catechistRepository;
+    private MassRepository massRepository;
 
     @Autowired
-    private MassRepository massRepository;
+    private NotificationService notificationService;
 
     @Autowired
     private ObjectMapperManually mapper;
@@ -63,31 +69,75 @@ public class PresenceService {
         return this.mapper.convertPresenceEntityToResponseDTO(entity);
     }
 
-    public PresenceResponseDTO register(PresenceRequestDTO presence) {
+    public PresenceRegisterDTO registerPresences(List<PresenceRequestDTO> presences) {
 
-        logger.info("Creating Presence");
+        logger.info("Registering Presences");
 
-        Presence entity = this.mapper.convertPresenceRequestToEntity(presence);
+        presences.forEach(this::register);
 
-        if (this.repository.existsByMassIdAndCatechumenId(entity.getMass().getId(), entity.getCatechumen().getId())) {
-            throw new ConflictInTheDatabaseException("Catechumen Id: " + entity.getCatechumen().getId() + ", has already been saved!");
-        }
+        User user = getAuthenticatedUser();
+        Integer numberOfCatechumens = presences.size();
+        Long massId = presences.stream().findFirst().get().getMassId();
 
-        ensureJustification(presence.getStatus(), presence.getJustification());
+        notificationService.notifyPresenceRegistered(
+            user.getUsername(),
+            user.getFullName(),
+            presences.size(),
+            massId
+        );
 
-        var savedPresence = this.repository.save(entity);
-
-        Mass massWithRegisteredPresence = massRepository.findById(presence.getMassId()).get();
-        massWithRegisteredPresence.setRegisteredAttendance(true);
-        massRepository.save(massWithRegisteredPresence);
-
-        return this.mapper.convertPresenceEntityToResponseDTO(savedPresence);
+        return new PresenceRegisterDTO(user.getUsername(), user.getFullName(), numberOfCatechumens);
     }
 
-    private void ensureJustification(PresenceStatusEnum status, String justification) {
-        if ((status.equals(PresenceStatusEnum.PRESENT_LATE) || status.equals(PresenceStatusEnum.ABSENT)) && justification == null) {
-            throw new RequiredFieldsException("Justify the recurring delay in registering attendance");
-        }
+    public PresenceRegisterRetroactiveDTO registerRetroactive(PresenceRequestDTO presence) {
+
+        logger.info("Registering Presence retroactive");
+
+        register(presence);
+
+        User user = getAuthenticatedUser();
+
+        Catechumen catechumen = catechumenRepository.findById(presence.getCatechumenId())
+            .orElseThrow(() -> new NotFoundException("Catechumen ID: " + presence.getCatechumenId() + " not found"));
+        Mass mass = massRepository.findById(presence.getMassId())
+            .orElseThrow(() -> new NotFoundException("Mass ID: " + presence.getMassId() + " not found"));
+
+        String catechumenFullName = catechumen.getFirstName() + " " + catechumen.getLastName();
+        String massTitle = mass.getTitle();
+        Long massId = mass.getId();
+
+        notificationService.notifyPresenceRetroactiveRegistered(
+            user.getUsername(),
+            user.getFullName(),
+            catechumenFullName,
+            massTitle,
+            massId
+        );
+
+        return new PresenceRegisterRetroactiveDTO(
+            user.getUsername(),
+            user.getFullName(),
+            catechumenFullName,
+            presence.getJustification()
+        );
+    }
+
+    private void register(PresenceRequestDTO presence) {
+        Presence entity = this.mapper.convertPresenceRequestToEntity(presence);
+
+        verifyAttendanceExists(entity);
+        ensureJustification(presence.getStatus(), presence.getJustification());
+
+        this.repository.save(entity);
+
+        markMassAsRegisteredAttendance(presence);
+    }
+
+    public List<PresenceUserSummaryDTO> getSummaryByMass(Long massId) {
+
+        logger.info("Finding User Summary by Mass");
+
+        return this.repository.findUserSummaryByMassId(massId);
     }
 
     public PresenceResponseDTO update(PresenceRequestDTO presence) {
@@ -119,5 +169,31 @@ public class PresenceService {
         var entity = this.repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Not found this ID: " + id));
         this.repository.delete(entity);
+    }
+
+    private User getAuthenticatedUser() {
+        return (User) SecurityContextHolder
+            .getContext()
+            .getAuthentication()
+            .getPrincipal();
+    }
+
+    private void verifyAttendanceExists(Presence entity) {
+        if (this.repository.existsByMassIdAndCatechumenId(entity.getMass().getId(), entity.getCatechumen().getId())) {
+            throw new ConflictInTheDatabaseException("Catechumen Id: " + entity.getCatechumen().getId() + ", has already been saved!");
+        }
+    }
+
+    private void markMassAsRegisteredAttendance(PresenceRequestDTO presence) {
+        Mass massWithRegisteredPresence = massRepository.findById(presence.getMassId())
+            .orElseThrow(() -> new NotFoundException("Mass ID: " + presence.getMassId() + " not found"));
+        massWithRegisteredPresence.setRegisteredAttendance(true);
+        massRepository.save(massWithRegisteredPresence);
+    }
+
+    private void ensureJustification(PresenceStatusEnum status, String justification) {
+        if ((status.equals(PresenceStatusEnum.PRESENT_LATE) || status.equals(PresenceStatusEnum.ABSENT)) && justification == null) {
+            throw new RequiredFieldsException("Justify the recurring delay in registering attendance");
+        }
     }
 }
