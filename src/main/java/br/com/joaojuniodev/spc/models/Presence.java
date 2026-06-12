@@ -4,6 +4,7 @@ import br.com.joaojuniodev.spc.models.enums.PresenceStatusEnum;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -36,6 +37,9 @@ public class Presence implements Serializable {
 
     @Column
     private String justification;
+
+    @Column(name = "registered_at", nullable = false)
+    private LocalDateTime registeredAt = LocalDateTime.now();
 
     public Presence() {}
 
@@ -86,6 +90,14 @@ public class Presence implements Serializable {
 
     public void setJustification(String justification) {
         this.justification = justification;
+    }
+
+    public LocalDateTime getRegisteredAt() {
+        return registeredAt;
+    }
+
+    public void setRegisteredAt(LocalDateTime registeredAt) {
+        this.registeredAt = registeredAt;
     }
 
     public User getUser() {

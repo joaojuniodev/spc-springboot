@@ -27,7 +27,8 @@ public interface PresenceRepository extends JpaRepository<Presence, Long>, JpaSp
             p.user.username,
             p.user.fullName,
             p.mass.id,
-            COUNT(p.catechumen.id)
+            COUNT(p.catechumen.id),
+            MAX(p.registeredAt)
         )
         FROM Presence p
         WHERE p.mass.id = :massId

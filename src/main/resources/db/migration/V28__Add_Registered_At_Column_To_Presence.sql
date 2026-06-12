@@ -1,0 +1,2 @@
+ALTER TABLE presences
+ADD COLUMN registered_at TIMESTAMP DEFAULT NULL;
