@@ -34,13 +34,14 @@ public class NotificationService {
     public void notifyUser(String username, NotificationDTO dto) {
         logger.info("Sending private notification to user: {}", username);
 
-        persist(username, dto);
+        Notification saved = persist(username, dto);
+        NotificationDTO wsDto = toDTO(saved);
 
         // Spring resolve internamente para /user/{username}/queue/notifications
         messagingTemplate.convertAndSendToUser(
             username,
             "/queue/notifications",
-            dto
+            wsDto
         );
     }
 
@@ -50,9 +51,16 @@ public class NotificationService {
 
         userRepository
             .findAllByRoleName("ROLE_COORDINATOR")
-            .forEach(coordinator -> persist(coordinator.getUsername(), dto));
+            .forEach(coordinator -> {
+                Notification saved = persist(coordinator.getUsername(), dto);
+                NotificationDTO wsDto = toDTO(saved);
 
-        messagingTemplate.convertAndSend("/topic/coordinator", dto);
+                messagingTemplate.convertAndSendToUser(
+                    coordinator.getUsername(),
+                    "/queue/notifications",
+                    wsDto
+                );
+            });
     }
 
     // Broadcast para todos os admins conectados
@@ -61,9 +69,16 @@ public class NotificationService {
 
         userRepository
             .findAllByRoleName("ROLE_ADMIN")
-            .forEach(admin -> persist(admin.getUsername(), dto));
+            .forEach(coordinator -> {
+                Notification saved = persist(coordinator.getUsername(), dto);
+                NotificationDTO wsDto = toDTO(saved);
 
-        messagingTemplate.convertAndSend("/topic/admins", dto);
+                messagingTemplate.convertAndSendToUser(
+                    coordinator.getUsername(),
+                    "/queue/notifications",
+                    wsDto
+                );
+            });
     }
 
     // ── Casos de negócio do SPC ──────────────────────────────────────────────
@@ -140,7 +155,7 @@ public class NotificationService {
 
     // ── Interno ──────────────────────────────────────────────────────────────
 
-    private void persist(String username, NotificationDTO dto) {
+    private Notification persist(String username, NotificationDTO dto) {
         Notification entity = new Notification(
             username,
             NotificationType.valueOf(dto.type()),
@@ -152,6 +167,21 @@ public class NotificationService {
                 ? NotificationReferenceType.valueOf(dto.referenceType())
                 : null
         );
-        this.repository.save(entity);
+        return this.repository.save(entity);
+    }
+
+    private NotificationDTO toDTO(Notification entity) {
+        return new NotificationDTO(
+            entity.getId(),
+            entity.getType().name(),
+            entity.getTitle(),
+            entity.getBody(),
+            entity.getReferenceId(),
+            entity.getReferenceType() != null
+                ? entity.getReferenceType().name()
+                : null,
+            entity.getIsRead(),
+            entity.getCreatedAt()
+        );
     }
 }
